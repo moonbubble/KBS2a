@@ -73,7 +73,7 @@ public class XML {
 			dbf = DocumentBuilderFactory.newInstance();
 
 			db = dbf.newDocumentBuilder();
-			document = db.parse("C:/Users/Sophie/Documents/School/ICTM1k/Periode 4/JAVA/database.xml");
+			document = db.parse("src/bpp/simulatie/database.xml");
 
 			NodeList productList = document.getElementsByTagName("Product");
 
