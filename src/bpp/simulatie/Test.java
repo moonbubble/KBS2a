@@ -7,7 +7,7 @@ public class Test {
 		XML parser = new XML();
 		parser.getDatabase(database);
 		
-		new Scherm();
+		new BPPsimulatie();
 
 		
 	}

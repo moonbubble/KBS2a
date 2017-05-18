@@ -1,13 +1,11 @@
 package bpp.simulatie;
 
-import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-
-public class Scherm extends JFrame implements Observer {
+public class BPPsimulatie extends JPanel implements Observer {
 	private OpeningsDialoog opening;
 	private SimulatieTekening simulatie;
 	private SimulatieKeuzemenu keuzemenu;
@@ -16,7 +14,7 @@ public class Scherm extends JFrame implements Observer {
 	private Bestelling bestelling;
 	private Model model;
 
-	public Scherm() {
+	public BPPsimulatie() {
 		this.model = new Model();
 		model.addObserver(this);
 
@@ -29,14 +27,6 @@ public class Scherm extends JFrame implements Observer {
 		opties.setLocation(15, 815);
 		info.setLocation(800, 815);
 		keuzemenu.setLocation(1210, 0);
-
-		setTitle("BPP Simulatie");
-		setSize(1600, 900);
-		setLayout(null);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		opening = new OpeningsDialoog(this, model);
 	}
 
 	@Override
