@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+	<Product artikelnr="1"> <!-- Koekje -->
+		<X>1</X>
+		<Y>1</Y>
+		<Gewicht>1</Gewicht>
+		<Naam>Koekje</Naam>
+	</Product>
+	<Product artikelnr="2"> <!-- Banaan -->
+		<X>2</X>
+		<Y>1</Y>
+		<Gewicht>1</Gewicht>
+		<Naam>Banaan</Naam>
+	</Product>
+	<Product artikelnr="3"> <!-- Appel -->
+		<X>3</X>
+		<Y>1</Y>
+		<Gewicht>1</Gewicht>
+		<Naam>Appel</Naam>
+	</Product>
+	<Product artikelnr="4"> <!-- Peer -->
+		<X>4</X>
+		<Y>1</Y>
+		<Gewicht>1</Gewicht>
+		<Naam>Peer</Naam>
+	</Product>
+	<Product artikelnr="5"> <!-- Kiwi -->
+		<X>5</X>
+		<Y>1</Y>
+		<Gewicht>1</Gewicht>
+		<Naam>Kiwi</Naam>
+	</Product>
+	<Product artikelnr="6"> <!-- Liniaal -->
+		<X>1</X>
+		<Y>2</Y>
+		<Gewicht>2</Gewicht>
+		<Naam>Liniaal</Naam>
+	</Product>
+	<Product artikelnr="7"> <!-- Geodriehoek -->
+		<X>2</X>
+		<Y>2</Y>
+		<Gewicht>2</Gewicht>
+		<Naam>Geodriehoek</Naam>
+	</Product>
+	<Product artikelnr="8"> <!-- Pen -->
+		<X>3</X>
+		<Y>2</Y>
+		<Gewicht>3</Gewicht>
+		<Naam>Pen</Naam>
+	</Product>
+	<Product artikelnr="9"> <!-- Potlood -->
+		<X>4</X>
+		<Y>2</Y>
+		<Gewicht>4</Gewicht>
+		<Naam>Potlood</Naam>
+	</Product>
+	<Product artikelnr="10"> <!-- Stift -->
+		<X>5</X>
+		<Y>2</Y>
+		<Gewicht>5</Gewicht>
+		<Naam>Stift</Naam>
+	</Product>
+	<Product artikelnr="11"> <!-- Schrift -->
+		<X>1</X>
+		<Y>3</Y>
+		<Gewicht>3</Gewicht>
+		<Naam>Schrift</Naam>
+	</Product>
+	<Product artikelnr="12"> <!-- Boek -->
+		<X>2</X>
+		<Y>3</Y>
+		<Gewicht>3</Gewicht>
+		<Naam>Boek</Naam>
+	</Product>
+	<Product artikelnr="13"> <!-- Tijdschrift -->
+		<X>3</X>
+		<Y>4</Y>
+		<Gewicht>3</Gewicht>
+		<Naam>Tijdschrift</Naam>
+	</Product>
+	<Product artikelnr="14"> <!-- DVD -->
+		<X>4</X>
+		<Y>3</Y>
+		<Gewicht>3</Gewicht>
+		<Naam>DVD</Naam>
+	</Product>
+	<Product artikelnr="15"> <!-- Game -->
+		<X>5</X>
+		<Y>3</Y>
+		<Gewicht>3</Gewicht>
+		<Naam>Game</Naam>
+	</Product>
+	<Product artikelnr="16"> <!-- Laptop -->
+		<X>1</X>
+		<Y>4</Y>
+		<Gewicht>4</Gewicht>
+		<Naam>Laptop</Naam>
+	</Product>
+	<Product artikelnr="17"> <!-- Laptoptas -->
+		<X>2</X>
+		<Y>4</Y>
+		<Gewicht>4</Gewicht>
+		<Naam>Laptoptas</Naam>
+	</Product>
+	<Product artikelnr="18"> <!-- Beeldscherm -->
+		<X>3</X>
+		<Y>4</Y>
+		<Gewicht>4</Gewicht>
+		<Naam>Beeldscherm</Naam>
+	</Product>
+	<Product artikelnr="19"> <!-- Toetsenbord -->
+		<X>4</X>
+		<Y>4</Y>
+		<Gewicht>4</Gewicht>
+		<Naam>Toetsenbord</Naam>
+	</Product>
+	<Product artikelnr="20"> <!-- Stereo -->
+		<X>5</X>
+		<Y>4</Y>
+		<Gewicht>4</Gewicht>
+		<Naam>Stereo</Naam>
+	</Product>
+	<Product artikelnr="21"> <!-- Bureau -->
+		<X>1</X>
+		<Y>5</Y>
+		<Gewicht>5</Gewicht>
+		<Naam>Bureau</Naam>
+	</Product>
+	<Product artikelnr="22"> <!-- Tafel -->
+		<X>2</X>
+		<Y>5</Y>
+		<Gewicht>5</Gewicht>
+		<Naam>Tafel</Naam>
+	</Product>
+	<Product artikelnr="23"> <!-- Stoel -->
+		<X>3</X>
+		<Y>5</Y>
+		<Gewicht>5</Gewicht>
+		<Naam>Stoel</Naam>
+	</Product>
+	<Product artikelnr="24"> <!-- Flatscreen TV -->
+		<X>4</X>
+		<Y>5</Y>
+		<Gewicht>5</Gewicht>
+		<Naam>Flatscreen TV</Naam>
+	</Product>
+	<Product artikelnr="25"> <!-- Schoolbord -->
+		<X>5</X>
+		<Y>5</Y>
+		<Gewicht>5</Gewicht>
+		<Naam>Schoolbord</Naam>
+	</Product>
+</Database>
