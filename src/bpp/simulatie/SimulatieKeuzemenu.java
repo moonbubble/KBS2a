@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import applicatie.Main;
 import bpp.simulatie.algoritmes.Bibliotheek;
 
 public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observer {
@@ -49,19 +50,11 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 		JPlaadKnop = new JPanel();
 		JPproductToevoegen = new JPanel();
 
-		JPalgoritmes.setSize(new Dimension(330, 200));
-		JPgrootteDoos.setSize(new Dimension(330, 50));
-		JPlaadKnop.setSize(new Dimension(345, 50));
-
-		JPalgoritmes.setLocation(0, 0);
-		JPgrootteDoos.setLocation(0, 200);
-
-
 		JLradiobuttons = new JLabel("Algoritmes:");
 		BGalgoritmes = new ButtonGroup();
 		JPalgoritmes.add(JLradiobuttons);
 		List<String> algoritmeNamen = new Bibliotheek().getAlgoritmeNamen();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < algoritmeNamen.size(); i++) {
 			JRadioButton JRB = new JRadioButton(algoritmeNamen.get(i));
 			JRB.setActionCommand(String.valueOf(i));
 			if (i == 0) {
@@ -79,7 +72,7 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 		JBladen = new JButton("Laden");
 		JPlaadKnop.add(JBladen);
 
-		JPalgoritmes.setLayout(new GridLayout(6, 1));
+		JPalgoritmes.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JPgrootteDoos.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JPlaadKnop.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		JPproductToevoegen.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -101,6 +94,13 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 
 		JBproductToevoegen.addActionListener(this);
 		JBproductOpslaan.addActionListener(this);
+		
+		JPalgoritmes.setSize(new Dimension(120, 140));
+		JPgrootteDoos.setSize(new Dimension(330, 30));
+		JPlaadKnop.setSize(new Dimension(345, 35));
+
+		JPalgoritmes.setLocation(0, 0);
+		JPgrootteDoos.setLocation(0, 145);
 
 	}
 
@@ -119,7 +119,7 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 			JPproductToevoegen.add(JBproductOpslaan);
 			JBproductToevoegen.setEnabled(false);
 			JBproductOpslaan.setEnabled(true);
-			JPproductToevoegen.setLocation(0, 280 + hoogteJPbestelling);
+			JPproductToevoegen.setLocation(0, 185 + hoogteJPbestelling);
 			revalidate();
 		} else if (e.getSource() == JBproductOpslaan) {
 			try {
@@ -128,10 +128,10 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 					JOptionPane.showMessageDialog(null, "Artikelnummer is een getal 1 en 25", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					Product nieuweProduct = new Product(Integer.parseInt(Test.database[artikelnummer - 1][0]),
-							Integer.parseInt(Test.database[artikelnummer - 1][1]),
-							Integer.parseInt(Test.database[artikelnummer - 1][2]),
-							Integer.parseInt(Test.database[artikelnummer - 1][3]), Test.database[artikelnummer - 1][4]);
+					Product nieuweProduct = new Product(Integer.parseInt(Main.database[artikelnummer - 1][0]),
+							Integer.parseInt(Main.database[artikelnummer - 1][1]),
+							Integer.parseInt(Main.database[artikelnummer - 1][2]),
+							Integer.parseInt(Main.database[artikelnummer - 1][3]), Main.database[artikelnummer - 1][4]);
 					bestelling.voegProductToe(nieuweProduct);
 					producten.add(nieuweProduct);
 					JBproductToevoegen.setEnabled(false);
@@ -162,7 +162,7 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 	public void toonBestelling() {
 		hoogteJPbestelling = (producten.size() + 1) * 30;
 		JPbestelling.removeAll();
-		JPbestelling.setLocation(0, 250);
+		JPbestelling.setLocation(5, 180);
 		JPbestelling.add(new JLabel("Artikelnummer:"));
 		JPbestelling.add(new JLabel("Naam:"));
 		JPbestelling.setSize(new Dimension(350, hoogteJPbestelling));
@@ -175,8 +175,8 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 			JPbestelling.add(JTFnaam);
 		}
 		add(JPbestelling);
-		JPproductToevoegen.setLocation(0, 280 + hoogteJPbestelling);
-		JPlaadKnop.setLocation(0, 350 + hoogteJPbestelling);
+		JPproductToevoegen.setLocation(0, 185 + hoogteJPbestelling);
+		JPlaadKnop.setLocation(0, 800);
 		add(JPlaadKnop);
 		revalidate();
 	}

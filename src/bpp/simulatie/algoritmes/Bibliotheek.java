@@ -11,7 +11,6 @@ public class Bibliotheek {
 		algoritmes.add(new BestFit());
 		algoritmes.add(new EigenAlgoritme());
 		algoritmes.add(new FirstFit());
-		algoritmes.add(new FullBinPacking());
 		algoritmes.add(new NextFit());
 	}
 

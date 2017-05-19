@@ -10,13 +10,11 @@ import java.util.List;
 import javax.swing.JPanel;
 
 public class DoosAfbeelding extends JPanel {
-	private Doos doos;
 	private List<Product> producten;
 	private int COy;
 	private List<ProductAfbeelding> productAfbeeldingen;
 
 	public DoosAfbeelding(Doos doos) {
-		this.doos = doos;
 		this.producten = doos.getProducten();
 		productAfbeeldingen = new ArrayList<ProductAfbeelding>();
 		COy = 0;

@@ -9,13 +9,11 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class ProductAfbeelding extends JPanel {
-	private Doos doos;
 	private Product product;
 	private int hoogteAfbeelding;
 	private int grootteProduct;
 
 	public ProductAfbeelding(Product product, Doos doos) {
-		this.doos = doos;
 		this.product = product;
 
 		int grootteDoos = doos.getGrootteDoos();

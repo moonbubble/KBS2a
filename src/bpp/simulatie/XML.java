@@ -12,6 +12,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import applicatie.Main;
+
 public class XML {
 
 	private Bestelling bestelling;
@@ -50,14 +52,14 @@ public class XML {
 							(eElement.getElementsByTagName("datum").item(0).getTextContent()), k);
 					for (int a = 0; a < aList.getLength(); a++) {
 						this.orderList.add(new Product(
-								Integer.parseInt(Test.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][0]),
+								Integer.parseInt(Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][0]),
 								Integer.parseInt(
-										Test.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][1]),
+										Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][1]),
 								Integer.parseInt(
-										Test.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][2]),
+										Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][2]),
 								Integer.parseInt(
-										Test.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][3]),
-								Test.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][4]));
+										Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][3]),
+								Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][4]));
 					}
 					bestelling.setOrder(orderList);
 				}
@@ -73,7 +75,7 @@ public class XML {
 			dbf = DocumentBuilderFactory.newInstance();
 
 			db = dbf.newDocumentBuilder();
-			document = db.parse("src/bpp/simulatie/database.xml");
+			document = db.parse("src/applicatie/database.xml");
 
 			NodeList productList = document.getElementsByTagName("Product");
 

@@ -1,19 +1,19 @@
-package bpp.simulatie;
+package applicatie;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+
+import bpp.simulatie.Bestelling;
+import bpp.simulatie.Model;
+import bpp.simulatie.XML;
 
 public class OpeningsDialoog extends JDialog implements ActionListener {
 	private Model model;
@@ -25,7 +25,7 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 	public OpeningsDialoog(JFrame scherm, Model model) {
 		super(scherm, true);
 		this.model = model;
-		setTitle("TSP instellingen");
+		setTitle("XML uploaden");
 		setSize(new Dimension(700, 500));
 		setLayout(new FlowLayout());
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

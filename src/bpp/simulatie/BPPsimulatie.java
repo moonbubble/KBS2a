@@ -6,18 +6,16 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 public class BPPsimulatie extends JPanel implements Observer {
-	private OpeningsDialoog opening;
 	private SimulatieTekening simulatie;
 	private SimulatieKeuzemenu keuzemenu;
 	private SimulatieOpties opties;
 	private SimulatieInformatie info;
-	private Bestelling bestelling;
-	private Model model;
 
-	public BPPsimulatie() {
-		this.model = new Model();
+	public BPPsimulatie(Model model) {
 		model.addObserver(this);
-
+		setSize(1600, 900);
+		setLayout(null);
+		
 		simulatie = new SimulatieTekening(model);
 		opties = new SimulatieOpties(model, simulatie);
 		keuzemenu = new SimulatieKeuzemenu(model);
@@ -27,6 +25,8 @@ public class BPPsimulatie extends JPanel implements Observer {
 		opties.setLocation(15, 815);
 		info.setLocation(800, 815);
 		keuzemenu.setLocation(1210, 0);
+		
+		setVisible(true);
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class BPPsimulatie extends JPanel implements Observer {
 				add(keuzemenu);
 				add(opties);
 				add(info);
-				setVisible(true);
 				repaint();
+				revalidate();
 			}
 		} else if (string.equals("isGeannuleerd")) {
 			if (((Model) model).isGeannuleerd()) {
