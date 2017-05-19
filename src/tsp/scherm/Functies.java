@@ -1,5 +1,4 @@
-package tsp;
-
+package tsp.scherm;
 public interface Functies {
 	public void voegProductToeAanRoute(Product p);
 	public void printRoute();

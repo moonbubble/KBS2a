@@ -1,3 +1,5 @@
+package tsp;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AtomicDouble extends Number implements Comparable<AtomicDouble> {

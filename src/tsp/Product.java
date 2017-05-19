@@ -1,3 +1,5 @@
+package tsp;
+
 
 public class Product {
 	private int x;

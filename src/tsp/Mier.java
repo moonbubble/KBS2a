@@ -1,3 +1,5 @@
+package tsp;
+
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;

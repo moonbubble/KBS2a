@@ -1,4 +1,4 @@
-package tsp;
+package tsp.scherm;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,14 +12,14 @@ public class BruteForce {
 	public BruteForce() {
 	}
 	
-	public BruteForce(Order order) {
-		BruteForce.initialRoute = order.getOrder();
+	public BruteForce(ArrayList<Product> orderList) {
+		BruteForce.initialRoute = orderList;
 	}
 
-	public void algoritme() {
+	public ArrayList<Product> algoritme() {
 		BruteForce bruteForce = new BruteForce();
 		Route currentRoute = new Route(initialRoute);
-		ontvangRoute(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
+		return ontvangRoute(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
 	}
 	
 	public ArrayList<Route> permuteProducts(int z, Route currentRoute, Route shortestRoute) {
@@ -53,17 +53,16 @@ public class BruteForce {
 			if (productIndex < orderGrootte - 1) { //als de index kleiner is dan de grootte van de order-1
 				returnValue = x.meetAfstand(route.getOrder().get(productIndex + 1)); //returnvalue wordt de afstand vanaf item x tot het item dat na x in de order komt
 			}
-			return returnValue; 
+			return returnValue;
 		}).sum() 
 //				+ route.getOrder().get(0).meetAfstand(route.getOrder().get(orderGrootte - 1)) //hier wordt de afstand gemeten tussen het eerste item uit de route en het laatste
 						);
 	}
 	public String getTotaleAfstand(Route route) {  // wordt gewoon wat aan de value veranderd, namelijk een spatie
 		String returnValue = Integer.toString(berekenTotaleAfstand(route));
-		if (returnValue.length() == 1) returnValue = " " + returnValue;
-		else if (returnValue.length() == 3) returnValue = " " + returnValue;
 		return returnValue;
 	}
+	
 	public void voegToeAanKortsteRoutes(Route route) {
 		shortestRoutes.removeIf(x -> berekenTotaleAfstand(x) > berekenTotaleAfstand(route)); //als de totale afstand van x groter is dan de totale afstand van de route wordt  
 			//eerst stond er removeIf(x -> (int)berekenTotaleAfstand(x) > (int)berekenTotaleAfstand(route))
