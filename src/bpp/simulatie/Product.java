@@ -37,4 +37,8 @@ public class Product implements Comparator<Product>{
 	public int compare(Product productA, Product productB) {
 		return productB.grootte - productA.grootte;
 	}
+
+	public int getArtikelnr() {
+		return artikelnummer;
+	}
 }

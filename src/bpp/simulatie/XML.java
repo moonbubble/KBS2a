@@ -61,7 +61,7 @@ public class XML {
 										Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][3]),
 								Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][4]));
 					}
-					bestelling.setOrder(orderList);
+					bestelling.setBestelling(orderList);
 				}
 			}
 		} catch (Exception e) {

@@ -10,15 +10,19 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import bpp.simulatie.Bestelling;
 import bpp.simulatie.Model;
+import bpp.simulatie.Product;
 import bpp.simulatie.XML;
 
 public class OpeningsDialoog extends JDialog implements ActionListener {
 	private Model model;
 	private JButton JBupload;
 	private JButton JBannuleren;
+	private JButton JBrandom;
+	private JTextField JTFrandom;
 	final JFileChooser fc = new JFileChooser();
 	private Bestelling bestelling;
 
@@ -34,6 +38,13 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		JBupload.addActionListener(this);
 		add(JBupload);
 
+		JTFrandom = new JTextField(20);
+		add(JTFrandom);
+
+		JBrandom = new JButton("Random order");
+		JBrandom.addActionListener(this);
+		add(JBrandom);
+		
 		JBannuleren = new JButton("Annuleren");
 		JBannuleren.addActionListener(this);
 		add(JBannuleren);
@@ -56,7 +67,37 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 			}
 		} else if (e.getSource() == JBannuleren) {
 			model.setGeannuleerd(true);
+		} else if(e.getSource() == JBrandom) {
+			model.setBestelling(makeRandomBestelling(Integer.parseInt(JTFrandom.getText())));
+			model.setXMLgeladen(true);
+			setVisible(false);
 		}
 	}
 
+	private Bestelling makeRandomBestelling(int a) {
+		Bestelling randomBestelling = new Bestelling();
+
+		int artikelnr = (int) (Math.random() * 25);
+
+		randomBestelling.voegProductToe(new Product(Integer.parseInt(Main.database[artikelnr][0]),
+				Integer.parseInt(Main.database[artikelnr][1]), Integer.parseInt(Main.database[artikelnr][2]),
+				Integer.parseInt(Main.database[artikelnr][3]), Main.database[artikelnr][4]));
+
+		while (randomBestelling.getBestelling().size() < a) {
+			artikelnr = (int) (Math.random() * 25);
+			boolean exists = false;
+
+			for (Product product : randomBestelling.getBestelling()) {
+				if (artikelnr + 1 == product.getArtikelnr()) {
+					exists = true;
+				}
+			}
+			if (!exists) {
+				randomBestelling.voegProductToe(new Product(Integer.parseInt(Main.database[artikelnr][0]),
+						Integer.parseInt(Main.database[artikelnr][1]), Integer.parseInt(Main.database[artikelnr][2]),
+						Integer.parseInt(Main.database[artikelnr][3]), Main.database[artikelnr][4]));
+			}
+		}
+		return randomBestelling;
+	}
 }
