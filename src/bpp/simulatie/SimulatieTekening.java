@@ -9,8 +9,11 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import applicatie.Model;
 import bpp.simulatie.algoritmes.Algoritme;
 import bpp.simulatie.algoritmes.Bibliotheek;
+import domeinmodel.Bestelling;
+import domeinmodel.Doos;
 
 public class SimulatieTekening extends JPanel implements Observer {
 	private Model model;

@@ -8,6 +8,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import domeinmodel.*;
+
 public class ProductAfbeelding extends JPanel {
 	private Product product;
 	private int hoogteAfbeelding;

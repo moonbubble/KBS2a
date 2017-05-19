@@ -2,27 +2,30 @@ package tsp.scherm;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
+import domeinmodel.Product;
 
 public class BruteForce {
 	static int permutationNumb = 1;
 	private int returnValue;
-	ArrayList<Route> shortestRoutes = new ArrayList<Route>();
-	private static ArrayList<Product> initialRoute;
+	List<Route> shortestRoutes = new ArrayList<Route>();
+	private static List<Product> initialRoute;
 	
 	public BruteForce() {
 	}
 	
-	public BruteForce(ArrayList<Product> orderList) {
-		BruteForce.initialRoute = orderList;
+	public BruteForce(List<Product> list) {
+		BruteForce.initialRoute = list;
 	}
 
-	public ArrayList<Product> algoritme() {
+	public List<Product> algoritme() {
 		BruteForce bruteForce = new BruteForce();
 		Route currentRoute = new Route(initialRoute);
 		return ontvangRoute(bruteForce, bruteForce.permuteProducts(0, currentRoute, new Route(currentRoute)));
 	}
 	
-	public ArrayList<Route> permuteProducts(int z, Route currentRoute, Route shortestRoute) {
+	public List<Route> permuteProducts(int z, Route currentRoute, Route shortestRoute) {
 		currentRoute.getOrder().stream().filter(y -> currentRoute.getOrder().indexOf(y) >= z).forEach(y -> {
 			int indexOfY = currentRoute.getOrder().indexOf(y); //indexOfY is de index van de order die bij item y hoort
 			Collections.swap(currentRoute.getOrder(), indexOfY, z); 
@@ -69,10 +72,10 @@ public class BruteForce {
 		shortestRoutes.add(route);
 	}
 	
-	public ArrayList<Product> ontvangRoute(BruteForce bruteForce, ArrayList<Route> shortestRoutes) {
+	public List<Product> ontvangRoute(BruteForce bruteForce, List<Route> list) {
 		int index = 0;
-		ArrayList<Product> route = new ArrayList<Product>();
-		for (Route r : shortestRoutes) {
+		List<Product> route = new ArrayList<Product>();
+		for (Route r : list) {
 			if(index == 0) {
 				route = r.getOrder();
 			}

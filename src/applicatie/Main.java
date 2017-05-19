@@ -1,7 +1,5 @@
 package applicatie;
 
-import bpp.simulatie.XML;
-
 public class Main {
 	public static String database[][] = new String[25][5];
 	

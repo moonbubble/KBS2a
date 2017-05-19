@@ -1,15 +1,18 @@
 package tsp.scherm;
 import java.util.ArrayList;
+import java.util.List;
+
+import domeinmodel.Product;
 
 public class NearestNeighbour implements Functies {
-	private ArrayList<Product> orderList;
-	private ArrayList<Product> route;
+	private List<Product> orderList;
+	private List<Product> route;
 	private int stappen;
 	private Product goeie;
 	private int temp;
 
-	public NearestNeighbour(ArrayList<Product> orderList) {
-		this.orderList = orderList;
+	public NearestNeighbour(List<Product> list) {
+		this.orderList = list;
 		route = new ArrayList<Product>();
 	}
 
@@ -35,7 +38,7 @@ public class NearestNeighbour implements Functies {
 		return stappen;
 	}
 	
-	public ArrayList<Product> algoritme() {
+	public List<Product> algoritme() {
 		printOrder();
 		goeie = orderList.get(0);
 		while (orderList.size() > 0) {

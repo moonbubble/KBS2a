@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import applicatie.Model;
+
 public class SimulatieOpties extends JPanel implements ActionListener, Observer {
 	private JButton afspelen;
 	private JButton volgendeStap;

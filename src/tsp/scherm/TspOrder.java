@@ -1,6 +1,12 @@
 package tsp.scherm;
 
 import javax.swing.*;
+
+import applicatie.Main;
+import applicatie.XML;
+import domeinmodel.Bestelling;
+import domeinmodel.Product;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -17,7 +23,7 @@ public class TspOrder extends JDialog implements ActionListener
 	
 	final JFileChooser fc = new JFileChooser();
 	
-	private Order order = new Order();
+	private Bestelling order = new Bestelling();
 	
 	public TspOrder(JFrame frame)
     {
@@ -55,24 +61,24 @@ public class TspOrder extends JDialog implements ActionListener
         pack();        
     }
 	
-	public Order getOrder()
+	public Bestelling getOrder()
 	{
 		return order;
 	}
 	
-	private void makeTable(Order o)
+	private void makeTable(Bestelling o)
 	{
 		String[] columnNames = {"Artikelnr", "X", "Y", "Gewicht", "Naam"};
 				
-		String orderData[][] = new String[o.getOrderList().size()][5];
+		String orderData[][] = new String[o.getProducten().size()][5];
 		
-		for(int i = 0; i < o.getOrderList().size(); i++)
+		for(int i = 0; i < o.getProducten().size(); i++)
 		{
-			orderData[i][0] = "" + o.getOrderList().get(i).getArtikelnr();
-			orderData[i][1] = "" + o.getOrderList().get(i).getX();
-			orderData[i][2] = "" + o.getOrderList().get(i).getY();
-			orderData[i][3] = "" + o.getOrderList().get(i).getGewicht();
-			orderData[i][4] = o.getOrderList().get(i).getNaam();
+			orderData[i][0] = "" + o.getProducten().get(i).getArtikelnummer();
+			orderData[i][1] = "" + o.getProducten().get(i).getX();
+			orderData[i][2] = "" + o.getProducten().get(i).getY();
+			orderData[i][3] = "" + o.getProducten().get(i).getGrootte();
+			orderData[i][4] = o.getProducten().get(i).getNaam();
 		}
 		
 		NonEditableModel tableModel = new NonEditableModel(orderData, columnNames);
@@ -91,9 +97,9 @@ public class TspOrder extends JDialog implements ActionListener
 		this.setVisible(true);
 	}
 	
-	private Order makeRandomOrder(int a)
+	private Bestelling makeRandomOrder(int a)
 	{
-		Order randomOrder = new Order();
+		Bestelling randomOrder = new Bestelling();
 		
 		int artikelnr = (int)(Math.random() * 25);
 		
@@ -105,14 +111,14 @@ public class TspOrder extends JDialog implements ActionListener
 				Main.database[artikelnr][4]
 				));
 		
-		while(randomOrder.getOrderList().size() < a)
+		while(randomOrder.getProducten().size() < a)
 		{
 			artikelnr = (int)(Math.random() * 25);
 			boolean exists = false;
 			
-			for(Product product :randomOrder.getOrderList())
+			for(Product product :randomOrder.getProducten())
 			{
-				if(artikelnr + 1 == product.getArtikelnr())
+				if(artikelnr + 1 == product.getArtikelnummer())
 				{
 					exists = true;
 				}

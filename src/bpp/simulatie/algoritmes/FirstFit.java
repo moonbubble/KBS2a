@@ -3,9 +3,7 @@ package bpp.simulatie.algoritmes;
 import java.util.ArrayList;
 import java.util.List;
 
-import bpp.simulatie.Bestelling;
-import bpp.simulatie.Doos;
-import bpp.simulatie.Product;
+import domeinmodel.*;
 
 class FirstFit implements Algoritme {
 	private List<Doos> dozen = new ArrayList<>();

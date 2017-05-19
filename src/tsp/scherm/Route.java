@@ -2,17 +2,20 @@ package tsp.scherm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import domeinmodel.Product;
 
 public class Route {
-	private ArrayList<Product> order = new ArrayList<Product>();
+	private List<Product> order = new ArrayList<Product>();
 	
-	public Route(ArrayList<Product> initialRoute) {
+	public Route(List<Product> initialRoute) {
 		this.order = initialRoute;
 	}
 	public Route (Route route) {
 		route.order.stream().forEach(x -> order.add(x));
 	}
-	public ArrayList<Product> getOrder() {
+	public List<Product> getOrder() {
 		return order;
 	}
 

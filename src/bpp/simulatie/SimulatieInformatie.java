@@ -8,6 +8,8 @@ import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import applicatie.Model;
+
 public class SimulatieInformatie extends JPanel implements Observer {
 
 	private Model model;

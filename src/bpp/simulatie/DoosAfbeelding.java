@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import domeinmodel.*;
+
 public class DoosAfbeelding extends JPanel {
 	private List<Product> producten;
 	private int COy;

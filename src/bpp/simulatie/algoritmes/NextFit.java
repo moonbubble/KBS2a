@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import bpp.simulatie.Bestelling;
-import bpp.simulatie.Doos;
-import bpp.simulatie.Product;
+import domeinmodel.*;
 
 class NextFit implements Algoritme {
 	private List<Doos> dozen = new ArrayList<>();

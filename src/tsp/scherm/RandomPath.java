@@ -1,35 +1,33 @@
 package tsp.scherm;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-public class RandomPath
-{
-	private ArrayList<Product> orderList;
+import domeinmodel.Product;
 
-	public RandomPath(ArrayList<Product> orderList)
-	{
-		this.orderList = orderList;
+public class RandomPath {
+	private List<Product> orderList;
+
+	public RandomPath(List<Product> list) {
+		this.orderList = list;
 	}
 
 	public void printRoute() {
 		System.out.println("--- ROUTE ---");
-		for (Product p : orderList)
-		{
+		for (Product p : orderList) {
 			System.out.println(p.getLocatie());
 		}
 	}
 
-	public void printOrder()
-	{
+	public void printOrder() {
 		System.out.println("--- ORDER ---");
-		for (Product p : orderList)
-		{
+		for (Product p : orderList) {
 			System.out.println(p.getLocatie());
 		}
 	}
 
-	public ArrayList<Product> algoritme()
-	{
+	public List<Product> algoritme() {
 		Collections.shuffle(orderList);
 		return orderList;
 	}

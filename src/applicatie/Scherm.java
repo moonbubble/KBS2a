@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import bpp.simulatie.*;
+import tsp.scherm.TSPpanel;
 
 public class Scherm extends JFrame implements Observer {
 	private Model model;
@@ -29,8 +30,8 @@ public class Scherm extends JFrame implements Observer {
 		tabbedPane.setBounds(0, 0, 1600, 900);
 		
 		tabbedPane.addTab("Robot", null, null, null);
-		tabbedPane.addTab("TSP", null, null, null);
-		tabbedPane.addTab("BPP", null, new BPPsimulatie(model), null);
+		tabbedPane.addTab("TSP", null, new TSPpanel(this, model), null);
+		tabbedPane.addTab("BPP", null, new BPPpanel(model), null);
 		
 		new OpeningsDialoog(this, model);
 	}

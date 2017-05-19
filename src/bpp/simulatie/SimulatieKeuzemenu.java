@@ -20,7 +20,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import applicatie.Main;
+import applicatie.Model;
 import bpp.simulatie.algoritmes.Bibliotheek;
+import domeinmodel.*;
 
 public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observer {
 	private JLabel JLradiobuttons;

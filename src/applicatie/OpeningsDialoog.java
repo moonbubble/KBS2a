@@ -12,10 +12,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import bpp.simulatie.Bestelling;
-import bpp.simulatie.Model;
-import bpp.simulatie.Product;
-import bpp.simulatie.XML;
+import domeinmodel.Bestelling;
+import domeinmodel.Product;
 
 public class OpeningsDialoog extends JDialog implements ActionListener {
 	private Model model;
@@ -83,12 +81,12 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 				Integer.parseInt(Main.database[artikelnr][1]), Integer.parseInt(Main.database[artikelnr][2]),
 				Integer.parseInt(Main.database[artikelnr][3]), Main.database[artikelnr][4]));
 
-		while (randomBestelling.getBestelling().size() < a) {
+		while (randomBestelling.getProducten().size() < a) {
 			artikelnr = (int) (Math.random() * 25);
 			boolean exists = false;
 
-			for (Product product : randomBestelling.getBestelling()) {
-				if (artikelnr + 1 == product.getArtikelnr()) {
+			for (Product product : randomBestelling.getProducten()) {
+				if (artikelnr + 1 == product.getArtikelnummer()) {
 					exists = true;
 				}
 			}
