@@ -10,8 +10,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Observable;
+import java.util.Observer;
 
-public class TSPpanel extends JPanel implements ActionListener {
+public class TSPpanel extends JPanel implements ActionListener, Observer {
 	private Model model;
 	private static final long serialVersionUID = 1L;
 	private Scherm scherm;
@@ -42,10 +44,11 @@ public class TSPpanel extends JPanel implements ActionListener {
 	public TSPpanel(Scherm scherm, Model model) {
 		this.scherm = scherm;
 		this.model = model;
+		model.addObserver(this);
 		this.setPreferredSize(new Dimension(1020, 750));
 		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-		jpGraphic = new TspGraphic();
+		jpGraphic = new TspGraphic(model);
 		add(jpGraphic);
 		jpGraphic.drawGrid = true;
 		jpGraphic.drawOrder = false;
@@ -201,7 +204,6 @@ public class TSPpanel extends JPanel implements ActionListener {
 
 			}
 			order.getProducten().get(0).Visited();
-			jpGraphic.setOrder(order);
 			jpGraphic.drawLines = true;
 			jpGraphic.i = 1;
 			repaint();
@@ -210,15 +212,17 @@ public class TSPpanel extends JPanel implements ActionListener {
 				int i = 1;
 
 				@Override
-				public void actionPerformed(ActionEvent actionEvent) {
-					order.getProducten().get(i).Visited();
-					jpGraphic.setOrder(order);
-					repaint();
-					i++;
-					if (i >= order.getProducten().size()) {
-						timer.stop();
+				public void actionPerformed(ActionEvent e) {
+					if (e.getSource() == timer) {
+						if (i >= order.getProducten().size()) {
+							timer.stop();
+						} else {
+							order.getProducten().get(i).Visited();
+							jpGraphic.setOrder(order);
+							repaint();
+							i++;
+						}
 					}
-
 				}
 			};
 			timer = new Timer(TspInstellingen.snelheid, actionListener);
@@ -228,5 +232,13 @@ public class TSPpanel extends JPanel implements ActionListener {
 			timer.stop();
 			this.order = null;
 		}
+	}
+
+	@Override
+	public void update(Observable model, Object string) {
+		if (string.equals("XMLgeladen")) {
+			jpGraphic.setOrder(((Model) model).getBestelling());
+		}
+
 	}
 }

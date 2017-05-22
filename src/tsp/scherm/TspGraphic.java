@@ -2,12 +2,15 @@ package tsp.scherm;
 
 import javax.swing.*;
 
+import applicatie.Model;
 import domeinmodel.Bestelling;
 import domeinmodel.Product;
 
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
-public class TspGraphic extends JPanel {
+public class TspGraphic extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 	private Bestelling order = new Bestelling();
 	public boolean drawGrid = false;
@@ -16,7 +19,8 @@ public class TspGraphic extends JPanel {
 
 	public int i = 1;
 
-	public TspGraphic() {
+	public TspGraphic(Model model) {
+		model.addObserver(this);
 		this.setPreferredSize(new Dimension(750, 455));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		setOpaque(false);
@@ -80,14 +84,15 @@ public class TspGraphic extends JPanel {
 
 			g2.drawLine(x1, y1, x2, y2);
 		}
-		i++;
+		if (i < order.getProducten().size()) {
+			i++;
+		}
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
 		this.setBackground(Color.WHITE);
-
 		if (drawGrid) {
 			paintGrid(g);
 		}
@@ -96,6 +101,14 @@ public class TspGraphic extends JPanel {
 		}
 		if (drawLines) {
 			paintLines(g);
+		}
+	}
+
+	@Override
+	public void update(Observable model, Object string) {
+		if (string.equals("XMLgeladen")) {
+			drawOrder = true;
+			repaint();
 		}
 	}
 }
