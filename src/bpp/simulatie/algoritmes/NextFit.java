@@ -10,8 +10,7 @@ class NextFit implements Algoritme {
 	private List<Doos> dozen = new ArrayList<>();
 	private List<Product> producten;
 
-	public List<Doos> bepaalDozen(Bestelling bestelling, int grootteDoos) {
-		producten = new ArrayList<>(bestelling.getProducten());
+	public List<Doos> bepaalDozen(List<Product> producten, int grootteDoos) {
 		dozen.add(new Doos(grootteDoos));
 		for (Product product : producten) {
 			Doos huidigeDoos = dozen.get(dozen.size() - 1);

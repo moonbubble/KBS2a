@@ -66,7 +66,7 @@ public class SimulatieTekening extends JPanel implements Observer {
 		doosAfbeeldingen = new ArrayList<>();
 		Algoritme algoritme = new Bibliotheek().getAlgoritme(model.getAlgoritmeIndex());
 		grootteDoos = model.getGrootteDoos();
-		dozen = algoritme.bepaalDozen(bestelling, grootteDoos);
+		dozen = algoritme.bepaalDozen(bestelling.getProducten(), grootteDoos);
 
 		COx = 100;
 		COy = 50;

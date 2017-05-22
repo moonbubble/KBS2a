@@ -10,8 +10,7 @@ class FirstFit implements Algoritme {
 	private List<Product> producten;
 
 	@Override
-	public List<Doos> bepaalDozen(Bestelling bestelling, int grootteDoos) {
-		producten = new ArrayList<>(bestelling.getProducten());
+	public List<Doos> bepaalDozen(List<Product> producten, int grootteDoos) {
 		dozen.add(new Doos(grootteDoos));
 		for (Product product : producten) {
 			Doos huidigeDoos = dozen.get(dozen.size() - 1);

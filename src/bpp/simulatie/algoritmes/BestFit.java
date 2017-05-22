@@ -10,8 +10,7 @@ class BestFit implements Algoritme {
 	private List<Product> producten;
 
 	@Override
-	public List<Doos> bepaalDozen(Bestelling bestelling, int grootteDoos) {
-		producten = new ArrayList<>(bestelling.getProducten());
+	public List<Doos> bepaalDozen(List<Product> producten, int grootteDoos) {
 		int inhoudHuidigeDoos = 0;
 		int inhoudVorigeDoos = 0;
 
