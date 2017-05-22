@@ -36,7 +36,6 @@ public class Main {
 		Product p2 = null;
 		Product p3;
 		for (int i = 0; i < lijstVanProducten.size(); i++) {
-			
 			if (i % 3 == 0) {
 				p1 = lijstVanProducten.get(i);
 			} else if (i % 3 == 1) {
@@ -47,21 +46,16 @@ public class Main {
 				lijstVanProducten.set(i - 1, p2);
 				lijstVanProducten.set(i - 2, p3);
 			}
-
-			if (lijstVanProducten.size() -1  % 3 == 1){
-				p1 = lijstVanProducten.get(lijstVanProducten.size() -2);
-				p2 = lijstVanProducten.get(lijstVanProducten.size() -1);
-				
-				lijstVanProducten.set(lijstVanProducten.size() -2, p1);
-				lijstVanProducten.set(lijstVanProducten.size() -1, p2);
-				System.out.println("TEST");
-			}
 		}
 		
-		
-		
+		if ((lijstVanProducten.size() -1)  % 3 == 1){
+			p1 = lijstVanProducten.get(lijstVanProducten.size() -2);
+			p2 = lijstVanProducten.get(lijstVanProducten.size() -1);
+			
+			lijstVanProducten.set(lijstVanProducten.size() -1, p1);
+			lijstVanProducten.set(lijstVanProducten.size() -2, p2);
+		}
 		System.out.println(lijstVanProducten);
-
 	}
 
 }
