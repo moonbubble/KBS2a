@@ -62,7 +62,7 @@ public class SimulatieTekening extends JPanel implements Observer {
 	}
 
 	private void laadTekening() {
-
+		this.bestelling = model.getBestelling();
 		doosAfbeeldingen = new ArrayList<>();
 		Algoritme algoritme = new Bibliotheek().getAlgoritme(model.getAlgoritmeIndex());
 		grootteDoos = model.getGrootteDoos();
@@ -107,10 +107,6 @@ public class SimulatieTekening extends JPanel implements Observer {
 				double aantalDozen = dozen.size();
 				this.model.setPercentage((grootteProducten / (aantalDozen * doosGrootte)) * 100);
 				this.model.setAantalDozen(dozen.size());
-			}
-		} else if (string.equals("XMLgeladen")) {
-			if (((Model) model).getXMLgeladen()) {
-				this.bestelling = this.model.getBestelling();
 			}
 		}
 	}

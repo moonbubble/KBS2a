@@ -24,7 +24,6 @@ public class TSPpanel extends JPanel implements ActionListener {
 	private JButton jbStart;
 	private JButton jbStop;
 	private JButton jbReset;
-	private JButton jbOrder;
 	private JButton jbInstellingen;
 	private JPanel jpOutput;
 	private JLabel jlOutput;
@@ -189,7 +188,6 @@ public class TSPpanel extends JPanel implements ActionListener {
 			order = model.getBestelling();
 			order.resetProducten();
 			Collections.sort(order.getProducten(), new MyComparator());
-			System.out.println(order.getOrdernr());
 			if (getSelectedRadioButton(radioButtons) == "Random path") {
 				RandomPath algoritme = new RandomPath(order.getProducten());
 				order.setProducten(algoritme.algoritme());

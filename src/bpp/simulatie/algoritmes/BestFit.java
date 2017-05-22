@@ -20,23 +20,33 @@ class BestFit implements Algoritme {
 			Doos huidigeDoos = dozen.get(dozen.size() - 1);
 			if (dozen.size() >= 2) {
 				Doos vorigeDoos = dozen.get(dozen.size() - 2);
-				if (vorigeDoos.past(product)) {
-					inhoudVorigeDoos = vorigeDoos.getInhoud();
-				} else if (huidigeDoos.past(product)) {
-					inhoudHuidigeDoos = huidigeDoos.getInhoud();
-				}
+				int ruimteOverVorigeDoos = grootteDoos - vorigeDoos.getInhoud();
+				int ruimteOverHuidigeDoos = grootteDoos - huidigeDoos.getInhoud();
+//				if (vorigeDoos.past(product)) {
+//					inhoudVorigeDoos = vorigeDoos.getInhoud();
+//				} else if (huidigeDoos.past(product)) {
+//					inhoudHuidigeDoos = huidigeDoos.getInhoud();
+//				}
 
-				if (inhoudHuidigeDoos > inhoudVorigeDoos && inhoudVorigeDoos != 0) {
-					vorigeDoos.voegToe(product);
-				} else if (inhoudVorigeDoos > inhoudHuidigeDoos && inhoudHuidigeDoos != 0) {
-					huidigeDoos.voegToe(product);
-				} else {
-					dozen.add(new Doos(product, grootteDoos));
+				if (ruimteOverHuidigeDoos >= ruimteOverVorigeDoos) {
+					if (vorigeDoos.past(product)) {
+						vorigeDoos.voegToe(product);
+					} else if (huidigeDoos.past(product)) {
+						huidigeDoos.voegToe(product);
+					} else {
+						dozen.add(new Doos(product, grootteDoos));
+					}
+				} else if (ruimteOverVorigeDoos >= ruimteOverHuidigeDoos) {
+					if (huidigeDoos.past(product)) {
+						huidigeDoos.voegToe(product);
+					} else {
+						dozen.add(new Doos(product, grootteDoos));
+					}
 				}
 			} else {
 				if (huidigeDoos.past(product)) {
 					huidigeDoos.voegToe(product);
-				} else {
+				} else {	
 					dozen.add(new Doos(product, grootteDoos));
 				}
 			}
