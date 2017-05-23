@@ -7,7 +7,7 @@ public class Main {
 		XML parser = new XML();
 		parser.getDatabase(database);
 		
-	//	new Scherm();
+		new Scherm();
 	}
 
 }
