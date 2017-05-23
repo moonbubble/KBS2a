@@ -8,10 +8,7 @@ public class Main {
 		parser.getDatabase(database);
 		
 		new Scherm();
-<<<<<<< HEAD
-	
-=======
->>>>>>> origin/master
+
 	}
 
 }

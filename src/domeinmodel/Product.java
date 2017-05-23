@@ -2,14 +2,14 @@ package domeinmodel;
 
 import java.util.Comparator;
 
-public class Product implements Comparator<Product>{
+public class Product implements Comparator<Product> {
 	private int x;
 	private int y;
 	private String naam;
 	private int grootte;
 	private int artikelnummer;
 	private boolean visited;
-	
+
 	public Product() {
 	}
 
@@ -80,9 +80,10 @@ public class Product implements Comparator<Product>{
 		}
 		return deltaLongitude + deltaLatitude;
 	}
-	
+
 	@Override
 	public int compare(Product productA, Product productB) {
 		return productB.grootte - productA.grootte;
 	}
+
 }

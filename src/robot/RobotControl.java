@@ -9,6 +9,7 @@ import domeinmodel.Doos;
 import domeinmodel.Product;
 
 public class RobotControl implements Observer {
+	private BPProbot bppRobot;
 	private List<Product> producten;
 	private List<Doos> dozen;
 
@@ -21,6 +22,7 @@ public class RobotControl implements Observer {
 			System.out.println(product.getX() + ", " + product.getY());
 			// Ga naar x en y;
 			// Update robotpanel;
+			bppRobot.bepaalPlaats(product);
 		}
 	}
 
@@ -30,6 +32,7 @@ public class RobotControl implements Observer {
 			if (((Model) model).getRobotStarten()) {
 				producten = ((Model) model).getRoute();
 				dozen = ((Model) model).getDozen();
+				bppRobot = new BPProbot((Model) model);
 				routeUitvoeren();
 			}
 		}

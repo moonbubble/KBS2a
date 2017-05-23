@@ -20,6 +20,7 @@ public class Main {
 	private static Product laptop = new Product(8, 3, 1, 5, "laptop");
 	private static Product pop = new Product(9, 4, 1, 4, "pop");
 	private static Product pen = new Product(10, 5, 1, 1, "pen");
+
 	public static void main(String[] args) {
 
 		Bestelling bestelling = new Bestelling();
@@ -35,7 +36,7 @@ public class Main {
 		bestelling.voegProductToe(pen);
 		bestelling.getProducten();
 		bestelling.getKlant();
-		
+
 		List<Product> lijstVanProducten = new ArrayList<>(bestelling.getProducten());
 
 		Product p1 = null;
@@ -53,51 +54,51 @@ public class Main {
 				lijstVanProducten.set(i - 2, p3);
 			}
 		}
-		
-		if ((lijstVanProducten.size() -1)  % 3 == 1){
-			p1 = lijstVanProducten.get(lijstVanProducten.size() -2);
-			p2 = lijstVanProducten.get(lijstVanProducten.size() -1);
-			
-			lijstVanProducten.set(lijstVanProducten.size() -1, p1);
-			lijstVanProducten.set(lijstVanProducten.size() -2, p2);
+
+		if ((lijstVanProducten.size() - 1) % 3 == 1) {
+			p1 = lijstVanProducten.get(lijstVanProducten.size() - 2);
+			p2 = lijstVanProducten.get(lijstVanProducten.size() - 1);
+
+			lijstVanProducten.set(lijstVanProducten.size() - 1, p1);
+			lijstVanProducten.set(lijstVanProducten.size() - 2, p2);
 		}
-		
+
 		System.out.print("VOLGORDE PRODUCTEN: ");
 		List<Product> volgorde = lijstVanProducten;
 		System.out.println(volgorde);
-		
+
 		Algoritme algoritme = new Bibliotheek().getAlgoritme(1);
-		List<Doos> dozen = algoritme.bepaalDozen(lijstVanProducten,10);
+		List<Doos> dozen = algoritme.bepaalDozen(lijstVanProducten, 10);
 		int productx = 0;
 		int linksx = 0;
 		int rechtsx = 0;
-		
+
 		System.out.print("VOLGORDE PRODUCTEN: ");
 		System.out.println(lijstVanProducten);
 		System.out.println("Er zijn " + dozen.size() + " dozen:");
-		
-		for(Doos doos : dozen){	
+
+		for (Doos doos : dozen) {
 			System.out.println(doos.getProducten());
 			List<Product> productlijst = doos.getProducten();
-	
-		for(Product product : productlijst ){
-			if(volgorde.get(productx) == product){
-				System.out.println(volgorde.get(productx) + " links");
-				linksx++;
-				
-				if(linksx == productlijst.size()){
-					System.out.println("VERVANG LINKS");
-					linksx = 0;
+
+			for (Product product : productlijst) {
+				if (volgorde.get(productx) == product) {
+					System.out.println(volgorde.get(productx) + " links");
+					linksx++;
+
+					if (linksx == productlijst.size()) {
+						System.out.println("VERVANG LINKS");
+						linksx = 0;
+					}
+				} else {
+					System.out.println(volgorde.get(productx) + " rechts");
+					rechtsx++;
+					if (rechtsx == productlijst.size()) {
+						System.out.println("VERVANG RECHTS");
+						rechtsx = 0;
+					}
 				}
-			}else{		
-				System.out.println(volgorde.get(productx) + " rechts");
-				rechtsx++;
-				if(rechtsx == productlijst.size()){
-					System.out.println("VERVANG RECHTS");
-					rechtsx = 0;		
-				}		
-			}
-			productx++;	
+				productx++;
 			}
 		}
 	}
