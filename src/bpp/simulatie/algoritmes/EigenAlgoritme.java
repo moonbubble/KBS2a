@@ -12,6 +12,7 @@ class EigenAlgoritme implements Algoritme {
 
 	@Override
 	public List<Doos> bepaalDozen(List<Product> producten, int grootteDoos) {
+		producten = new ArrayList<>(producten);
 		dozen.add(new Doos(grootteDoos));
 	
 		Collections.sort(producten, new Product());

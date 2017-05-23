@@ -108,6 +108,9 @@ public class SimulatieTekening extends JPanel implements Observer {
 				this.model.setPercentage((grootteProducten / (aantalDozen * doosGrootte)) * 100);
 				this.model.setAantalDozen(dozen.size());
 			}
+		} else if (string.equals("indexenGewijzigd")) {
+			laadTekening();
+			tekenInStappen(((Model) model).getDoosIndex(), ((Model) model).getProductIndex());
 		}
 	}
 }

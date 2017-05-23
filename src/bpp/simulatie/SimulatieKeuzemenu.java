@@ -26,6 +26,7 @@ import domeinmodel.*;
 
 public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observer {
 	private JLabel JLradiobuttons;
+	private JLabel JLgrootteDoos;
 	private JButton JBladen;
 	private JButton JBproductToevoegen;
 	private JButton JBproductOpslaan;
@@ -39,6 +40,10 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 	private List<Product> producten;
 	private Bestelling bestelling;
 	private int hoogteJPbestelling;
+	private List<JRadioButton> radiobuttons = new ArrayList<>();
+	private List<JLabel> bestellingLabels = new ArrayList<>();
+	private JLabel JLbestellingArtik;
+	private JLabel JLbestellingNaam;
 
 	public SimulatieKeuzemenu(Model model) {
 		this.model = model;
@@ -64,11 +69,13 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 			}
 			BGalgoritmes.add(JRB);
 			JPalgoritmes.add(JRB);
+			radiobuttons.add(JRB);
 		}
 
 		Integer[] doosGroottes = new Integer[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 		JCBgrootteDoos = new JComboBox<>(doosGroottes);
-		JPgrootteDoos.add(new JLabel("Grootte doos: "));
+		JLgrootteDoos = new JLabel("Grootte doos: ");
+		JPgrootteDoos.add(JLgrootteDoos);
 		JPgrootteDoos.add(JCBgrootteDoos);
 
 		JBladen = new JButton("Laden");
@@ -96,7 +103,7 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 
 		JBproductToevoegen.addActionListener(this);
 		JBproductOpslaan.addActionListener(this);
-		
+
 		JPalgoritmes.setSize(new Dimension(120, 140));
 		JPgrootteDoos.setSize(new Dimension(330, 30));
 		JPlaadKnop.setSize(new Dimension(345, 35));
@@ -149,37 +156,81 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 		}
 	}
 
-	@Override
-	public void update(Observable model, Object string) {
-		if (string.equals("XMLgeladen")) {
-			bestelling = this.model.getBestelling();
-			producten = new ArrayList<>(bestelling.getProducten());
-			hoogteJPbestelling = (producten.size() + 1) * 30;
-			
-			JPproductToevoegen.setSize(new Dimension(400, 70));
-			toonBestelling();
-		}
-	}
-
 	public void toonBestelling() {
 		hoogteJPbestelling = (producten.size() + 1) * 30;
 		JPbestelling.removeAll();
 		JPbestelling.setLocation(5, 180);
-		JPbestelling.add(new JLabel("Artikelnummer:"));
-		JPbestelling.add(new JLabel("Naam:"));
+		JLbestellingArtik = new JLabel("Artikelnummer:");
+		JPbestelling.add(JLbestellingArtik);
+		JLbestellingNaam = new JLabel("Naam:");
+		JPbestelling.add(JLbestellingNaam);
 		JPbestelling.setSize(new Dimension(350, hoogteJPbestelling));
 		JPbestelling.setLayout(new GridLayout((producten.size() + 1), 2));
-		
+
 		for (Product product : producten) {
 			JLabel JTFartikelnummer = new JLabel(String.valueOf(product.getArtikelnummer()));
 			JLabel JTFnaam = new JLabel(String.valueOf(product.getNaam()));
 			JPbestelling.add(JTFartikelnummer);
 			JPbestelling.add(JTFnaam);
+			bestellingLabels.add(JTFartikelnummer);
+			bestellingLabels.add(JTFnaam);
 		}
 		add(JPbestelling);
 		JPproductToevoegen.setLocation(0, 185 + hoogteJPbestelling);
 		JPlaadKnop.setLocation(0, 800);
 		add(JPlaadKnop);
 		revalidate();
+	}
+	
+	public void verbergPanel() {
+		for (JRadioButton radiobutton : radiobuttons) {
+			radiobutton.setEnabled(false);
+		}
+		for (JLabel label : bestellingLabels) {
+			label.setEnabled(false);
+		}
+		JLradiobuttons.setEnabled(false);
+		JBladen.setEnabled(false);
+		JBproductToevoegen.setEnabled(false);
+		JBproductOpslaan.setEnabled(false);
+		JCBgrootteDoos.setEnabled(false);
+		JLgrootteDoos.setEnabled(false);
+		JLbestellingNaam.setEnabled(false);
+		JLbestellingArtik.setEnabled(false);
+	}
+	
+	public void toonPanel() {
+		for (JRadioButton radiobutton : radiobuttons) {
+			radiobutton.setEnabled(true);
+		}
+		for (JLabel label : bestellingLabels) {
+			label.setEnabled(true);
+		}
+		JLradiobuttons.setEnabled(true);
+		JBladen.setEnabled(true);
+		JBproductToevoegen.setEnabled(true);
+		JBproductOpslaan.setEnabled(true);
+		JCBgrootteDoos.setEnabled(true);
+		JLgrootteDoos.setEnabled(true);
+		JLbestellingNaam.setEnabled(true);
+		JLbestellingArtik.setEnabled(true);
+	}
+
+	@Override
+	public void update(Observable model, Object string) {
+		if (string.equals("XMLgeladen")) {
+			bestelling = this.model.getBestelling();
+			producten = new ArrayList<>(bestelling.getProducten());
+			hoogteJPbestelling = (producten.size() + 1) * 30;
+
+			JPproductToevoegen.setSize(new Dimension(400, 70));
+			toonBestelling();
+		} if (string.equals("robotGestart")) {
+			if (((Model) model).isRobotGestart()) {
+				verbergPanel();
+			} else if (!((Model) model).isRobotGestart()) {
+				toonPanel();
+			}
+		}
 	}
 }

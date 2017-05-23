@@ -13,10 +13,6 @@ import tsp.scherm.TSPpanel;
 
 public class Scherm extends JFrame implements Observer {
 	private Model model;
-	private SimulatieTekening simulatie;
-	private SimulatieKeuzemenu keuzemenu;
-	private SimulatieOpties opties;
-	private SimulatieInformatie info;
 	private JTabbedPane tabbedPane;
 
 	public Scherm() {

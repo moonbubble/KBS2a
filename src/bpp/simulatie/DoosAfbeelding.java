@@ -2,7 +2,6 @@ package bpp.simulatie;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;

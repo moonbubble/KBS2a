@@ -7,7 +7,6 @@ import domeinmodel.*;
 
 class FirstFit implements Algoritme {
 	private List<Doos> dozen = new ArrayList<>();
-	private List<Product> producten;
 
 	@Override
 	public List<Doos> bepaalDozen(List<Product> producten, int grootteDoos) {

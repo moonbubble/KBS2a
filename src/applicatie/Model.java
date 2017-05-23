@@ -19,8 +19,10 @@ public class Model extends Observable {
 	private boolean isGeannuleerd;
 	private Bestelling bestelling;
 	private List<Product> route;
-	private boolean robotStarten;
+	private boolean isRobotGestart;
 	private List<Doos> dozen;
+	private int doosIndex;
+	private int productIndex;
 
 	public Model() {
 
@@ -122,23 +124,41 @@ public class Model extends Observable {
 		this.route = route;
 	}
 
-	public void setRobotStarten(boolean robotStarten) {
-		this.robotStarten = robotStarten;
-		setChanged();
-		notifyObservers("robotStarten");
-		clearChanged();
-	}
-
-	public boolean getRobotStarten() {
-		return robotStarten;
-	}
-
 	public List<Doos> getDozen() {
 		return dozen;
 	}
 
 	public void setDozen(List<Doos> dozen) {
 		this.dozen = dozen;
+	}
+	
+	public void setIndexen(int doosIndex, int productIndex) {
+		this.doosIndex = doosIndex;
+		this.productIndex = productIndex;
+		setChanged();
+		notifyObservers("indexenGewijzigd");
+		clearChanged();
+	}
+	
+	public int getProductIndex() {
+		return productIndex;
+	}
+	
+	public int getDoosIndex() {
+		return doosIndex;
+	}
+
+	public boolean isRobotGestart() {
+		return isRobotGestart;
+	}
+
+	public void setRobotGestart(boolean isRobotGestart) {
+		this.isRobotGestart = isRobotGestart;
+		setGrootteDoos(5);
+		setAlgoritmeIndex(0);
+		setChanged();
+		notifyObservers("robotGestart");
+		clearChanged();
 	}
 
 }

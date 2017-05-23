@@ -26,7 +26,7 @@ public class Robotpanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {		
 		if (e.getSource() == JBstartRobot) {
-			model.setRobotStarten(true);
+			model.setRobotGestart(true);
 		}
 	}
 

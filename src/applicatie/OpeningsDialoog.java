@@ -12,7 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import bpp.simulatie.algoritmes.Algoritme;
 import bpp.simulatie.algoritmes.Bibliotheek;
 import domeinmodel.Bestelling;
 import domeinmodel.Product;

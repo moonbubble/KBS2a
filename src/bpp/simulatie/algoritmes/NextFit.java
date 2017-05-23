@@ -2,13 +2,11 @@ package bpp.simulatie.algoritmes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import domeinmodel.*;
 
 class NextFit implements Algoritme {
 	private List<Doos> dozen = new ArrayList<>();
-	private List<Product> producten;
 
 	public List<Doos> bepaalDozen(List<Product> producten, int grootteDoos) {
 		dozen.add(new Doos(grootteDoos));

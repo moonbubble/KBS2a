@@ -3,27 +3,25 @@ package robot;
 import java.util.List;
 
 import applicatie.Model;
-import domeinmodel.Bestelling;
 import domeinmodel.Doos;
 import domeinmodel.Product;
 
 public class BPProbot {
-	private Bestelling bestelling;
 	private List<Doos> dozen;
-	private List<Product> route;
 	private int inhoudDoos0 = 0;
 	private int inhoudDoos1 = 0;
+	private Model model;
 
 	public BPProbot(Model model) {
-		this.bestelling = model.getBestelling();
-		this.route = model.getRoute();
+		this.model = model;
 		this.dozen = model.getDozen();
 	}
 
 	public void bepaalPlaats(Product productTSP) {
 		for (int i = 0; i < dozen.size(); i++) {
 			Doos doos = dozen.get(i);
-			for (Product product : doos.getProducten()) {
+			for (int j = 0; j < doos.getProducten().size(); j++) {
+				Product product = doos.getProducten().get(j);
 				if (productTSP.equals(product)) {
 					if (i % 2 == 0) {
 						plaatsProduct(0);
@@ -40,6 +38,7 @@ public class BPProbot {
 							inhoudDoos1 = 0;
 						}
 					}
+					model.setIndexen(i, j);
 				}
 			}
 		}

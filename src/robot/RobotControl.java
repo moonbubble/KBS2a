@@ -5,15 +5,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 import applicatie.Model;
-import domeinmodel.Doos;
 import domeinmodel.Product;
 
 public class RobotControl implements Observer {
 	private BPProbot bppRobot;
 	private List<Product> producten;
-	private List<Doos> dozen;
+	private Model model;
 
 	public RobotControl(Model model) {
+		this.model = model;
 		model.addObserver(this);
 	}
 
@@ -24,15 +24,14 @@ public class RobotControl implements Observer {
 			bppRobot.bepaalPlaats(product);
 			// Update bpppanel;
 		}
-		
+		model.setRobotGestart(false);
 	}
 
 	@Override
 	public void update(Observable model, Object string) {
-		if (string.equals("robotStarten")) {
-			if (((Model) model).getRobotStarten()) {
+		if (string.equals("robotGestart")) {
+			if (((Model) model).isRobotGestart()) {
 				producten = ((Model) model).getRoute();
-				dozen = ((Model) model).getDozen();
 				bppRobot = new BPProbot((Model) model);
 				routeUitvoeren();
 			}
