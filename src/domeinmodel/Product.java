@@ -84,7 +84,7 @@ public class Product implements Comparator<Product> {
 	@Override
 	public boolean equals(Object obj) {
 		Product product = (Product) obj;
-		return product.artikelnummer == artikelnummer;
+		return (product.artikelnummer == artikelnummer);
 	}
 
 }

@@ -19,11 +19,12 @@ public class RobotControl implements Observer {
 
 	public void routeUitvoeren() {
 		for (Product product : producten) {
-			System.out.println(product.getX() + ", " + product.getY());
 			// Ga naar x en y;
-			// Update robotpanel;
+			// Update tsppanel;
 			bppRobot.bepaalPlaats(product);
+			// Update bpppanel;
 		}
+		
 	}
 
 	@Override

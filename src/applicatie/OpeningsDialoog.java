@@ -63,9 +63,11 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 				File file = fc.getSelectedFile();
 				XML parser = new XML();
 				bestelling = parser.getData(file);
-				model.setBestelling(bestelling);
+				
 				NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling.getProducten());
-				model.setRoute(nearestNeighbour.algoritme());
+				bestelling.setProducten(nearestNeighbour.algoritme());
+				model.setBestelling(bestelling);
+				model.setRoute(bestelling.getProducten());
 				model.setDozen(new Bibliotheek().getAlgoritme(0)
 						.bepaalDozen(Util.wisselArray(bestelling.getProducten()), 5));
 				model.setXMLgeladen(true);

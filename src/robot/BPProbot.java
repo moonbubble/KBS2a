@@ -11,37 +11,40 @@ public class BPProbot {
 	private Bestelling bestelling;
 	private List<Doos> dozen;
 	private List<Product> route;
-	private int inhoudDoos0;
-	private int inhoudDoos1;
+	private int inhoudDoos0 = 0;
+	private int inhoudDoos1 = 0;
 
 	public BPProbot(Model model) {
 		this.bestelling = model.getBestelling();
 		this.route = model.getRoute();
 		this.dozen = model.getDozen();
 	}
-	
-	public void bepaalPlaats (Product productTSP) {
+
+	public void bepaalPlaats(Product productTSP) {
 		for (int i = 0; i < dozen.size(); i++) {
-			for (Product product : dozen.get(i).getProducten()) {
+			Doos doos = dozen.get(i);
+			for (Product product : doos.getProducten()) {
 				if (productTSP.equals(product)) {
 					if (i % 2 == 0) {
 						plaatsProduct(0);
 						inhoudDoos0 += product.getGrootte();
-						if (inhoudDoos0 == dozen.get(i).getInhoud()) {
+						if (inhoudDoos0 == doos.getInhoud()) {
 							knipperLampje(0);
+							inhoudDoos0 = 0;
 						}
 					} else if (i % 2 == 1) {
 						plaatsProduct(1);
 						inhoudDoos1 += product.getGrootte();
-						if (inhoudDoos1 == dozen.get(i).getInhoud()) {
+						if (inhoudDoos1 == doos.getInhoud()) {
 							knipperLampje(1);
+							inhoudDoos1 = 0;
 						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	private void knipperLampje(int doosVol) {
 		if (doosVol == 0) {
 			// Arduinocommando voor knipper lampje links;
@@ -49,7 +52,7 @@ public class BPProbot {
 		} else if (doosVol == 1) {
 			// Arduinocommando voor knipper lampje rechts;
 			System.out.println("Knipper lampje: Rechts");
-		}		
+		}
 	}
 
 	public void plaatsProduct(int richting) {
