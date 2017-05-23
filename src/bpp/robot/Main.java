@@ -15,7 +15,11 @@ public class Main {
 	private static Product banaan = new Product(3, 3, 1, 5, "banaan");
 	private static Product lamp = new Product(4, 4, 1, 4, "lamp");
 	private static Product bank = new Product(5, 5, 1, 2, "bank");
-
+	private static Product bureau = new Product(6, 1, 1, 5, "bureau");
+	private static Product teddybeer = new Product(7, 2, 1, 4, "ted");
+	private static Product laptop = new Product(8, 3, 1, 5, "laptop");
+	private static Product pop = new Product(9, 4, 1, 4, "pop");
+	private static Product pen = new Product(10, 5, 1, 1, "pen");
 	public static void main(String[] args) {
 
 		Bestelling bestelling = new Bestelling();
@@ -24,6 +28,11 @@ public class Main {
 		bestelling.voegProductToe(banaan);
 		bestelling.voegProductToe(lamp);
 		bestelling.voegProductToe(bank);
+		bestelling.voegProductToe(bureau);
+		bestelling.voegProductToe(teddybeer);
+		bestelling.voegProductToe(laptop);
+		bestelling.voegProductToe(pop);
+		bestelling.voegProductToe(pen);
 		bestelling.getProducten();
 		bestelling.getKlant();
 		
@@ -54,20 +63,42 @@ public class Main {
 		}
 		
 		System.out.print("VOLGORDE PRODUCTEN: ");
-		System.out.println(lijstVanProducten);
+		List<Product> volgorde = lijstVanProducten;
+		System.out.println(volgorde);
+		
 		Algoritme algoritme = new Bibliotheek().getAlgoritme(1);
 		List<Doos> dozen = algoritme.bepaalDozen(lijstVanProducten,10);
+		int productx = 0;
+		int linksx = 0;
+		int rechtsx = 0;
 		
+		System.out.print("VOLGORDE PRODUCTEN: ");
+		System.out.println(lijstVanProducten);
 		System.out.println("Er zijn " + dozen.size() + " dozen:");
 		
-		for(int i = 0; i < dozen.size(); i++){
-		System.out.println("In doos " + (i+1) + " zitten de volgende producten:");
-		
-//		for(Product p : dozen.getProducten()){
-//			System.out.println("artikelnr " + p);
-//		}
-		
+		for(Doos doos : dozen){	
+			System.out.println(doos.getProducten());
+			List<Product> productlijst = doos.getProducten();
+	
+		for(Product product : productlijst ){
+			if(volgorde.get(productx) == product){
+				System.out.println(volgorde.get(productx) + " links");
+				linksx++;
+				
+				if(linksx == productlijst.size()){
+					System.out.println("VERVANG LINKS");
+					linksx = 0;
+				}
+			}else{		
+				System.out.println(volgorde.get(productx) + " rechts");
+				rechtsx++;
+				if(rechtsx == productlijst.size()){
+					System.out.println("VERVANG RECHTS");
+					rechtsx = 0;		
+				}		
+			}
+			productx++;	
+			}
 		}
 	}
-
 }
