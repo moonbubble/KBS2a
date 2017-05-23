@@ -16,6 +16,7 @@ import bpp.simulatie.algoritmes.Algoritme;
 import bpp.simulatie.algoritmes.Bibliotheek;
 import domeinmodel.Bestelling;
 import domeinmodel.Product;
+import domeinmodel.Util;
 import tsp.scherm.NearestNeighbour;
 
 public class OpeningsDialoog extends JDialog implements ActionListener {
@@ -66,7 +67,8 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 				NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling.getProducten());
 				model.setRoute(nearestNeighbour.algoritme());
 				model.setDozen(new Bibliotheek().getAlgoritme(0)
-						.bepaalDozen(Algoritme.wisselArray(bestelling.getProducten()), 5));
+						.bepaalDozen(Util.wisselArray(bestelling.getProducten()), 5));
+//				System.out.println(bestelling.getProducten().get(2));
 				model.setXMLgeladen(true);
 				setVisible(false);
 			}

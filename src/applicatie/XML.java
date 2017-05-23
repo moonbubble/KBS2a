@@ -27,7 +27,7 @@ public class XML {
 	}
 
 	public Bestelling getData(File file) {
-		
+
 		try {
 			dbf = DocumentBuilderFactory.newInstance();
 
@@ -36,7 +36,7 @@ public class XML {
 
 			NodeList nList = document.getElementsByTagName("bestelling");
 			NodeList aList = document.getElementsByTagName("artikelnr");
-			
+
 			for (int i = 0; i < nList.getLength(); i++) {
 				Node nNode = nList.item(i);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -52,7 +52,8 @@ public class XML {
 							(eElement.getElementsByTagName("datum").item(0).getTextContent()), k);
 					for (int a = 0; a < aList.getLength(); a++) {
 						this.orderList.add(new Product(
-								Integer.parseInt(Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][0]),
+								Integer.parseInt(
+										Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][0]),
 								Integer.parseInt(
 										Main.database[(Integer.parseInt(aList.item(a).getTextContent()) - 1)][1]),
 								Integer.parseInt(

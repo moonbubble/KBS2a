@@ -59,11 +59,6 @@ public class Product implements Comparator<Product> {
 		return visited;
 	}
 
-	@Override
-	public String toString() {
-		return "" + this.artikelnummer;
-	}
-
 	public int meetAfstand(Product product) {
 		int deltaLongitude = 0;
 		int deltaLatitude = 0;
