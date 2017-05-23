@@ -1,8 +1,11 @@
 package applicatie;
 
+import java.util.List;
 import java.util.Observable;
 
 import domeinmodel.Bestelling;
+import domeinmodel.Doos;
+import domeinmodel.Product;
 
 public class Model extends Observable {
 
@@ -15,6 +18,9 @@ public class Model extends Observable {
 	private boolean XMLgeladen;
 	private boolean isGeannuleerd;
 	private Bestelling bestelling;
+	private List<Product> route;
+	private boolean robotStarten;
+	private List<Doos> dozen;
 
 	public Model() {
 
@@ -106,6 +112,33 @@ public class Model extends Observable {
 	public void setPercentage(double percentage) {
 		this.percentage = percentage;
 		this.percentage =  Math.round(percentage * 100) / 100;
+	}
+
+	public List<Product> getRoute() {
+		return route;
+	}
+	
+	public void setRoute(List<Product> route) {
+		this.route = route;
+	}
+
+	public void setRobotStarten(boolean robotStarten) {
+		this.robotStarten = robotStarten;
+		setChanged();
+		notifyObservers("robotStarten");
+		clearChanged();
+	}
+
+	public boolean getRobotStarten() {
+		return robotStarten;
+	}
+
+	public List<Doos> getDozen() {
+		return dozen;
+	}
+
+	public void setDozen(List<Doos> dozen) {
+		this.dozen = dozen;
 	}
 
 }

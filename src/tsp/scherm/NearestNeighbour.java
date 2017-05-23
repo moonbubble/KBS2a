@@ -1,4 +1,5 @@
 package tsp.scherm;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,7 @@ public class NearestNeighbour implements Functies {
 	}
 
 	public void printOrder() {
-		for (Product p : orderList)
-		{
+		for (Product p : orderList) {
 			System.out.println(p.getLocatie());
 		}
 	}
@@ -37,16 +37,16 @@ public class NearestNeighbour implements Functies {
 		stappen = bp.meetAfstand(vp);
 		return stappen;
 	}
-	
+
 	public List<Product> algoritme() {
-		printOrder();
 		goeie = orderList.get(0);
 		while (orderList.size() > 0) {
 			voegProductToeAanRoute(goeie);
 			orderList.remove(goeie);
 			Product kruisje = goeie;
-//			System.out.println(
-//					"(" + kruisje.getLocatie() + ") toegevoegd aan route en verwijderd uit order");
+			// System.out.println(
+			// "(" + kruisje.getLocatie() + ") toegevoegd aan route en
+			// verwijderd uit order");
 			temp = 1000;
 			for (int i = 0; i < orderList.size(); i++) {
 				Product rondje = orderList.get(i);

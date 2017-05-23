@@ -12,8 +12,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import bpp.simulatie.algoritmes.Algoritme;
+import bpp.simulatie.algoritmes.Bibliotheek;
 import domeinmodel.Bestelling;
 import domeinmodel.Product;
+import tsp.scherm.NearestNeighbour;
 
 public class OpeningsDialoog extends JDialog implements ActionListener {
 	private Model model;
@@ -42,7 +45,7 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		JBrandom = new JButton("Random order");
 		JBrandom.addActionListener(this);
 		add(JBrandom);
-		
+
 		JBannuleren = new JButton("Annuleren");
 		JBannuleren.addActionListener(this);
 		add(JBannuleren);
@@ -60,12 +63,16 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 				XML parser = new XML();
 				bestelling = parser.getData(file);
 				model.setBestelling(bestelling);
+				NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling.getProducten());
+				model.setRoute(nearestNeighbour.algoritme());
+				model.setDozen(new Bibliotheek().getAlgoritme(0)
+						.bepaalDozen(Algoritme.wisselArray(bestelling.getProducten()), 5));
 				model.setXMLgeladen(true);
 				setVisible(false);
 			}
 		} else if (e.getSource() == JBannuleren) {
 			model.setGeannuleerd(true);
-		} else if(e.getSource() == JBrandom) {
+		} else if (e.getSource() == JBrandom) {
 			model.setBestelling(makeRandomBestelling(Integer.parseInt(JTFrandom.getText())));
 			model.setXMLgeladen(true);
 			setVisible(false);
