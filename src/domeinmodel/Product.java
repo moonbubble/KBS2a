@@ -80,5 +80,11 @@ public class Product implements Comparator<Product> {
 	public int compare(Product productA, Product productB) {
 		return productB.grootte - productA.grootte;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Product product = (Product) obj;
+		return product.artikelnummer == artikelnummer;
+	}
 
 }

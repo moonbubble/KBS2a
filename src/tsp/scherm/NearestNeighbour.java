@@ -13,7 +13,7 @@ public class NearestNeighbour implements Functies {
 	private int temp;
 
 	public NearestNeighbour(List<Product> list) {
-		this.orderList = list;
+		this.orderList = new ArrayList<Product>(list);
 		route = new ArrayList<Product>();
 	}
 

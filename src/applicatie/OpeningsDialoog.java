@@ -68,7 +68,6 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 				model.setRoute(nearestNeighbour.algoritme());
 				model.setDozen(new Bibliotheek().getAlgoritme(0)
 						.bepaalDozen(Util.wisselArray(bestelling.getProducten()), 5));
-//				System.out.println(bestelling.getProducten().get(2));
 				model.setXMLgeladen(true);
 				setVisible(false);
 			}
