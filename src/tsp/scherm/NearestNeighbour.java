@@ -40,7 +40,6 @@ public class NearestNeighbour implements Functies {
 	}
 	
 	public ArrayList<Product> algoritme() {
-		printOrder();
 		goeie = orderList.get(0);
 		while (orderList.size() > 0) {
 			voegProductToeAanRoute(goeie);

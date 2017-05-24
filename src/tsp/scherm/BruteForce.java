@@ -25,14 +25,13 @@ public class BruteForce {
 		for (int i = 0; i < getTotaal(); i++) {
 			createOrder();
 		}
-		System.out.println("snelste route = " + snelsteRoute);
 		return snelsteRoute;
 	}
 	
-	public int getAfstand(List<Product> snelsteRoute2) {
+	public int getAfstand(List<Product> o) {
 		afstand = 0;
 		for (int i = 0; i < aantalProducten - 1; i++) {
-			afstand += snelsteRoute2.get(i).meetAfstand(snelsteRoute2.get(i + 1));
+			afstand += o.get(i).meetAfstand(o.get(i + 1));
 		}
 		return afstand;
 	}
