@@ -192,13 +192,13 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 			order.resetProducten();
 			Collections.sort(order.getProducten(), new MyComparator());
 			if (getSelectedRadioButton(radioButtons) == "Random path") {
-				RandomPath algoritme = new RandomPath(order.getProducten());
+				RandomPath algoritme = new RandomPath(order);
 				order.setProducten(algoritme.algoritme());
 			} else if (getSelectedRadioButton(radioButtons) == "Nearest neighbour") {
-				NearestNeighbour algoritme = new NearestNeighbour(order.getProducten());
+				NearestNeighbour algoritme = new NearestNeighbour(order);
 				order.setProducten(algoritme.algoritme());
 			} else if (getSelectedRadioButton(radioButtons) == "Brute force") {
-				BruteForce algoritme = new BruteForce(order.getProducten());
+				BruteForce algoritme = new BruteForce(order);
 				order.setProducten(algoritme.algoritme());
 			} else if (getSelectedRadioButton(radioButtons) == "Simulated annealing") {
 

@@ -8,8 +8,5 @@ public class Main {
 		parser.getDatabase(database);
 		
 		new Scherm();
-
-		
 	}
-
 }

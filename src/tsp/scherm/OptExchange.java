@@ -1,6 +1,5 @@
 package tsp.scherm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import domeinmodel.Bestelling;

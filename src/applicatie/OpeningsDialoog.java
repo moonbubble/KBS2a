@@ -63,7 +63,7 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 				XML parser = new XML();
 				bestelling = parser.getData(file);
 				
-				NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling.getProducten());
+				NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling);
 				bestelling.setProducten(nearestNeighbour.algoritme());
 				model.setBestelling(bestelling);
 				model.setRoute(bestelling.getProducten());

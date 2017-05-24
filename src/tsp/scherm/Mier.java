@@ -2,7 +2,6 @@ package tsp.scherm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,7 +13,6 @@ public class Mier implements Callable<Mier> {
 	public static final double ALPHA = 0.01; // parameter die gebruikt wordt om te controleren hoe belangrijk het feromoon spoor is (waarde >= 0
 	public static final double BETA = 9.5; // parameter die gebruikt wordt om te contoleren hoe belangrijk de afstand is tussen een beginpunt en eindpunt (waarde >= 1)
 	private ACODriver aco;
-	private int mierNumb;
 	private Route route = null;
 	static int ongeldigeProductIndex = -1;
 	static int aantalProducten = AntColonyOptimization.initialRoute.size();
@@ -23,15 +21,15 @@ public class Mier implements Callable<Mier> {
 		return route;
 	}
 	
-	public Mier(ACODriver aco, int mierNumb) {
+	public Mier(ACODriver aco) {
 		this.aco = aco;
-		this.mierNumb = mierNumb;
 	}
 
 	@Override
 	public Mier call() throws Exception {
+		System.out.println(aantalProducten);
 		int eersteProductIndex = ThreadLocalRandom.current().nextInt(aantalProducten);
-		List<Product> routeProducten = new ArrayList<Product>(aantalProducten);
+		ArrayList<Product> routeProducten = new ArrayList<Product>(aantalProducten);
 		HashMap<Product, Boolean> bezochteProducten = new HashMap<Product, Boolean>(aantalProducten);
 		for (int i = 0; i < aantalProducten; i++) {
 			bezochteProducten.put(AntColonyOptimization.initialRoute.get(i), false);
@@ -121,8 +119,8 @@ public class Mier implements Callable<Mier> {
 		return numerator;
 	}
 
-	public int getMierNumb() {
-		return mierNumb;
-	}
+//	public int getMierNumb() {
+//		return mierNumb;
+//	}
 
 }

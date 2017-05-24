@@ -14,7 +14,7 @@ public class NewBruteForce {
 	private int aantalProducten;
 	private int afstand;
 	private List<Product> snelsteRoute;
-	private List<List<Product>> visitedRoutes = new ArrayList<List<Product>>();
+	private ArrayList<ArrayList<Product>> visitedRoutes = new ArrayList<ArrayList<Product>>();
 	
 	public NewBruteForce(Bestelling order) {
 		this.order = order;
