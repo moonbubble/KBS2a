@@ -106,20 +106,20 @@ public class Model extends Observable {
 		notifyObservers("isGeannuleerd");
 		clearChanged();
 	}
-	
+
 	public double getPercentage() {
 		return percentage;
 	}
-	
+
 	public void setPercentage(double percentage) {
 		this.percentage = percentage;
-		this.percentage =  Math.round(percentage * 100) / 100;
+		this.percentage = Math.round(percentage * 100) / 100;
 	}
 
 	public List<Product> getRoute() {
 		return route;
 	}
-	
+
 	public void setRoute(List<Product> route) {
 		this.route = route;
 	}
@@ -131,7 +131,7 @@ public class Model extends Observable {
 	public void setDozen(List<Doos> dozen) {
 		this.dozen = dozen;
 	}
-	
+
 	public void setIndexen(int doosIndex, int productIndex) {
 		this.doosIndex = doosIndex;
 		this.productIndex = productIndex;
@@ -139,11 +139,11 @@ public class Model extends Observable {
 		notifyObservers("indexenGewijzigd");
 		clearChanged();
 	}
-	
+
 	public int getProductIndex() {
 		return productIndex;
 	}
-	
+
 	public int getDoosIndex() {
 		return doosIndex;
 	}

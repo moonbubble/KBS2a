@@ -24,7 +24,6 @@ public class RobotControl implements Observer {
 			bppRobot.bepaalPlaats(product);
 			// Update bpppanel;
 		}
-		model.setRobotGestart(false);
 	}
 
 	@Override

@@ -217,18 +217,18 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 	}
 
 	@Override
-	public void update(Observable model, Object string) {
-		if (string.equals("XMLgeladen")) {
+	public void update(Observable gewijzigdModel, Object gewijzigdVeld) {
+		if (gewijzigdVeld.equals("XMLgeladen")) {
 			bestelling = this.model.getBestelling();
 			producten = new ArrayList<>(bestelling.getProducten());
 			hoogteJPbestelling = (producten.size() + 1) * 30;
 
 			JPproductToevoegen.setSize(new Dimension(400, 70));
 			toonBestelling();
-		} if (string.equals("robotGestart")) {
-			if (((Model) model).isRobotGestart()) {
+		} else if (gewijzigdVeld.equals("robotGestart")) {
+			if (((Model)gewijzigdModel).isRobotGestart()) {
 				verbergPanel();
-			} else if (!((Model) model).isRobotGestart()) {
+			} else  {
 				toonPanel();
 			}
 		}
