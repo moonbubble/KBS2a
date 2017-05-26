@@ -6,7 +6,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import bpp.simulatie.*;
+import bpp.simulatie.BPPpanel;
 import robot.RobotControl;
 import robot.Robotpanel;
 import tsp.scherm.TSPpanel;
@@ -18,9 +18,11 @@ public class Scherm extends JFrame implements Observer {
 	public Scherm() {
 		model = new Model();
 		model.addObserver(this);
+				
 		setTitle("KBS2a");
 		setSize(1610, 940);
 		setLayout(null);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
 		

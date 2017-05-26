@@ -1,6 +1,5 @@
 package applicatie;
 
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -12,9 +11,9 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
 
 import bpp.simulatie.algoritmes.Bibliotheek;
 import domeinmodel.Bestelling;
@@ -84,10 +83,12 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 
 		layout.putConstraint(SpringLayout.WEST, JBupload, 20, SpringLayout.EAST, JBrandom);
 		layout.putConstraint(SpringLayout.NORTH, JBupload, 65, SpringLayout.NORTH, contentPane);
-		
+
 		layout.putConstraint(SpringLayout.WEST, JBannuleren, 330, SpringLayout.WEST, contentPane);
 		layout.putConstraint(SpringLayout.NORTH, JBannuleren, 95, SpringLayout.NORTH, contentPane);
-
+		
+		
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
@@ -113,10 +114,15 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		} else if (e.getSource() == JBannuleren) {
 			model.setGeannuleerd(true);
 		} else if (e.getSource() == JBrandom) {
-			int aantalSimulatiesRandom = Integer.parseInt(JTFaantalRandom.getText());
-			int aantalProductenRandom = Integer.parseInt(JTFaantalProductenRandom.getText());
-			new BesteAlgoritmesDialoog(aantalSimulatiesRandom, aantalProductenRandom, model, scherm);
-			setVisible(false);
+			try {
+				int aantalSimulatiesRandom = Integer.parseInt(JTFaantalRandom.getText());
+				int aantalProductenRandom = Integer.parseInt(JTFaantalProductenRandom.getText());
+				new BesteAlgoritmesDialoog(aantalSimulatiesRandom, aantalProductenRandom, model, scherm);
+				setVisible(false);
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "Het aantal simulaties en/of het aantal producten is niet correct ingevuld.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
