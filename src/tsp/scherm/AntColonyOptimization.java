@@ -1,23 +1,25 @@
 package tsp.scherm;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import domeinmodel.Bestelling;
 import domeinmodel.Product;
 
-public class AntColonyOptimization {
+public class AntColonyOptimization implements AlgoritmeTSP{
 	static final int AANTAL_MIEREN = 500;
 	static final double PROCESSING_CYCLE_PROBABILITY = 0.8;
 	static ExecutorService eS; // = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 	static ExecutorCompletionService<Mier> eCS;// = new ExecutorCompletionService<Mier>(eS);
 	private Route shortestRoute = null;
 	private int actieveMieren = 0;
-	static ArrayList<Product> initialRoute;
+	static List<Product> initialRoute;
 
-	public AntColonyOptimization(ArrayList<Product> order) {
-		AntColonyOptimization.initialRoute = order;
+	public AntColonyOptimization(Bestelling bestelling) {
+		AntColonyOptimization.initialRoute = bestelling.getProducten();
 		eS = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		eCS = new ExecutorCompletionService<Mier>(eS);
 	}
@@ -55,6 +57,11 @@ public class AntColonyOptimization {
 			}
 			actieveMieren--;
 		}
+	}
+
+	@Override
+	public String getNaam() {
+		return "Ant Colony Optimization";
 	}
 }
 

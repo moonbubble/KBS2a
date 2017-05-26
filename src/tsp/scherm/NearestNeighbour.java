@@ -5,7 +5,7 @@ import java.util.List;
 import domeinmodel.Bestelling;
 import domeinmodel.Product;
 
-public class NearestNeighbour implements Functies {
+public class NearestNeighbour implements Functies, AlgoritmeTSP {
 	private List<Product> orderList;
 	private ArrayList<Product> route;
 	private int stappen;
@@ -60,5 +60,8 @@ public class NearestNeighbour implements Functies {
 		return route;
 	}
 
-	
+	@Override
+	public String getNaam() {
+		return "Nearest Neighbour";
+	}
 }

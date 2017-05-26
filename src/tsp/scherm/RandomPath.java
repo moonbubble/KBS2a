@@ -6,7 +6,7 @@ import java.util.List;
 import domeinmodel.Bestelling;
 import domeinmodel.Product;
 
-public class RandomPath {
+public class RandomPath implements AlgoritmeTSP{
 	private List<Product> orderList;
 
 	public RandomPath(Bestelling bestelling) {
@@ -32,4 +32,8 @@ public class RandomPath {
 		return orderList;
 	}
 
+	@Override
+	public String getNaam() {
+		return "Random Path";
+	}
 }

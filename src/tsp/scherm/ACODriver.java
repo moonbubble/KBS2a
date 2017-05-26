@@ -1,6 +1,6 @@
 package tsp.scherm;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import domeinmodel.Product;
@@ -8,7 +8,7 @@ import domeinmodel.Product;
 public class ACODriver {
 	private AtomicDouble[][] feromoonLevelsMatrix = null;
 	private double[][] afstandsMatrix = null;
-	private ArrayList<Product> order = AntColonyOptimization.initialRoute;
+	private List<Product> order = AntColonyOptimization.initialRoute;
 	private int orderGrootte = AntColonyOptimization.initialRoute.size();
 	
 	public ACODriver(){

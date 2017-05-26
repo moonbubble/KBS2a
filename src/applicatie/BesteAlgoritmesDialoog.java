@@ -15,37 +15,50 @@ import domeinmodel.Bestelling;
 import domeinmodel.Doos;
 import domeinmodel.Product;
 import domeinmodel.Util;
+import tsp.scherm.AlgoritmeTSP;
+import tsp.scherm.BibliotheekTSP;
 import tsp.scherm.NearestNeighbour;
 
 public class BesteAlgoritmesDialoog extends JDialog {
 	private Bestelling randomBestelling;
-	private Integer algoritmes[] = new Integer[4];
+	private Integer algoritmesBPP[] = new Integer[new Bibliotheek().getAlgoritmeNamen().size()];
+	private Integer algoritmesTSP[] = new Integer[4];
+	private Algoritme meestEfficienteBPP;
+	private AlgoritmeTSP meestEfficienteTSP;
 
 	public BesteAlgoritmesDialoog(int aantalSimulatiesRandom, int aantalProductenRandom, Model model, JFrame scherm) {
 		super(scherm, false);
-		
+
 		setTitle("Beste algoritmes");
 		setSize(new Dimension(700, 500));
 		setLayout(new FlowLayout());
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
+
+		algoritmesBPP[0] = 0;
+		algoritmesBPP[1] = 0;
+		algoritmesBPP[2] = 0;
+		algoritmesBPP[3] = 0;
 		
-		algoritmes[0] = 0;
-		algoritmes[1] = 0;
-		algoritmes[2] = 0;
-		algoritmes[3] = 0;
-		Algoritme meesteEfficiente = bepaalMeestEfficienteAlgoritme(aantalSimulatiesRandom, aantalProductenRandom);
+		algoritmesTSP[0] = 0;
+		algoritmesTSP[1] = 0;
+		algoritmesTSP[2] = 0;
+		algoritmesTSP[3] = 0;
+
+		bepaalMeestEfficienteAlgoritmes(aantalSimulatiesRandom, aantalProductenRandom);
 		if (aantalSimulatiesRandom == 1) {
 			NearestNeighbour nearestNeighbour = new NearestNeighbour(randomBestelling);
 			randomBestelling.setProducten(nearestNeighbour.algoritme());
 
 			model.setRoute(randomBestelling.getProducten());
-			model.setDozen(
-					new Bibliotheek().getAlgoritme(0).bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5));
+			model.setDozen(new Bibliotheek().getAlgoritme(0)
+					.bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5));
 			model.setBestelling(randomBestelling);
 			model.setXMLgeladen(true);
 		}
-		add(new JLabel("Beste inpakalgoritme: " + meesteEfficiente.getNaam()));
-		
+		add(new JLabel("Beste inpakalgoritme: " + meestEfficienteBPP.getNaam()));
+		add(new JLabel(
+				"Beste ophaalalgoritme: " + meestEfficienteTSP.getNaam()));
+
 		setVisible(true);
 	}
 
@@ -76,34 +89,60 @@ public class BesteAlgoritmesDialoog extends JDialog {
 		return bestelling;
 	}
 
-	private Algoritme bepaalMeestEfficienteAlgoritme(int aantalSimulatiesRandom, int aantalProductenRandom) {
+	private void bepaalMeestEfficienteAlgoritmes(int aantalSimulatiesRandom, int aantalProductenRandom) {
 		for (int i = 1; i <= aantalSimulatiesRandom; i++) {
 			randomBestelling = makeRandomBestelling(aantalProductenRandom);
 			List<Doos> dozen;
-			int besteAlgoritme = 0;
+
+			int besteAlgoritmeTSP = 0;
 			int besteAlgoritmeDozen = 0;
+			
+			int besteAlgoritmeBPP = 0;
+			int kortsteAfstand = 0;
+			int afstand;
 
 			for (int j = 0; j < new Bibliotheek().getAlgoritmeNamen().size(); j++) {
-				Algoritme algoritme = new Bibliotheek().getAlgoritme(j);
-				dozen = algoritme.bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5);
+				randomBestelling.setProducten(new BibliotheekTSP(randomBestelling).getAlgoritme(j).algoritme());
+				Algoritme algoritmeBPP = new Bibliotheek().getAlgoritme(j);
+				dozen = algoritmeBPP.bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5);
+				
+				AlgoritmeTSP algoritmeTSP = new BibliotheekTSP(randomBestelling).getAlgoritme(j);
+				afstand = AlgoritmeTSP.getAfstand(randomBestelling.getProducten());
 				if (j == 0) {
-					besteAlgoritme = j;
+					besteAlgoritmeBPP = j;
 					besteAlgoritmeDozen = dozen.size();
+					besteAlgoritmeTSP = j;
+					kortsteAfstand = afstand;
 				}
 				if (dozen.size() < besteAlgoritmeDozen) {
-					besteAlgoritme = j;
+					besteAlgoritmeBPP = j;
 					besteAlgoritmeDozen = dozen.size();
 				}
+				if (afstand > kortsteAfstand) {
+					besteAlgoritmeTSP = j;
+					kortsteAfstand = afstand;
+				}
 			}
-			algoritmes[besteAlgoritme]++;
+			algoritmesBPP[besteAlgoritmeBPP]++;
+			algoritmesTSP[besteAlgoritmeTSP]++;
 		}
 
-		int besteAlgoritme = 0;
-		for (Integer algoritme : algoritmes) {
-			if (algoritme > besteAlgoritme) {
-				besteAlgoritme = algoritme;
+		int besteAlgoritmeBPP = 0;
+		int besteAlgoritmeTSP = 0;
+		
+		for (Integer algoritme : algoritmesBPP) {
+			if (algoritme > besteAlgoritmeBPP) {
+				besteAlgoritmeBPP = algoritme;
 			}
 		}
-		return new Bibliotheek().getAlgoritme(Arrays.asList(algoritmes).indexOf(besteAlgoritme));
+		
+		for (Integer algoritme : algoritmesTSP) {
+			if (algoritme > besteAlgoritmeTSP) {
+				besteAlgoritmeTSP = algoritme;
+			}
+		}
+
+		meestEfficienteBPP = new Bibliotheek().getAlgoritme(Arrays.asList(algoritmesBPP).indexOf(besteAlgoritmeBPP));
+		meestEfficienteTSP = new BibliotheekTSP(randomBestelling).getAlgoritme(Arrays.asList(algoritmesTSP).indexOf(besteAlgoritmeTSP ));
 	}
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import domeinmodel.Bestelling;
 import domeinmodel.Product;
 
-public class BruteForce {
+public class BruteForce implements AlgoritmeTSP{
 	
 	private List<Product> orderList;
 	private int totaal;
@@ -66,5 +66,10 @@ public class BruteForce {
 			totaal *= i;
 		}
 		return totaal;
+	}
+
+	@Override
+	public String getNaam() {
+		return "Brute Force";
 	}
 }
