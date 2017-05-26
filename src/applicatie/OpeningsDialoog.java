@@ -1,8 +1,8 @@
 package applicatie;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,6 +13,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 
 import bpp.simulatie.algoritmes.Bibliotheek;
 import domeinmodel.Bestelling;
@@ -29,15 +31,16 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 	final JFileChooser fc = new JFileChooser();
 	private Bestelling bestelling;
 	private JFrame scherm;
-	
 
 	public OpeningsDialoog(JFrame scherm, Model model) {
 		super(scherm, true);
 		this.scherm = scherm;
 		this.model = model;
 		setTitle("XML uploaden");
-		setSize(new Dimension(700, 500));
-		setLayout(new FlowLayout());
+		setSize(new Dimension(445, 175));
+
+		SpringLayout layout = new SpringLayout();
+		setLayout(layout);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		JBupload = new JButton("Upload XML");
@@ -45,11 +48,13 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		add(JBupload);
 
 		JTFaantalRandom = new JTextField(20);
-		add(new JLabel("Aantal randomsimulaties: "));
+		JLabel JLaantalRandomSimulaties = new JLabel("Aantal randomsimulaties: ");
+		add(JLaantalRandomSimulaties);
 		add(JTFaantalRandom);
 
 		JTFaantalProductenRandom = new JTextField(20);
-		add(new JLabel("Aantal producten per bestelling: "));
+		JLabel JLaantalProducten = new JLabel("Aantal producten per bestelling: ");
+		add(JLaantalProducten);
 		add(JTFaantalProductenRandom);
 
 		JBrandom = new JButton("Random order");
@@ -59,6 +64,29 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		JBannuleren = new JButton("Annuleren");
 		JBannuleren.addActionListener(this);
 		add(JBannuleren);
+
+		Container contentPane = this.getContentPane();
+
+		layout.putConstraint(SpringLayout.WEST, JLaantalRandomSimulaties, 5, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JLaantalRandomSimulaties, 5, SpringLayout.NORTH, contentPane);
+
+		layout.putConstraint(SpringLayout.WEST, JTFaantalRandom, 200, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JTFaantalRandom, 5, SpringLayout.NORTH, contentPane);
+
+		layout.putConstraint(SpringLayout.WEST, JLaantalProducten, 5, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JLaantalProducten, 35, SpringLayout.NORTH, contentPane);
+
+		layout.putConstraint(SpringLayout.WEST, JTFaantalProductenRandom, 200, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JTFaantalProductenRandom, 35, SpringLayout.NORTH, contentPane);
+
+		layout.putConstraint(SpringLayout.WEST, JBrandom, 5, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JBrandom, 65, SpringLayout.NORTH, contentPane);
+
+		layout.putConstraint(SpringLayout.WEST, JBupload, 20, SpringLayout.EAST, JBrandom);
+		layout.putConstraint(SpringLayout.NORTH, JBupload, 65, SpringLayout.NORTH, contentPane);
+		
+		layout.putConstraint(SpringLayout.WEST, JBannuleren, 330, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JBannuleren, 95, SpringLayout.NORTH, contentPane);
 
 		setVisible(true);
 	}
@@ -87,10 +115,9 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		} else if (e.getSource() == JBrandom) {
 			int aantalSimulatiesRandom = Integer.parseInt(JTFaantalRandom.getText());
 			int aantalProductenRandom = Integer.parseInt(JTFaantalProductenRandom.getText());
-			new BesteAlgoritmesDialoog(aantalSimulatiesRandom, aantalProductenRandom, model, scherm); 
+			new BesteAlgoritmesDialoog(aantalSimulatiesRandom, aantalProductenRandom, model, scherm);
 			setVisible(false);
 		}
 	}
-
 
 }
