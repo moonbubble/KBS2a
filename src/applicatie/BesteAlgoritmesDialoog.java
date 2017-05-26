@@ -108,6 +108,7 @@ public class BesteAlgoritmesDialoog extends JDialog {
 				
 				AlgoritmeTSP algoritmeTSP = new BibliotheekTSP(randomBestelling).getAlgoritme(j);
 				afstand = AlgoritmeTSP.getAfstand(randomBestelling.getProducten());
+				System.out.println(afstand);
 				if (j == 0) {
 					besteAlgoritmeBPP = j;
 					besteAlgoritmeDozen = dozen.size();

@@ -2,15 +2,20 @@ package tsp.scherm;
 
 import java.util.List;
 
-import domeinmodel.Doos;
 import domeinmodel.Product;
 
 public interface AlgoritmeTSP {
 	List<Product> algoritme();
 
 	String getNaam();
-	
+
 	static int getAfstand(List<Product> producten) {
-		return 0;
+		int afstand = 0;
+		for (int i = 0; i < producten.size(); i++) {
+			Product product1 = producten.get(i);
+			Product product2 = producten.get(i + 1);
+			afstand += product1.meetAfstand(product2);
+		}
+		return afstand;
 	}
 }
