@@ -1,13 +1,14 @@
 package applicatie;
 
+import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SpringLayout;
 
 import bpp.simulatie.algoritmes.Algoritme;
 import bpp.simulatie.algoritmes.Bibliotheek;
@@ -30,15 +31,16 @@ public class BesteAlgoritmesDialoog extends JDialog {
 		super(scherm, false);
 
 		setTitle("Beste algoritmes");
-		setSize(new Dimension(700, 500));
-		setLayout(new FlowLayout());
+		setSize(new Dimension(400, 150));
+		SpringLayout layout = new SpringLayout();
+		setLayout(layout);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 
 		algoritmesBPP[0] = 0;
 		algoritmesBPP[1] = 0;
 		algoritmesBPP[2] = 0;
 		algoritmesBPP[3] = 0;
-		
+
 		algoritmesTSP[0] = 0;
 		algoritmesTSP[1] = 0;
 		algoritmesTSP[2] = 0;
@@ -55,10 +57,21 @@ public class BesteAlgoritmesDialoog extends JDialog {
 			model.setBestelling(randomBestelling);
 			model.setXMLgeladen(true);
 		}
-		add(new JLabel("Beste inpakalgoritme: " + meestEfficienteBPP.getNaam()));
-		add(new JLabel(
-				"Beste ophaalalgoritme: " + meestEfficienteTSP.getNaam()));
+		JLabel JLbesteInpakalgoritme = new JLabel("Beste inpakalgoritme: " + meestEfficienteBPP.getNaam());
+		JLabel JLbesteOphaalalgoritme = new JLabel("Beste ophaalalgoritme: " + meestEfficienteTSP.getNaam());
 
+		add(JLbesteInpakalgoritme);
+		add(JLbesteOphaalalgoritme);
+		
+		Container contentPane = this.getContentPane();
+
+		layout.putConstraint(SpringLayout.WEST, JLbesteInpakalgoritme, 5, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JLbesteInpakalgoritme, 5, SpringLayout.NORTH, contentPane);
+		
+		layout.putConstraint(SpringLayout.WEST, JLbesteOphaalalgoritme, 5, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JLbesteOphaalalgoritme, 35, SpringLayout.NORTH, contentPane);
+
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
@@ -96,7 +109,7 @@ public class BesteAlgoritmesDialoog extends JDialog {
 
 			int besteAlgoritmeTSP = 0;
 			int besteAlgoritmeDozen = 0;
-			
+
 			int besteAlgoritmeBPP = 0;
 			int kortsteAfstand = 0;
 			int afstand;
@@ -105,10 +118,9 @@ public class BesteAlgoritmesDialoog extends JDialog {
 				randomBestelling.setProducten(new BibliotheekTSP(randomBestelling).getAlgoritme(j).algoritme());
 				Algoritme algoritmeBPP = new Bibliotheek().getAlgoritme(j);
 				dozen = algoritmeBPP.bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5);
-				
+
 				AlgoritmeTSP algoritmeTSP = new BibliotheekTSP(randomBestelling).getAlgoritme(j);
 				afstand = AlgoritmeTSP.getAfstand(randomBestelling.getProducten());
-				System.out.println(afstand);
 				if (j == 0) {
 					besteAlgoritmeBPP = j;
 					besteAlgoritmeDozen = dozen.size();
@@ -130,13 +142,13 @@ public class BesteAlgoritmesDialoog extends JDialog {
 
 		int besteAlgoritmeBPP = 0;
 		int besteAlgoritmeTSP = 0;
-		
+
 		for (Integer algoritme : algoritmesBPP) {
 			if (algoritme > besteAlgoritmeBPP) {
 				besteAlgoritmeBPP = algoritme;
 			}
 		}
-		
+
 		for (Integer algoritme : algoritmesTSP) {
 			if (algoritme > besteAlgoritmeTSP) {
 				besteAlgoritmeTSP = algoritme;
@@ -144,6 +156,7 @@ public class BesteAlgoritmesDialoog extends JDialog {
 		}
 
 		meestEfficienteBPP = new Bibliotheek().getAlgoritme(Arrays.asList(algoritmesBPP).indexOf(besteAlgoritmeBPP));
-		meestEfficienteTSP = new BibliotheekTSP(randomBestelling).getAlgoritme(Arrays.asList(algoritmesTSP).indexOf(besteAlgoritmeTSP ));
+		meestEfficienteTSP = new BibliotheekTSP(randomBestelling)
+				.getAlgoritme(Arrays.asList(algoritmesTSP).indexOf(besteAlgoritmeTSP));
 	}
 }
