@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -30,13 +31,14 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 	final JFileChooser fc = new JFileChooser();
 	private Bestelling bestelling;
 	private JFrame scherm;
+	private JCheckBox checkbox;
 
 	public OpeningsDialoog(JFrame scherm, Model model) {
 		super(scherm, true);
 		this.scherm = scherm;
 		this.model = model;
 		setTitle("XML uploaden");
-		setSize(new Dimension(445, 175));
+		setSize(new Dimension(445, 205));
 
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
@@ -55,6 +57,11 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		JLabel JLaantalProducten = new JLabel("Aantal producten per bestelling: ");
 		add(JLaantalProducten);
 		add(JTFaantalProductenRandom);
+
+		JLabel JLbesteAlgoritmesZien = new JLabel("Laat beste algoritmes zien ");
+		checkbox = new JCheckBox();
+		add(checkbox);
+		add(JLbesteAlgoritmesZien);
 
 		JBrandom = new JButton("Random order");
 		JBrandom.addActionListener(this);
@@ -78,16 +85,21 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		layout.putConstraint(SpringLayout.WEST, JTFaantalProductenRandom, 200, SpringLayout.WEST, contentPane);
 		layout.putConstraint(SpringLayout.NORTH, JTFaantalProductenRandom, 35, SpringLayout.NORTH, contentPane);
 
+		layout.putConstraint(SpringLayout.WEST, checkbox, 5, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, checkbox, 65, SpringLayout.NORTH, contentPane);
+
+		layout.putConstraint(SpringLayout.WEST, JLbesteAlgoritmesZien, 25, SpringLayout.WEST, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JLbesteAlgoritmesZien, 65, SpringLayout.NORTH, contentPane);
+
 		layout.putConstraint(SpringLayout.WEST, JBrandom, 5, SpringLayout.WEST, contentPane);
-		layout.putConstraint(SpringLayout.NORTH, JBrandom, 65, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JBrandom, 95, SpringLayout.NORTH, contentPane);
 
 		layout.putConstraint(SpringLayout.WEST, JBupload, 20, SpringLayout.EAST, JBrandom);
-		layout.putConstraint(SpringLayout.NORTH, JBupload, 65, SpringLayout.NORTH, contentPane);
+		layout.putConstraint(SpringLayout.NORTH, JBupload, 95, SpringLayout.NORTH, contentPane);
 
 		layout.putConstraint(SpringLayout.WEST, JBannuleren, 330, SpringLayout.WEST, contentPane);
-		layout.putConstraint(SpringLayout.NORTH, JBannuleren, 95, SpringLayout.NORTH, contentPane);
-		
-		
+		layout.putConstraint(SpringLayout.NORTH, JBannuleren, 125, SpringLayout.NORTH, contentPane);
+
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -117,10 +129,24 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 			try {
 				int aantalSimulatiesRandom = Integer.parseInt(JTFaantalRandom.getText());
 				int aantalProductenRandom = Integer.parseInt(JTFaantalProductenRandom.getText());
-				new BesteAlgoritmesDialoog(aantalSimulatiesRandom, aantalProductenRandom, model, scherm);
+				if (checkbox.isSelected()) {
+					new BesteAlgoritmesDialoog(aantalSimulatiesRandom, aantalProductenRandom, model, scherm);
+				} else {
+					BesteAlgoritmesDialoog geenDialoog = new BesteAlgoritmesDialoog();
+					Bestelling randomBestelling = geenDialoog.makeRandomBestelling(aantalProductenRandom);
+
+					model.setRoute(randomBestelling.getProducten());
+					model.setDozen(new Bibliotheek().getAlgoritme(0)
+							.bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5));
+					model.setBestelling(randomBestelling);
+					model.setXMLgeladen(true);
+
+				}
+
 				setVisible(false);
 			} catch (NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(null, "Het aantal simulaties en/of het aantal producten is niet correct ingevuld.", "Error",
+				JOptionPane.showMessageDialog(null,
+						"Het aantal simulaties en/of het aantal producten is niet correct ingevuld.", "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}

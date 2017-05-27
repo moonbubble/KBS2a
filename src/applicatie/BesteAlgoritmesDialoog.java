@@ -74,8 +74,12 @@ public class BesteAlgoritmesDialoog extends JDialog {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+	
+	public BesteAlgoritmesDialoog() {
+		
+	}
 
-	private Bestelling makeRandomBestelling(int a) {
+	public Bestelling makeRandomBestelling(int a) {
 		Bestelling bestelling = new Bestelling();
 
 		int artikelnr = (int) (Math.random() * 25);
@@ -120,6 +124,7 @@ public class BesteAlgoritmesDialoog extends JDialog {
 				dozen = algoritmeBPP.bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5);
 
 				AlgoritmeTSP algoritmeTSP = new BibliotheekTSP(randomBestelling).getAlgoritme(j);
+				randomBestelling.setProducten(algoritmeTSP.algoritme());
 				afstand = AlgoritmeTSP.getAfstand(randomBestelling.getProducten());
 				if (j == 0) {
 					besteAlgoritmeBPP = j;
@@ -131,7 +136,7 @@ public class BesteAlgoritmesDialoog extends JDialog {
 					besteAlgoritmeBPP = j;
 					besteAlgoritmeDozen = dozen.size();
 				}
-				if (afstand > kortsteAfstand) {
+				if (afstand < kortsteAfstand) {
 					besteAlgoritmeTSP = j;
 					kortsteAfstand = afstand;
 				}
