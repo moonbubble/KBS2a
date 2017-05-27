@@ -81,7 +81,7 @@ public class ProductAfbeelding extends JPanel {
 		g.drawLine(0, hoogteAfbeelding, 200, hoogteAfbeelding);
 		g.drawLine(200, 0, 200, hoogteAfbeelding);
 
-		g.drawString(product.getNaam() + " (" + product.getArtikelnummer() + ")", 5, (hoogteAfbeelding - 5));
+		g.drawString(product.getNaam() + " (" + product.getGrootte() + ")", 5, (hoogteAfbeelding - 5));
 
 	}
 

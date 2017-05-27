@@ -35,8 +35,8 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	private ButtonGroup radioButtons;
 	private JRadioButton JRBneighbour;
 	private JRadioButton JRBrandom;
-	private JRadioButton JRBexchange;
-	private JRadioButton JRBannealing;
+	private JRadioButton JRBbrute;
+	private JRadioButton JRBcolony;
 
 	private Bestelling order;
 	private Timer timer;
@@ -146,23 +146,23 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		JRBneighbour.addActionListener(this);
 		jpAlgorithms.add(JRBneighbour);
 
-		JRBexchange = new JRadioButton("Brute force");
-		JRBexchange.setBounds(0, 85, 200, 40);
-		JRBexchange.setFont(new Font("Roboto", Font.BOLD, 15));
-		JRBexchange.addActionListener(this);
-		jpAlgorithms.add(JRBexchange);
+		JRBbrute = new JRadioButton("Brute force");
+		JRBbrute.setBounds(0, 85, 200, 40);
+		JRBbrute.setFont(new Font("Roboto", Font.BOLD, 15));
+		JRBbrute.addActionListener(this);
+		jpAlgorithms.add(JRBbrute);
 
-		JRBannealing = new JRadioButton("Simulated annealing");
-		JRBannealing.setBounds(0, 125, 200, 40);
-		JRBannealing.setFont(new Font("Roboto", Font.BOLD, 15));
-		JRBannealing.addActionListener(this);
-		jpAlgorithms.add(JRBannealing);
+		JRBcolony = new JRadioButton("Ant colony optimization");
+		JRBcolony.setBounds(0, 125, 200, 40);
+		JRBcolony.setFont(new Font("Roboto", Font.BOLD, 15));
+		JRBcolony.addActionListener(this);
+		jpAlgorithms.add(JRBcolony);
 
 		radioButtons = new ButtonGroup();
 		radioButtons.add(JRBrandom);
 		radioButtons.add(JRBneighbour);
-		radioButtons.add(JRBexchange);
-		radioButtons.add(JRBannealing);
+		radioButtons.add(JRBbrute);
+		radioButtons.add(JRBcolony);
 
 		setVisible(true);
 
@@ -200,8 +200,9 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 			} else if (getSelectedRadioButton(radioButtons) == "Brute force") {
 				BruteForce algoritme = new BruteForce(order);
 				order.setProducten(algoritme.algoritme());
-			} else if (getSelectedRadioButton(radioButtons) == "Simulated annealing") {
-
+			} else if (getSelectedRadioButton(radioButtons) == "Ant colony optimization") {
+				AntColonyOptimization algoritme = new AntColonyOptimization(order);
+    			order.setProducten(algoritme.algoritme());
 			}
 			order.getProducten().get(0).Visited();
 			jpGraphic.drawLines = true;

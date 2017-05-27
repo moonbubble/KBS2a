@@ -44,6 +44,8 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 	private List<JLabel> bestellingLabels = new ArrayList<>();
 	private JLabel JLbestellingArtik;
 	private JLabel JLbestellingNaam;
+	private JLabel JLbestellingGrootte;
+
 
 	public SimulatieKeuzemenu(Model model) {
 		this.model = model;
@@ -164,16 +166,23 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 		JPbestelling.add(JLbestellingArtik);
 		JLbestellingNaam = new JLabel("Naam:");
 		JPbestelling.add(JLbestellingNaam);
+		JLbestellingGrootte = new JLabel("Grootte:");
+		JPbestelling.add(JLbestellingGrootte);
 		JPbestelling.setSize(new Dimension(350, hoogteJPbestelling));
 		JPbestelling.setLayout(new GridLayout((producten.size() + 1), 2));
 
 		for (Product product : producten) {
 			JLabel JTFartikelnummer = new JLabel(String.valueOf(product.getArtikelnummer()));
 			JLabel JTFnaam = new JLabel(String.valueOf(product.getNaam()));
+			JLabel JTFgrootte = new JLabel(String.valueOf(product.getGrootte()));
+
 			JPbestelling.add(JTFartikelnummer);
 			JPbestelling.add(JTFnaam);
+			JPbestelling.add(JTFgrootte);
+
 			bestellingLabels.add(JTFartikelnummer);
 			bestellingLabels.add(JTFnaam);
+			bestellingLabels.add(JTFgrootte);
 		}
 		add(JPbestelling);
 		JPproductToevoegen.setLocation(0, 185 + hoogteJPbestelling);
@@ -197,6 +206,7 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 		JLgrootteDoos.setEnabled(false);
 		JLbestellingNaam.setEnabled(false);
 		JLbestellingArtik.setEnabled(false);
+		JLbestellingGrootte.setEnabled(false);
 	}
 	
 	public void toonPanel() {
@@ -214,6 +224,7 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 		JLgrootteDoos.setEnabled(true);
 		JLbestellingNaam.setEnabled(true);
 		JLbestellingArtik.setEnabled(true);
+		JLbestellingGrootte.setEnabled(true);
 	}
 
 	@Override
