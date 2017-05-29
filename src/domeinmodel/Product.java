@@ -12,6 +12,11 @@ public class Product implements Comparator<Product> {
 
 	public Product() {
 	}
+	
+	public Product(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	public Product(int artikelnummer, int x, int y, int grootte, String naam) {
 		this.x = x;

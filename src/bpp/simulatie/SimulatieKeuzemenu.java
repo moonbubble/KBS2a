@@ -176,9 +176,11 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 			JLabel JTFnaam = new JLabel(String.valueOf(product.getNaam()));
 			JLabel JTFgrootte = new JLabel(String.valueOf(product.getGrootte()));
 
-			JPbestelling.add(JTFartikelnummer);
-			JPbestelling.add(JTFnaam);
-			JPbestelling.add(JTFgrootte);
+			if (product.getGrootte() != 0) {
+				JPbestelling.add(JTFartikelnummer);
+				JPbestelling.add(JTFnaam);
+				JPbestelling.add(JTFgrootte);
+			}
 
 			bestellingLabels.add(JTFartikelnummer);
 			bestellingLabels.add(JTFnaam);
