@@ -33,17 +33,6 @@ public class TspInstellingen extends JDialog implements ActionListener {
 		jtSnelheid.setFont(new Font("Roboto", Font.PLAIN, 15));
 		add(jtSnelheid);
 
-		jlSimulaties = new JLabel("Aantal simulaties:");
-		jlSimulaties.setBounds(20, 60, 150, 35);
-		jlSimulaties.setFont(new Font("Roboto", Font.PLAIN, 15));
-		add(jlSimulaties);
-
-		jtSimulaties = new JTextField();
-		jtSimulaties.setText("" + aantalSimulaties);
-		jtSimulaties.setBounds(175, 60, 100, 35);
-		jtSimulaties.setFont(new Font("Roboto", Font.PLAIN, 15));
-		add(jtSimulaties);
-
 		jbOpslaan = new JButton("Opslaan");
 		jbOpslaan.setBounds(175, 100, 100, 40);
 		jbOpslaan.addActionListener(this);
@@ -56,7 +45,6 @@ public class TspInstellingen extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(jbOpslaan)) {
 			snelheid = Integer.parseInt(jtSnelheid.getText());
-			aantalSimulaties = Integer.parseInt(jtSimulaties.getText());
 			setVisible(false);
 		}
 	}

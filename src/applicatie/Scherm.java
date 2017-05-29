@@ -46,10 +46,6 @@ public class Scherm extends JFrame implements Observer {
 				add(tabbedPane);
 				repaint();
 				revalidate();
-				Bestelling bestelling = this.model.getBestelling();
-				for (Product product : bestelling.getProducten()) {
-					System.out.println(product.getX() + " " + product.getY());
-				}
 			}
 		} else if (string.equals("isGeannuleerd")) {
 			if (((Model) model).isGeannuleerd()) {

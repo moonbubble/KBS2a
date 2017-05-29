@@ -60,17 +60,14 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		jpStatistics.setLayout(null);
 		add(jpStatistics);
 
-		JLstatistics = new JLabel("Statistics");
+		JLstatistics = new JLabel("Statistieken");
 		JLstatistics.setFont(new Font("Roboto", Font.BOLD, 20));
 		JLstatistics.setBounds(5, 0, 240, 35);
-		jpStatistics.add(JLstatistics);
 
-		StatisticsText = "dit is een random test regel <br> Dit is nog een text regel";
 
 		jlStatisticsText = new JLabel("<html>" + StatisticsText + "</html>", JLabel.LEFT);
 		jlStatisticsText.setVerticalAlignment(JLabel.TOP);
 		jlStatisticsText.setBounds(5, 35, 240, 420);
-		jpStatistics.add(jlStatisticsText);
 
 		jpButtons = new JPanel();
 		jpButtons.setPreferredSize(new Dimension(1000, 45));
@@ -118,14 +115,12 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		jlOutput = new JLabel("Output:");
 		jlOutput.setBounds(5, 0, 190, 35);
 		jlOutput.setFont(new Font("Roboto", Font.BOLD, 20));
-		jpOutput.add(jlOutput);
 
-		OutputText = "dit is een random test regel <br> Dit is nog een text regel";
+		OutputText = "Output<br>Coordinaten";
 
 		jlOutputText = new JLabel("<html>" + OutputText + "</html>", JLabel.LEFT);
 		jlOutputText.setVerticalAlignment(JLabel.TOP);
 		jlOutputText.setBounds(5, 35, 190, 165);
-		jpOutput.add(jlOutputText);
 
 		jpAlgorithms = new JPanel();
 		jpAlgorithms.setPreferredSize(new Dimension(250, 200));
