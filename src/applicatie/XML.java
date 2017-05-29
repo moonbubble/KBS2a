@@ -76,7 +76,7 @@ public class XML {
 			dbf = DocumentBuilderFactory.newInstance();
 
 			db = dbf.newDocumentBuilder();
-			document = db.parse("src/applicatie/database.xml");
+			document = db.parse("applicatie/database.xml");
 
 			NodeList productList = document.getElementsByTagName("Product");
 

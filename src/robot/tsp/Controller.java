@@ -1,18 +1,19 @@
 package robot.tsp;
 
+import robot.*;
 import jssc.*;
-
-import java.util.Scanner;
-
 
 public class Controller implements SerialPortEventListener {
 
-    private Scanner ob;
     private SerialPort serialPort;
+    public static String receivedData;
+    private RobotControl RC;
+    private BPProbot BR;
 
-    public Controller(String portDescription) throws SerialPortException {
+    public Controller(String portDescription, RobotControl rc, BPProbot br) throws SerialPortException {
         serialPort = new SerialPort(portDescription);
-        openConnection();
+        this.RC = rc;     
+        this.BR = br;
     }
 
     public void openConnection() {
@@ -103,9 +104,16 @@ public class Controller implements SerialPortEventListener {
     public void serialEvent(SerialPortEvent event) {
         if (event.isRXCHAR() && event.getEventValue() > 0) {
             try {
-                String receivedData = serialPort.readString(event.getEventValue());
+                receivedData = serialPort.readString(event.getEventValue());
                 System.out.println("Received response from port: " + receivedData);
                 Thread.sleep(200);
+                if (receivedData.equals("g")) {
+                	RC.nextProduct();
+                }
+                else if(receivedData.equals("a"))
+                {
+                	BR.bepaalPlaats();
+                }
             } catch (SerialPortException ex) {
                 System.out.println("Error in receiving response from port: " + ex);
             } catch (InterruptedException e) {
