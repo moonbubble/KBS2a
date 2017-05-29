@@ -238,8 +238,13 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		} else if (string.equals("TSPindexGewijzigd")) {
 			updateScherm(this.model.getTSPindex());
 		} else if (string.equals("robotGestart")) {
-			order = this.model.getBestelling();
-			jpGraphic.drawLines = true;
+			if (this.model.isRobotGestart()) {
+				verbergScherm();
+				order = this.model.getBestelling();
+				jpGraphic.drawLines = true;
+			} else {
+				toonScherm();
+			}
 		}
 	}
 
@@ -247,5 +252,27 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		order.getProducten().get(i).Visited();
 		jpGraphic.setOrder(order);
 		repaint();
+	}
+	
+	public void verbergScherm() {
+		jbStart.setEnabled(false);
+		jbStop.setEnabled(false);
+		jbReset.setEnabled(false);
+		jbInstellingen.setEnabled(false);
+		JRBbrute.setEnabled(false);
+		JRBcolony.setEnabled(false);
+		JRBneighbour.setEnabled(false);
+		JRBrandom.setEnabled(false);
+	}
+	
+	public void toonScherm() {
+		jbStart.setEnabled(true);
+		jbStop.setEnabled(true);
+		jbReset.setEnabled(true);
+		jbInstellingen.setEnabled(true);
+		JRBbrute.setEnabled(true);
+		JRBcolony.setEnabled(true);
+		JRBneighbour.setEnabled(true);
+		JRBrandom.setEnabled(true);
 	}
 }
