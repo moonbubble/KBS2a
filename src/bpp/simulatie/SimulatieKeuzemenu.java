@@ -168,7 +168,7 @@ public class SimulatieKeuzemenu extends JPanel implements ActionListener, Observ
 		JPbestelling.add(JLbestellingNaam);
 		JLbestellingGrootte = new JLabel("Grootte:");
 		JPbestelling.add(JLbestellingGrootte);
-		JPbestelling.setSize(new Dimension(350, hoogteJPbestelling));
+		JPbestelling.setSize(new Dimension(400, hoogteJPbestelling));
 		JPbestelling.setLayout(new GridLayout((producten.size() + 1), 2));
 
 		for (Product product : producten) {
