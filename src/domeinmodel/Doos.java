@@ -40,4 +40,13 @@ public class Doos {
 	public boolean past(Product product) {
 		return getGrootteDoos() >= (getInhoud() + product.getGrootte());
 	}
+	
+	@Override
+	public String toString() {
+		String string = "Doos: ";
+		for (Product product : producten) {
+			string += product;
+		}
+		return string;
+	}
 }

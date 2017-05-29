@@ -86,5 +86,9 @@ public class Product implements Comparator<Product> {
 		Product product = (Product) obj;
 		return (product.artikelnummer == artikelnummer);
 	}
-
+	
+	@Override
+	public String toString() {
+		return naam  + ": " + grootte;
+	}
 }

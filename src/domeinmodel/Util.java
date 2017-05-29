@@ -1,5 +1,6 @@
 package domeinmodel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
@@ -9,6 +10,7 @@ public class Util {
 	}
 	
 	public static List<Product> wisselArray(List<Product> producten) {
+		List<Product> gewisseldeProducten = new ArrayList<>(producten); 
 		Product p1 = null;
 		Product p2 = null;
 		Product p3;
@@ -19,9 +21,9 @@ public class Util {
 				p2 = producten.get(i);
 			} else if (i % 3 == 2) {
 				p3 = producten.get(i);
-				producten.set(i, p1);
-				producten.set(i - 1, p2);
-				producten.set(i - 2, p3);
+				gewisseldeProducten.set(i, p1);
+				gewisseldeProducten.set(i - 1, p2);
+				gewisseldeProducten.set(i - 2, p3);
 			}
 		}
 		
@@ -29,9 +31,10 @@ public class Util {
 			p1 = producten.get(producten.size() -2);
 			p2 = producten.get(producten.size() -1);
 			
-			producten.set(producten.size() -1, p1);
-			producten.set(producten.size() -2, p2);
+			gewisseldeProducten.set(producten.size() -1, p1);
+			gewisseldeProducten.set(producten.size() -2, p2);
 		}
-		return producten;
+		return gewisseldeProducten;
+		
 	}
 }

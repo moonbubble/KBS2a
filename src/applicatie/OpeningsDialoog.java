@@ -20,6 +20,7 @@ import javax.swing.SpringLayout;
 
 import bpp.simulatie.algoritmes.Bibliotheek;
 import domeinmodel.Bestelling;
+import domeinmodel.Doos;
 import domeinmodel.Product;
 import domeinmodel.Util;
 import tsp.scherm.NearestNeighbour;
@@ -117,13 +118,7 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 				XML parser = new XML();
 				bestelling = parser.getData(file);
 
-				NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling);
-				bestelling.setProducten(nearestNeighbour.algoritme());
-				model.setBestelling(bestelling);
-				model.setRoute(bestelling.getProducten());
-				model.setDozen(
-						new Bibliotheek().getAlgoritme(0).bepaalDozen(Util.wisselArray(bestelling.getProducten()), 5));
-				model.setXMLgeladen(true);
+				laadInfoVoorRobot(bestelling);
 				setVisible(false);
 			}
 		} else if (e.getSource() == JBannuleren) {
@@ -138,14 +133,7 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 					BesteAlgoritmesDialoog geenDialoog = new BesteAlgoritmesDialoog();
 					Bestelling randomBestelling = geenDialoog.makeRandomBestelling(aantalProductenRandom);
 
-					NearestNeighbour nearestNeighbour = new NearestNeighbour(randomBestelling);
-					randomBestelling.setProducten(nearestNeighbour.algoritme());
-					model.setBestelling(randomBestelling);
-					model.setRoute(randomBestelling.getProducten());
-					List<Product> gewisseldeList = new ArrayList<>(Util.wisselArray(randomBestelling.getProducten()));  
-					model.setDozen(
-							new Bibliotheek().getAlgoritme(0).bepaalDozen(gewisseldeList, 5));
-					model.setXMLgeladen(true);
+					laadInfoVoorRobot(randomBestelling);
 
 				}
 
@@ -158,4 +146,16 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		}
 	}
 
+	public void laadInfoVoorRobot(Bestelling bestelling) {
+		NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling);
+		bestelling.setProducten(nearestNeighbour.algoritme());
+		List<Product> route = bestelling.getProducten();
+		List<Product> gewisseldeList = Util.wisselArray(route);
+		List<Doos> dozen = new Bibliotheek().getAlgoritme(0).bepaalDozen(gewisseldeList, 5);
+		
+		model.setBestelling(bestelling);
+		model.setRoute(bestelling.getProducten());
+		model.setDozen(dozen);
+		model.setXMLgeladen(true);
+	}
 }
