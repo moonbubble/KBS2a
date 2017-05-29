@@ -1,11 +1,12 @@
 package robot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import applicatie.Model;
 import domeinmodel.Doos;
 import domeinmodel.Product;
-import jssc.SerialPortException;
+import domeinmodel.Util;
 import robot.tsp.Controller;
 
 public class BPProbot {
@@ -15,13 +16,14 @@ public class BPProbot {
 	private Model model;
 	private Controller controller;
 	private List<Product> producten;
-	private int productInt = 2;
+	private int productInt = 0;
 
 
 	public BPProbot(Model model) {
 		this.model = model;
 		this.dozen = model.getDozen();
 		this.producten = model.getRoute();
+		this.producten = new ArrayList<>(Util.wisselArray(model.getRoute()));
 	}
 	
 	public void setController(Controller c)
@@ -55,14 +57,7 @@ public class BPProbot {
 				}
 			}
 		}
-		if((productInt - 1) % 3 == 0)
-		{
-			productInt += 5;
-		}
-		else
-		{
-			productInt--;			
-		}
+		productInt++;		
 	}
 
 	private void knipperLampje(int doosVol) {

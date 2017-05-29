@@ -6,7 +6,7 @@ public class Robot {
     private Controller controller;
 
     public Robot(String portDescription) throws SerialPortException {
-        controller = new Controller(portDescription, null, null);
+        controller = new Controller(portDescription, null, null, null);
     }
 
     public void command(String input) {

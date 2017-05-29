@@ -23,6 +23,7 @@ public class Model extends Observable {
 	private List<Doos> dozen;
 	private int doosIndex;
 	private int productIndex;
+	private int tspIndex;
 
 	public Model() {
 
@@ -159,6 +160,17 @@ public class Model extends Observable {
 		setChanged();
 		notifyObservers("robotGestart");
 		clearChanged();
+	}
+
+	public void setTSPindex(int productInt) {
+		this.tspIndex = productInt;
+		setChanged();
+		notifyObservers("TSPindexGewijzigd");
+		clearChanged();
+	}
+	
+	public int getTSPindex() {
+		return tspIndex;
 	}
 
 }

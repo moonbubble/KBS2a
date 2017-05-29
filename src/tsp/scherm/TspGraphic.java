@@ -57,7 +57,7 @@ public class TspGraphic extends JPanel implements Observer {
 
 	private void paintOrder(Graphics g) {
 		for (Product p : order.getProducten()) {
-			int x = 740 - (p.getX() * 130);
+			int x = -40 + (p.getX() * 130);
 			int y = 455 - (p.getY() * 85);
 
 			if (p.getVisited()) {
@@ -76,10 +76,10 @@ public class TspGraphic extends JPanel implements Observer {
 		g2.setStroke(new BasicStroke(5));
 
 		for (int o = 1; o < i; o++) {
-			int x1 = 740 - (order.getProducten().get(o).getX() * 130) + 25;
+			int x1 = -40 + (order.getProducten().get(o).getX() * 130) + 25;
 			int y1 = 455 - (order.getProducten().get(o).getY() * 85) + 25;
 
-			int x2 = 740 - (order.getProducten().get(o - 1).getX() * 130) + 25;
+			int x2 = -40 + (order.getProducten().get(o - 1).getX() * 130) + 25;
 			int y2 = 455 - (order.getProducten().get(o - 1).getY() * 85) + 25;
 
 			g2.drawLine(x1, y1, x2, y2);

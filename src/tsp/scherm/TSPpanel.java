@@ -202,7 +202,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 				order.setProducten(algoritme.algoritme());
 			} else if (getSelectedRadioButton(radioButtons) == "Ant colony optimization") {
 				AntColonyOptimization algoritme = new AntColonyOptimization(order);
-    			order.setProducten(algoritme.algoritme());
+				order.setProducten(algoritme.algoritme());
 			}
 			order.getProducten().get(0).Visited();
 			jpGraphic.drawLines = true;
@@ -239,7 +239,18 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	public void update(Observable model, Object string) {
 		if (string.equals("XMLgeladen")) {
 			jpGraphic.setOrder(((Model) model).getBestelling());
+			order = ((Model)model).getBestelling();
+		} else if (string.equals("TSPindexGewijzigd")) {
+			updateScherm(this.model.getTSPindex());
+		} else if (string.equals("robotGestart")) {
+			order = this.model.getBestelling();
+			jpGraphic.drawLines = true;
 		}
+	}
 
+	public void updateScherm(int i) {
+		order.getProducten().get(i).Visited();
+		jpGraphic.setOrder(order);
+		repaint();
 	}
 }

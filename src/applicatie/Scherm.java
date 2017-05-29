@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import bpp.simulatie.BPPpanel;
+import domeinmodel.Bestelling;
+import domeinmodel.Product;
 import robot.RobotControl;
 import robot.Robotpanel;
 import tsp.scherm.TSPpanel;
@@ -18,7 +20,7 @@ public class Scherm extends JFrame implements Observer {
 	public Scherm() {
 		model = new Model();
 		model.addObserver(this);
-				
+		
 		setTitle("KBS2a");
 		setSize(1610, 940);
 		setLayout(null);
@@ -44,6 +46,10 @@ public class Scherm extends JFrame implements Observer {
 				add(tabbedPane);
 				repaint();
 				revalidate();
+				Bestelling bestelling = this.model.getBestelling();
+				for (Product product : bestelling.getProducten()) {
+					System.out.println(product.getX() + " " + product.getY());
+				}
 			}
 		} else if (string.equals("isGeannuleerd")) {
 			if (((Model) model).isGeannuleerd()) {
