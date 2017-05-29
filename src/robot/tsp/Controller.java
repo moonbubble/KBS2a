@@ -1,7 +1,6 @@
 package robot.tsp;
 
 import robot.*;
-import tsp.scherm.TSPpanel;
 import applicatie.Model;
 import jssc.*;
 
@@ -11,7 +10,6 @@ public class Controller implements SerialPortEventListener {
 	public static String receivedData;
 	private RobotControl RC;
 	private BPProbot BR;
-	private TSPpanel tspScherm;
 
 	public Controller(String portDescription, RobotControl rc, BPProbot br, Model model) throws SerialPortException {
 		serialPort = new SerialPort(portDescription);

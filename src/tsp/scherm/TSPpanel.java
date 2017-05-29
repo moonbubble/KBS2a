@@ -217,6 +217,10 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 							jpGraphic.setOrder(order);
 							repaint();
 							i++;
+							
+							if (jpGraphic.i < order.getProducten().size()) {
+								jpGraphic.i++;
+							}
 						}
 					}
 				}
@@ -236,7 +240,9 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 			jpGraphic.setOrder(((Model) model).getBestelling());
 			order = ((Model)model).getBestelling();
 		} else if (string.equals("TSPindexGewijzigd")) {
+			jpGraphic.i++;
 			updateScherm(this.model.getTSPindex());
+			
 		} else if (string.equals("robotGestart")) {
 			if (this.model.isRobotGestart()) {
 				verbergScherm();

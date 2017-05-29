@@ -84,9 +84,7 @@ public class TspGraphic extends JPanel implements Observer {
 
 			g2.drawLine(x1, y1, x2, y2);
 		}
-		if (i < order.getProducten().size()) {
-			i++;
-		}
+		
 	}
 
 	@Override

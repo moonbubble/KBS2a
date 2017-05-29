@@ -7,9 +7,7 @@ import java.util.Observer;
 import applicatie.Model;
 import domeinmodel.Product;
 import jssc.SerialPortException;
-import robot.tsp.Transporter;
 import robot.tsp.Controller;
-import robot.tsp.SerialConnection;
 
 public class RobotControl implements Observer {
 
@@ -38,6 +36,8 @@ public class RobotControl implements Observer {
 		model.setTSPindex(productInt);
 		if ((productInt + 1) > (producten.size() - 1)) {
 			System.out.println("Klaar met het order");
+			controller.sendCommand("bpp");
+			model.setRobotGestart(false);
 		} else {
 			if ((productInt + 1) % 3 == 0 && !afleveren) {
 				try {

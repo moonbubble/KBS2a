@@ -7,8 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import bpp.simulatie.BPPpanel;
-import domeinmodel.Bestelling;
-import domeinmodel.Product;
 import robot.RobotControl;
 import robot.Robotpanel;
 import tsp.scherm.TSPpanel;
@@ -37,6 +35,7 @@ public class Scherm extends JFrame implements Observer {
 		
 		new OpeningsDialoog(this, model);
 		new RobotControl(model);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	@Override

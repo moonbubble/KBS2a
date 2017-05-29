@@ -17,65 +17,74 @@ public class BPProbot {
 	private Controller controller;
 	private List<Product> producten;
 	private int productInt = 0;
-
+	private String string = "";
 
 	public BPProbot(Model model) {
 		this.model = model;
 		this.dozen = model.getDozen();
-		this.producten = model.getRoute();
 		this.producten = new ArrayList<>(Util.wisselArray(model.getRoute()));
 	}
-	
-	public void setController(Controller c)
-	{
+
+	public void setController(Controller c) {
 		this.controller = c;
 	}
-	
+
 	public void bepaalPlaats() {
-		Product productTSP = producten.get(productInt);
-		for (int i = 0; i < dozen.size(); i++) {
-			Doos doos = dozen.get(i);
-			for (int j = 0; j < doos.getProducten().size(); j++) {
-				Product product = doos.getProducten().get(j);
-				if (productTSP.equals(product)) {
-					if (i % 2 == 0) {
-						plaatsProduct(0);
-						inhoudDoos0 += product.getGrootte();
-						if (inhoudDoos0 == doos.getInhoud()) {
-							knipperLampje(0);
-							inhoudDoos0 = 0;
+		Product productTSP = null;
+		if (productInt < producten.size()) {
+			productTSP = producten.get(productInt);
+			for (int i = 0; i < dozen.size(); i++) {
+				Doos doos = dozen.get(i);
+				for (int j = 0; j < doos.getProducten().size(); j++) {
+					Product product = doos.getProducten().get(j);
+					if (productTSP.equals(product)) {
+						if (i % 2 == 0) {
+							plaatsProduct(0);
+							inhoudDoos0 += product.getGrootte();
+							if (inhoudDoos0 == doos.getInhoud()) {
+								knipperLampje(0);
+								inhoudDoos0 = 0;
+							}
+						} else if (i % 2 == 1) {
+							plaatsProduct(1);
+							inhoudDoos1 += product.getGrootte();
+							if (inhoudDoos1 == doos.getInhoud()) {
+								knipperLampje(1);
+								inhoudDoos1 = 0;
+							}
 						}
-					} else if (i % 2 == 1) {
-						plaatsProduct(1);
-						inhoudDoos1 += product.getGrootte();
-						if (inhoudDoos1 == doos.getInhoud()) {
-							knipperLampje(1);
-							inhoudDoos1 = 0;
-						}
+						model.setIndexen(i, j);
+						controller.sendCommand(string);
+						string = "";
+
 					}
-					model.setIndexen(i, j);
 				}
 			}
+			productInt++;
 		}
-		productInt++;		
+
 	}
 
 	private void knipperLampje(int doosVol) {
 		if (doosVol == 0) {
-			controller.sendCommand("ll");
+			// controller.sendCommand("ll");
+			string += "ll";
 			System.out.println("Knipper lampje: Links");
 		} else if (doosVol == 1) {
-			 controller.sendCommand("lr");
+			// controller.sendCommand("lr");
+			string += "lr";
 			System.out.println("Knipper lampje: Rechts");
 		}
 	}
 
 	public void plaatsProduct(int richting) {
 		if (richting == 0) {
-			controller.sendCommand("bl");
+			// controller.sendCommand("bl");
+			string += "bl";
 			System.out.println("Band naar: Links");
 		} else if (richting == 1) {
-			controller.sendCommand("br");
+			// controller.sendCommand("br");
+			string += "br";
 			System.out.println("Band naar: Rechts");
 		}
 	}

@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -18,6 +20,7 @@ import javax.swing.SpringLayout;
 
 import bpp.simulatie.algoritmes.Bibliotheek;
 import domeinmodel.Bestelling;
+import domeinmodel.Product;
 import domeinmodel.Util;
 import tsp.scherm.NearestNeighbour;
 
@@ -135,10 +138,13 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 					BesteAlgoritmesDialoog geenDialoog = new BesteAlgoritmesDialoog();
 					Bestelling randomBestelling = geenDialoog.makeRandomBestelling(aantalProductenRandom);
 
-					model.setRoute(randomBestelling.getProducten());
-					model.setDozen(new Bibliotheek().getAlgoritme(0)
-							.bepaalDozen(Util.wisselArray(randomBestelling.getProducten()), 5));
+					NearestNeighbour nearestNeighbour = new NearestNeighbour(randomBestelling);
+					randomBestelling.setProducten(nearestNeighbour.algoritme());
 					model.setBestelling(randomBestelling);
+					model.setRoute(randomBestelling.getProducten());
+					List<Product> gewisseldeList = new ArrayList<>(Util.wisselArray(randomBestelling.getProducten()));  
+					model.setDozen(
+							new Bibliotheek().getAlgoritme(0).bepaalDozen(gewisseldeList, 5));
 					model.setXMLgeladen(true);
 
 				}
