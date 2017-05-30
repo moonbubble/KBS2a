@@ -67,7 +67,6 @@ public class RobotControl implements Observer {
                 if (producten.get(0).getNaam() == null) {
                     producten.remove(0);
                 }
-                System.out.print(producten);
                 bppRobot = new BPProbot((Model) model);
                 try {
                     controller = new Controller("COM3", this, bppRobot, this.model);

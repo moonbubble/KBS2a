@@ -23,13 +23,15 @@ public class BPProbot {
     public BPProbot(Model model) {
         this.model = model;
         this.dozen = model.getDozen();
-        this.producten = new ArrayList<>(Util.wisselArray(model.getRoute()));
-        for (int i = 1; i < producten.size(); i++) {
-			Product product = producten.get(i);
+        List<Product> route = model.getRoute();
+        for (int i = 1; i < route.size(); i++) {
+			Product product = route.get(i);
 			if (product.getNaam() == null) {
-				producten.remove(i);
+				route.remove(i);
 			}
 		}
+        this.producten = new ArrayList<>(Util.wisselArray(route));
+        
     }
 
     public void setController(Controller c) {

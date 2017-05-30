@@ -157,8 +157,6 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		}
 
 		List<Doos> dozen = new Bibliotheek().getAlgoritme(0).bepaalDozen(gewisseldeList, 5);
-		System.out.println(gewisseldeList);	
-		System.out.println(dozen);
 
 		model.setBestelling(bestelling);
 		model.setRoute(route);
