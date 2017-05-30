@@ -154,7 +154,6 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		
 		model.setBestelling(bestelling);
 		model.setRoute(route);
-		System.out.println(bestelling.getProducten());
 		model.setDozen(dozen);
 		model.setXMLgeladen(true);
 	}

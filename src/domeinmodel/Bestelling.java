@@ -21,12 +21,6 @@ public class Bestelling {
 		this.klant = klant;
 	}
 
-	public void resetProducten() {
-		for (int i = 0; i < orderList.size(); i++) {
-			orderList.get(i).resetVisited();
-		}
-	}
-
 	public void voegProductToe(Product p) {
 		orderList.add(p);
 	}

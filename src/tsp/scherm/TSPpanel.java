@@ -5,13 +5,16 @@ import javax.swing.*;
 import applicatie.Model;
 import applicatie.Scherm;
 import domeinmodel.Bestelling;
+import domeinmodel.Product;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.List;
 
 public class TSPpanel extends JPanel implements ActionListener, Observer {
 	private Model model;
@@ -40,6 +43,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 
 	private Bestelling order;
 	private Timer timer;
+	private List<Product> producten;
 
 	public TSPpanel(Scherm scherm, Model model) {
 		this.scherm = scherm;
@@ -63,7 +67,6 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		JLstatistics = new JLabel("Statistieken");
 		JLstatistics.setFont(new Font("Roboto", Font.BOLD, 20));
 		JLstatistics.setBounds(5, 0, 240, 35);
-
 
 		jlStatisticsText = new JLabel("<html>" + StatisticsText + "</html>", JLabel.LEFT);
 		jlStatisticsText.setVerticalAlignment(JLabel.TOP);
@@ -129,7 +132,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		add(jpAlgorithms);
 
 		JRBrandom = new JRadioButton("Random path");
-		JRBrandom.setBounds(0, 45, 200, 40); 
+		JRBrandom.setBounds(0, 45, 200, 40);
 		JRBrandom.setFont(new Font("Roboto", Font.BOLD, 15));
 		JRBrandom.addActionListener(this);
 		jpAlgorithms.add(JRBrandom);
@@ -183,9 +186,9 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 			tspInstellingen.setVisible(true);
 			tspInstellingen.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		} else if (e.getSource().equals(jbStart)) {
-			order = model.getBestelling();
-			order.resetProducten();
-			Collections.sort(order.getProducten(), new MyComparator());
+			producten = new ArrayList<>(model.getBestelling().getProducten());
+			resetRoute();
+			Collections.sort(producten, new MyComparator());
 			if (getSelectedRadioButton(radioButtons) == "Random path") {
 				RandomPath algoritme = new RandomPath(order);
 				order.setProducten(algoritme.algoritme());
@@ -199,7 +202,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 				AntColonyOptimization algoritme = new AntColonyOptimization(order);
 				order.setProducten(algoritme.algoritme());
 			}
-			order.getProducten().get(0).Visited();
+			producten.get(0).Visited();
 			jpGraphic.drawLines = true;
 			jpGraphic.i = 1;
 			repaint();
@@ -210,15 +213,15 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() == timer) {
-						if (i >= order.getProducten().size()) {
+						if (i >= producten.size()) {
 							timer.stop();
 						} else {
-							order.getProducten().get(i).Visited();
-							jpGraphic.setOrder(order);
+							producten.get(i).Visited();
+							jpGraphic.setProducten(producten);
 							repaint();
 							i++;
-							
-							if (jpGraphic.i < order.getProducten().size()) {
+
+							if (jpGraphic.i < producten.size()) {
 								jpGraphic.i++;
 							}
 						}
@@ -237,16 +240,16 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	@Override
 	public void update(Observable model, Object string) {
 		if (string.equals("XMLgeladen")) {
-			jpGraphic.setOrder(((Model) model).getBestelling());
-			order = ((Model)model).getBestelling();
+			jpGraphic.setProducten(((Model) model).getBestelling().getProducten());
+			order = ((Model) model).getBestelling();
 		} else if (string.equals("TSPindexGewijzigd")) {
 			jpGraphic.i++;
 			updateScherm(this.model.getTSPindex());
-			
 		} else if (string.equals("robotGestart")) {
 			if (this.model.isRobotGestart()) {
 				verbergScherm();
-				order = this.model.getBestelling();
+				producten = new ArrayList<>(this.model.getRoute());
+				jpGraphic.setProducten(producten);
 				jpGraphic.drawLines = true;
 			} else {
 				toonScherm();
@@ -255,11 +258,11 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	}
 
 	public void updateScherm(int i) {
-		order.getProducten().get(i).Visited();
-		jpGraphic.setOrder(order);
+		producten.get(i).Visited();
+		jpGraphic.setProducten(producten);
 		repaint();
 	}
-	
+
 	public void verbergScherm() {
 		jbStart.setEnabled(false);
 		jbStop.setEnabled(false);
@@ -270,7 +273,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		JRBneighbour.setEnabled(false);
 		JRBrandom.setEnabled(false);
 	}
-	
+
 	public void toonScherm() {
 		jbStart.setEnabled(true);
 		jbStop.setEnabled(true);
@@ -280,5 +283,11 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		JRBcolony.setEnabled(true);
 		JRBneighbour.setEnabled(true);
 		JRBrandom.setEnabled(true);
+	}
+
+	public void resetRoute() {
+		for (int i = 0; i < producten.size(); i++) {
+			producten.get(i).resetVisited();
+		}
 	}
 }

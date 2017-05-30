@@ -1,6 +1,7 @@
 package tsp.scherm;
 
 import javax.swing.*;
+import java.util.List;
 
 import applicatie.Model;
 import domeinmodel.Bestelling;
@@ -12,7 +13,7 @@ import java.util.Observer;
 
 public class TspGraphic extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
-	private Bestelling order = new Bestelling();
+	private List<Product> producten;
 	public boolean drawGrid = false;
 	public boolean drawOrder = false;
 	public boolean drawLines = false;
@@ -26,8 +27,8 @@ public class TspGraphic extends JPanel implements Observer {
 		setOpaque(false);
 	}
 
-	public void setOrder(Bestelling o) {
-		this.order = o;
+	public void setProducten(List<Product> producten) {
+		this.producten = producten;
 	}
 
 	public void resetGraphic() {
@@ -56,7 +57,7 @@ public class TspGraphic extends JPanel implements Observer {
 	}
 
 	private void paintOrder(Graphics g) {
-		for (Product p : order.getProducten()) {
+		for (Product p : producten) {
 			int x = -40 + (p.getX() * 130);
 			int y = 455 - (p.getY() * 85);
 
@@ -76,11 +77,11 @@ public class TspGraphic extends JPanel implements Observer {
 		g2.setStroke(new BasicStroke(5));
 
 		for (int o = 1; o < i; o++) {
-			int x1 = -40 + (order.getProducten().get(o).getX() * 130) + 25;
-			int y1 = 455 - (order.getProducten().get(o).getY() * 85) + 25;
+			int x1 = -40 + (producten.get(o).getX() * 130) + 25;
+			int y1 = 455 - (producten.get(o).getY() * 85) + 25;
 
-			int x2 = -40 + (order.getProducten().get(o - 1).getX() * 130) + 25;
-			int y2 = 455 - (order.getProducten().get(o - 1).getY() * 85) + 25;
+			int x2 = -40 + (producten.get(o - 1).getX() * 130) + 25;
+			int y2 = 455 - (producten.get(o - 1).getY() * 85) + 25;
 
 			g2.drawLine(x1, y1, x2, y2);
 		}
