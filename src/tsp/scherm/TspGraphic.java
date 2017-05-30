@@ -33,7 +33,7 @@ public class TspGraphic extends JPanel implements Observer {
 
 	public void resetGraphic() {
 		i = 1;
-		drawOrder = false;
+		drawOrder = true;
 		drawLines = false;
 		repaint();
 	}

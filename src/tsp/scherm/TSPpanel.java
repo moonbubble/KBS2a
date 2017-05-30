@@ -191,16 +191,16 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 			Collections.sort(producten, new MyComparator());
 			if (getSelectedRadioButton(radioButtons) == "Random path") {
 				RandomPath algoritme = new RandomPath(order);
-				order.setProducten(algoritme.algoritme());
+				producten = algoritme.algoritme();
 			} else if (getSelectedRadioButton(radioButtons) == "Nearest neighbour") {
 				NearestNeighbour algoritme = new NearestNeighbour(order);
-				order.setProducten(algoritme.algoritme());
+				producten = algoritme.algoritme();
 			} else if (getSelectedRadioButton(radioButtons) == "Brute force") {
 				BruteForce algoritme = new BruteForce(order);
-				order.setProducten(algoritme.algoritme());
+				producten = algoritme.algoritme();
 			} else if (getSelectedRadioButton(radioButtons) == "Ant colony optimization") {
 				AntColonyOptimization algoritme = new AntColonyOptimization(order);
-				order.setProducten(algoritme.algoritme());
+				producten = algoritme.algoritme();
 			}
 			producten.get(0).Visited();
 			jpGraphic.drawLines = true;
@@ -233,7 +233,9 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		} else if (e.getSource().equals(jbReset)) {
 			jpGraphic.resetGraphic();
 			timer.stop();
-			this.order = null;
+			resetRoute();
+		} else if (e.getSource().equals(jbStop)) {
+			timer.stop();
 		}
 	}
 
@@ -247,12 +249,16 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 			updateScherm(this.model.getTSPindex());
 		} else if (string.equals("robotGestart")) {
 			if (this.model.isRobotGestart()) {
+				resetRoute();
+				jpGraphic.resetGraphic();
 				verbergScherm();
 				producten = new ArrayList<>(this.model.getRoute());
 				jpGraphic.setProducten(producten);
 				jpGraphic.drawLines = true;
 			} else {
 				toonScherm();
+				producten = new ArrayList<>(this.model.getBestelling().getProducten());
+				jpGraphic.setProducten(producten);
 			}
 		}
 	}

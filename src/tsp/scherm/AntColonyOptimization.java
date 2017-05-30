@@ -19,7 +19,7 @@ public class AntColonyOptimization implements AlgoritmeTSP{
 	static List<Product> initialRoute;
 
 	public AntColonyOptimization(Bestelling bestelling) {
-		AntColonyOptimization.initialRoute = bestelling.getProducten();
+		initialRoute = new ArrayList<>(bestelling.getProducten());
 		eS = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		eCS = new ExecutorCompletionService<Mier>(eS);
 	}
