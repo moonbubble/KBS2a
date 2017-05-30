@@ -129,16 +129,16 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 		add(jpAlgorithms);
 
 		JRBrandom = new JRadioButton("Random path");
-		JRBrandom.setBounds(0, 5, 200, 40);
+		JRBrandom.setBounds(0, 45, 200, 40); 
 		JRBrandom.setFont(new Font("Roboto", Font.BOLD, 15));
 		JRBrandom.addActionListener(this);
-		JRBrandom.setSelected(true);
 		jpAlgorithms.add(JRBrandom);
 
 		JRBneighbour = new JRadioButton("Nearest neighbour");
-		JRBneighbour.setBounds(0, 45, 200, 40);
+		JRBneighbour.setBounds(0, 5, 200, 40);
 		JRBneighbour.setFont(new Font("Roboto", Font.BOLD, 15));
 		JRBneighbour.addActionListener(this);
+		JRBneighbour.setSelected(true);
 		jpAlgorithms.add(JRBneighbour);
 
 		JRBbrute = new JRadioButton("Brute force");

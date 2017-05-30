@@ -46,7 +46,7 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 	}
 	
 	public ArrayList<Product> algoritme() {
-		if (model.isRobotGestart()) {
+//		if (model.isRobotGestart()) {
 			goeie = orderList.get(0);
 			while (orderList.size() > 0) {
 				voegProductToeAanRoute(goeie);
@@ -62,26 +62,26 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 					}
 				}
 			}
-			voegBeginpuntToe();
+//			voegBeginpuntToe();
 			return route;
-		} else {
-			goeie = orderList.get(0);
-			while (orderList.size() > 0) {
-				voegProductToeAanRoute(goeie);
-				orderList.remove(goeie);
-				Product kruisje = goeie;
-				temp = 1000;
-				for (int i = 0; i < orderList.size(); i++) {
-					Product rondje = orderList.get(i);
-					routeBerekenen(kruisje, rondje);
-					if (stappen < temp) {
-						temp = stappen;
-						goeie = rondje;
-					}
-				}
-			}
-			return route;
-		}
+//		} else {
+//			goeie = orderList.get(0);
+//			while (orderList.size() > 0) {
+//				voegProductToeAanRoute(goeie);
+//				orderList.remove(goeie);
+//				Product kruisje = goeie;
+//				temp = 1000;
+//				for (int i = 0; i < orderList.size(); i++) {
+//					Product rondje = orderList.get(i);
+//					routeBerekenen(kruisje, rondje);
+//					if (stappen < temp) {
+//						temp = stappen;
+//						goeie = rondje;
+//					}
+//				}
+//			}
+//			return route;
+//		}
 	}
 
 	@Override
