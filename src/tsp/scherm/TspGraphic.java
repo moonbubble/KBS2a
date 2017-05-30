@@ -63,6 +63,8 @@ public class TspGraphic extends JPanel implements Observer {
 
 			if (p.getVisited()) {
 				g.setColor(Color.green);
+			} else if (p.getNaam() == null) {
+				g.setColor(Color.black);
 			} else {
 				g.setColor(Color.blue);
 			}

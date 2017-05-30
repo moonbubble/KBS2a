@@ -1,5 +1,6 @@
 package robot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -59,7 +60,10 @@ public class RobotControl implements Observer {
 	public void update(Observable model, Object string) {
 		if (string.equals("robotGestart")) {
 			if (((Model) model).isRobotGestart()) {
-				producten = ((Model) model).getRoute();
+				producten = new ArrayList<>(((Model) model).getRoute());
+				if (producten.get(0).getNaam() == null) {
+					producten.remove(0);
+				}
 				bppRobot = new BPProbot((Model) model);
 				try {
 					controller = new Controller("COM3", this, bppRobot, this.model);

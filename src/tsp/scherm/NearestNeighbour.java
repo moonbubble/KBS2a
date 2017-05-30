@@ -1,4 +1,5 @@
 package tsp.scherm;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 	private int stappen;
 	private Product goeie;
 	private int temp;
-	
+
 	public NearestNeighbour(Bestelling bestelling) {
 		this.orderList = new ArrayList<>(bestelling.getProducten());
 		route = new ArrayList<Product>();
@@ -22,9 +23,14 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 	public void voegProductToeAanRoute(Product p) {
 		this.route.add(p);
 	}
-	
+
 	public void voegBeginpuntToe() {
-		route.add(0, new Product(1,1));
+		for (int i = 0; i < orderList.size(); i++) {
+			Product product = orderList.get(i);
+			if (product.getX() != 1 && product.getY() != 1) {
+				orderList.add(0, new Product(1, 1));
+			}
+		}
 	}
 
 	public void printRoute() {
@@ -34,8 +40,7 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 	}
 
 	public void printOrder() {
-		for (Product p : orderList)
-		{
+		for (Product p : orderList) {
 			System.out.println(p.getLocatie());
 		}
 	}
@@ -44,8 +49,9 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 		stappen = bp.meetAfstand(vp);
 		return stappen;
 	}
-	
+
 	public ArrayList<Product> algoritme(Model model) {
+		voegBeginpuntToe();
 		goeie = orderList.get(0);
 		while (orderList.size() > 0) {
 			voegProductToeAanRoute(goeie);
@@ -61,27 +67,27 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 				}
 			}
 		}
-		voegBeginpuntToe();
+		System.out.println(route);
 		return route;
 	}
-	
+
 	public ArrayList<Product> algoritme() {
-			goeie = orderList.get(0);
-			while (orderList.size() > 0) {
-				voegProductToeAanRoute(goeie);
-				orderList.remove(goeie);
-				Product kruisje = goeie;
-				temp = 1000;
-				for (int i = 0; i < orderList.size(); i++) {
-					Product rondje = orderList.get(i);
-					routeBerekenen(kruisje, rondje);
-					if (stappen < temp) {
-						temp = stappen;
-						goeie = rondje;
-					}
+		goeie = orderList.get(0);
+		while (orderList.size() > 0) {
+			voegProductToeAanRoute(goeie);
+			orderList.remove(goeie);
+			Product kruisje = goeie;
+			temp = 1000;
+			for (int i = 0; i < orderList.size(); i++) {
+				Product rondje = orderList.get(i);
+				routeBerekenen(kruisje, rondje);
+				if (stappen < temp) {
+					temp = stappen;
+					goeie = rondje;
 				}
 			}
-			return route;
+		}
+		return route;
 	}
 
 	@Override
