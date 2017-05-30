@@ -24,6 +24,12 @@ public class BPProbot {
         this.model = model;
         this.dozen = model.getDozen();
         this.producten = new ArrayList<>(Util.wisselArray(model.getRoute()));
+        for (int i = 1; i < producten.size(); i++) {
+			Product product = producten.get(i);
+			if (product.getNaam() == null) {
+				producten.remove(i);
+			}
+		}
     }
 
     public void setController(Controller c) {
@@ -35,6 +41,7 @@ public class BPProbot {
         if (productInt < producten.size()) {
             System.out.println("Product: " + productInt);
             productTSP = producten.get(productInt);
+            System.out.println(productTSP);
             for (int i = 0; i < dozen.size(); i++) {
                 Doos doos = dozen.get(i);
                 for (int j = 0; j < doos.getProducten().size(); j++) {

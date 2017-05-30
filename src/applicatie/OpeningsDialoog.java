@@ -149,17 +149,16 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling);
 		List<Product> route = nearestNeighbour.algoritme(model);
 		List<Product> gewisseldeList = Util.wisselArray(route);
-                for (int i = 1; i < gewisseldeList.size(); i++) {
-                    Product product = gewisseldeList.get(i);
-                    if (product.getNaam() == null) {
-                        gewisseldeList.remove(i);
-                    }
-                }
-                
+		for (int i = 1; i < gewisseldeList.size(); i++) {
+			Product product = gewisseldeList.get(i);
+			if (product.getNaam() == null) {
+				gewisseldeList.remove(i);
+			}
+		}
+
 		List<Doos> dozen = new Bibliotheek().getAlgoritme(0).bepaalDozen(gewisseldeList, 5);
-                System.out.println(route);
-                System.out.println(dozen);
-                
+		System.out.println(gewisseldeList);	
+		System.out.println(dozen);
 
 		model.setBestelling(bestelling);
 		model.setRoute(route);

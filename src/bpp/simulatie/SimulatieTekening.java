@@ -88,6 +88,31 @@ public class SimulatieTekening extends JPanel implements Observer {
 		this.model.setGeladen(true);
 
 	}
+	
+	private void laadTekening(List<Doos> dozen) {
+		dozen = new ArrayList<>(model.getDozen());
+		doosAfbeeldingen = new ArrayList<>();
+		grootteDoos = 5;
+
+		COx = 100;
+		COy = 50;
+
+		for (int i = 0; i < dozen.size(); i++) {
+			Doos doos = dozen.get(i);
+			if (i <= 8) {
+				if (i == 4) {
+					COx = 100;
+					COy = COy + 400;
+				}
+				DoosAfbeelding doosAfbeelding = new DoosAfbeelding(doos);
+				doosAfbeelding.setLocation(COx, COy);
+				doosAfbeeldingen.add(doosAfbeelding);
+
+				COx = COx + 250;
+			}
+		}
+		this.model.setGeladen(true);
+	}
 
 	@Override
 	public void update(Observable model, Object string) {
@@ -95,11 +120,11 @@ public class SimulatieTekening extends JPanel implements Observer {
 			if (((Model) model).isGestart()) {
 				removeAll();
 				repaint();
-				laadTekening();
 			}
 		} else if (string.equals("isGeladen")) {
 			if (((Model) model).isGeladen()) {
 				double grootteProducten = 0;
+				dozen = this.model.getDozen();
 				for (Doos doos : dozen) {
 					grootteProducten += doos.getInhoud();
 				}
@@ -109,9 +134,11 @@ public class SimulatieTekening extends JPanel implements Observer {
 				this.model.setAantalDozen(dozen.size());
 			}
 		} else if (string.equals("indexenGewijzigd")) {
-			laadTekening();
-                        
+			System.out.println("getdozen size: " + this.model.getDozen().size());
+			System.out.println(doosAfbeeldingen.size());
 			tekenInStappen(((Model) model).getDoosIndex(), ((Model) model).getProductIndex());
+		} else if (string.equals("robotGestart")) {
+			laadTekening(this.model.getDozen());
 		}
 	}
 }

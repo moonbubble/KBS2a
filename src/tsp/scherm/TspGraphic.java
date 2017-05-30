@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.util.List;
 
 import applicatie.Model;
-import domeinmodel.Bestelling;
 import domeinmodel.Product;
 
 import java.awt.*;

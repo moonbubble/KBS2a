@@ -82,6 +82,7 @@ void pakketjesAfleveren()
 void procesBPP()
 {
   String b = Serial.readString();
+  Serial.println(b);
   String band = b.substring(0, 2);
   String lampje = "";
   
