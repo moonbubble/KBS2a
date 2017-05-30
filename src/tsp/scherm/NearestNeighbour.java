@@ -25,11 +25,15 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 	}
 
 	public void voegBeginpuntToe() {
+		boolean alToegevoegd = false;
 		for (int i = 0; i < orderList.size(); i++) {
 			Product product = orderList.get(i);
-			if (product.getX() != 1 && product.getY() != 1) {
-				orderList.add(0, new Product(1, 1));
+			if (product.getX() == 1 && product.getY() == 1) {
+				alToegevoegd = true;
 			}
+		}
+		if (!alToegevoegd) {
+			orderList.add(0, new Product(1, 1));
 		}
 	}
 
