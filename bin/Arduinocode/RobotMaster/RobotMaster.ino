@@ -50,6 +50,8 @@ void setup() {
 
   positieX = 1;
   positieY = 1;
+
+  pakketjesAfleveren();
 }
 
 void armHelemaalVooruit()
@@ -62,17 +64,17 @@ void armHelemaalVooruit()
 void pakketjesAfleveren()
 {
   delay(1000);
-  armAchteruit(220);
+  armAchteruit(150);
   Serial.write('a');
   delay(1000);
   procesBPP();
   delay(1000);
-  armAchteruit(130);
+  armAchteruit(110);
   Serial.write('a');
   delay(1000);
   procesBPP();
   delay(1000);
-  armAchteruit(130);
+  armAchteruit(110);
   Serial.write('a');
   delay(1000);
   procesBPP();
