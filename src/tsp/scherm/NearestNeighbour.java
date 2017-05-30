@@ -13,9 +13,9 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 	private int stappen;
 	private Product goeie;
 	private int temp;
-
+	
 	public NearestNeighbour(Bestelling bestelling) {
-		this.orderList = bestelling.getProducten();
+		this.orderList = new ArrayList<>(bestelling.getProducten());
 		route = new ArrayList<Product>();
 	}
 
@@ -45,8 +45,27 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 		return stappen;
 	}
 	
+	public ArrayList<Product> algoritme(Model model) {
+		goeie = orderList.get(0);
+		while (orderList.size() > 0) {
+			voegProductToeAanRoute(goeie);
+			orderList.remove(goeie);
+			Product kruisje = goeie;
+			temp = 1000;
+			for (int i = 0; i < orderList.size(); i++) {
+				Product rondje = orderList.get(i);
+				routeBerekenen(kruisje, rondje);
+				if (stappen < temp) {
+					temp = stappen;
+					goeie = rondje;
+				}
+			}
+		}
+		voegBeginpuntToe();
+		return route;
+	}
+	
 	public ArrayList<Product> algoritme() {
-//		if (model.isRobotGestart()) {
 			goeie = orderList.get(0);
 			while (orderList.size() > 0) {
 				voegProductToeAanRoute(goeie);
@@ -62,26 +81,7 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 					}
 				}
 			}
-//			voegBeginpuntToe();
 			return route;
-//		} else {
-//			goeie = orderList.get(0);
-//			while (orderList.size() > 0) {
-//				voegProductToeAanRoute(goeie);
-//				orderList.remove(goeie);
-//				Product kruisje = goeie;
-//				temp = 1000;
-//				for (int i = 0; i < orderList.size(); i++) {
-//					Product rondje = orderList.get(i);
-//					routeBerekenen(kruisje, rondje);
-//					if (stappen < temp) {
-//						temp = stappen;
-//						goeie = rondje;
-//					}
-//				}
-//			}
-//			return route;
-//		}
 	}
 
 	@Override

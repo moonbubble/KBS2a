@@ -148,13 +148,13 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 
 	public void laadInfoVoorRobot(Bestelling bestelling) {
 		NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling);
-		bestelling.setProducten(nearestNeighbour.algoritme());
-		List<Product> route = bestelling.getProducten();
+		List<Product> route = nearestNeighbour.algoritme(model);
 		List<Product> gewisseldeList = Util.wisselArray(route);
 		List<Doos> dozen = new Bibliotheek().getAlgoritme(0).bepaalDozen(gewisseldeList, 5);
 		
 		model.setBestelling(bestelling);
-		model.setRoute(bestelling.getProducten());
+		model.setRoute(route);
+		System.out.println(bestelling.getProducten());
 		model.setDozen(dozen);
 		model.setXMLgeladen(true);
 	}
