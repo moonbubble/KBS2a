@@ -77,16 +77,16 @@ public class TspGraphic extends JPanel implements Observer {
 		g2.setColor(Color.black);
 		g2.setStroke(new BasicStroke(5));
 
-		for (int o = 1; o < i; o++) {
-			int x1 = -40 + (producten.get(o).getX() * 130) + 25;
-			int y1 = 455 - (producten.get(o).getY() * 85) + 25;
+		for (int hoeveelLijnen = 1; hoeveelLijnen < i; hoeveelLijnen++) {
+			int x1 = -40 + (producten.get(hoeveelLijnen).getX() * 130) + 25;
+			int y1 = 455 - (producten.get(hoeveelLijnen).getY() * 85) + 25;
 
-			int x2 = -40 + (producten.get(o - 1).getX() * 130) + 25;
-			int y2 = 455 - (producten.get(o - 1).getY() * 85) + 25;
+			int x2 = -40 + (producten.get(hoeveelLijnen - 1).getX() * 130) + 25;
+			int y2 = 455 - (producten.get(hoeveelLijnen - 1).getY() * 85) + 25;
 
 			g2.drawLine(x1, y1, x2, y2);
 		}
-		
+
 	}
 
 	@Override

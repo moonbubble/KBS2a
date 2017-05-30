@@ -243,8 +243,10 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 			jpGraphic.setProducten(((Model) model).getBestelling().getProducten());
 			producten = ((Model) model).getBestelling().getProducten();
 		} else if (string.equals("TSPindexGewijzigd")) {
-			jpGraphic.i++;
-			updateScherm(this.model.getTSPindex());
+			if (jpGraphic.i < producten.size()) {
+				updateScherm(this.model.getTSPindex());
+				jpGraphic.i++;
+			}
 		} else if (string.equals("robotGestart")) {
 			if (this.model.isRobotGestart()) {
 				resetRoute();
@@ -262,6 +264,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	}
 
 	public void updateScherm(int i) {
+		System.out.println(i);
 		producten.get(i).Visited();
 		jpGraphic.setProducten(producten);
 		repaint();

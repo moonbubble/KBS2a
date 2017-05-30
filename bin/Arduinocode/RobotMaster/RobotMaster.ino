@@ -50,8 +50,6 @@ void setup() {
 
   positieX = 1;
   positieY = 1;
-
-  pakketjesAfleveren();
 }
 
 void armHelemaalVooruit()
