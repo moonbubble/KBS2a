@@ -72,7 +72,6 @@ public class NearestNeighbour implements Functies, AlgoritmeTSP {
 				}
 			}
 		}
-		System.out.println(route);
 		return route;
 	}
 

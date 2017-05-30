@@ -73,6 +73,7 @@ void pakketjesAfleveren()
   procesBPP();
   delay(1000);
   armAchteruit(130);
+  Serial.write('a');
   delay(1000);
   procesBPP();
   delay(1000);
@@ -81,25 +82,37 @@ void pakketjesAfleveren()
 void procesBPP()
 {
   String b = Serial.readString();
-  if (b == "bl")
+  String band = b.substring(0, 2);
+  String lampje = "";
+  
+  Serial.println(b);
+  Serial.println("kaas");
+  if (b.length() == 4) {
+    lampje = b.substring(2, 4);
+  }
+  Serial.println(band);
+  Serial.println(lampje);
+  
+  if (band == "bl")
   {
     Wire.beginTransmission(9); // transmit to device #9
     Wire.write('v');              // sends x
     Wire.endTransmission();    // stop transmitting
   }
-  else if (b == "br")
+  else if (band == "br")
   {
     Wire.beginTransmission(9); // transmit to device #9
     Wire.write('a');              // sends x
     Wire.endTransmission();    // stop transmitting
   }
-  else if (b == "ll")
+  delay(1100);
+  if (lampje == "ll")
   {
     Wire.beginTransmission(9); // transmit to device #9
     Wire.write('L');              // sends x
     Wire.endTransmission();    // stop transmitting
   }
-  else if (b == "lr")
+  else if (lampje == "lr")
   {
     Wire.beginTransmission(9); // transmit to device #9
     Wire.write('R');              // sends x
@@ -136,7 +149,6 @@ void afleverLoop()
     bezigCheck = true;
     bestemmingY = 1;
     beweegVerticaal();
-    afleverStap2Check = true;
     bezigCheck = false;
   }
   if (afleverStartCheck && afleverStap2Check && !bezigCheck)
@@ -181,9 +193,8 @@ void armAchteruit(int d) {
 }
 
 void kraanOmhoog() {
-  delay(150);
   digitalWrite(richtingMotor1, LOW);
-  analogWrite(PWMMotor1, 255);
+  analogWrite(PWMMotor1, 200);
   //  delay(kraanafstand);
   //  analogWrite(PWMMotor1, 0);
   //  positieY = positieY + 1;
@@ -191,7 +202,7 @@ void kraanOmhoog() {
 
 void kraanOmlaag() {
   digitalWrite(richtingMotor1, HIGH);
-  analogWrite(PWMMotor1, 120);
+  analogWrite(PWMMotor1, 70);
   //  delay(450);
   //  analogWrite(PWMMotor1, 0);
   //  positieY = positieY - 1;
@@ -322,8 +333,7 @@ void zoekStreepje() {
           } else if (richting == "d") {
             positieY = positieY - 1;
           }
-          Serial.println(positieX);
-          Serial.println(positieY);
+//          Serial.println(positieY);
         }
       }
     } else if (positieY == bestemmingY) {
@@ -336,6 +346,10 @@ void zoekStreepje() {
       }
       if (bezigheid.equals("afleveren"))
       {
+        if(afleverStap1Check)
+        {
+          afleverStap2Check = true;
+        }
         afleverVerticaalCheck = true;
         afleverBezigCheck = false;
       }
@@ -423,7 +437,7 @@ void start(int X, int Y)
 }
 
 void loop() {
-
+  
 
 
   zoekPaaltje();

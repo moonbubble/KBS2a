@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -150,8 +149,18 @@ public class OpeningsDialoog extends JDialog implements ActionListener {
 		NearestNeighbour nearestNeighbour = new NearestNeighbour(bestelling);
 		List<Product> route = nearestNeighbour.algoritme(model);
 		List<Product> gewisseldeList = Util.wisselArray(route);
+                for (int i = 1; i < gewisseldeList.size(); i++) {
+                    Product product = gewisseldeList.get(i);
+                    if (product.getNaam() == null) {
+                        gewisseldeList.remove(i);
+                    }
+                }
+                
 		List<Doos> dozen = new Bibliotheek().getAlgoritme(0).bepaalDozen(gewisseldeList, 5);
-		
+                System.out.println(route);
+                System.out.println(dozen);
+                
+
 		model.setBestelling(bestelling);
 		model.setRoute(route);
 		model.setDozen(dozen);

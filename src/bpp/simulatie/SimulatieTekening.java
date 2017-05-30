@@ -110,6 +110,7 @@ public class SimulatieTekening extends JPanel implements Observer {
 			}
 		} else if (string.equals("indexenGewijzigd")) {
 			laadTekening();
+                        
 			tekenInStappen(((Model) model).getDoosIndex(), ((Model) model).getProductIndex());
 		}
 	}

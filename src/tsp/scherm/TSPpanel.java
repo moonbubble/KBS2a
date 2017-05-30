@@ -219,8 +219,6 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 							producten.get(i).Visited();
 							jpGraphic.setProducten(producten);
 							repaint();
-							i++;
-
 							if (jpGraphic.i < producten.size()) {
 								jpGraphic.i++;
 							}
@@ -243,7 +241,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	public void update(Observable model, Object string) {
 		if (string.equals("XMLgeladen")) {
 			jpGraphic.setProducten(((Model) model).getBestelling().getProducten());
-			order = ((Model) model).getBestelling();
+			producten = ((Model) model).getBestelling().getProducten();
 		} else if (string.equals("TSPindexGewijzigd")) {
 			jpGraphic.i++;
 			updateScherm(this.model.getTSPindex());
