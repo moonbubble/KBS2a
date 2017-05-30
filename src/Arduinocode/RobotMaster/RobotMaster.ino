@@ -2,7 +2,6 @@
 #include <Wire.h>
 int richtingMotor1 = 4;
 int PWMMotor1 = 5;
-boolean gasjebij = false;
 
 int richtingMotor2 = 7;
 int PWMMotor2 = 6;
@@ -31,16 +30,18 @@ boolean afleverStartCheck;
 boolean afleverStap1Check;
 boolean afleverStap2Check;
 
-//int stappen = 0;
 int aantalStappen;
 String richting;
-
 
 boolean wit = true;
 boolean zwart = false;
 boolean begonnen = false;
+boolean wit2 = true;
+boolean zwart2 = false;
+boolean begonnen2 = false;
 
 const int QRD1114_PIN = A3; // Sensor output voltage
+const int QRD1114_PIN2 = A2; // Sensor output voltage
 
 void setup() {
   Serial.begin(9600);
@@ -68,11 +69,11 @@ void pakketjesAfleveren()
   delay(1000);
   armAchteruit(130);
   Serial.write('a');
-    delay(1000);
+  delay(1000);
   procesBPP();
   delay(1000);
   armAchteruit(130);
-    delay(1000);
+  delay(1000);
   procesBPP();
   delay(1000);
 }
@@ -80,50 +81,50 @@ void pakketjesAfleveren()
 void procesBPP()
 {
   String b = Serial.readString();
-  if(b == "bl")
-    {
-      Wire.beginTransmission(9); // transmit to device #9
-      Wire.write('v');              // sends x
-      Wire.endTransmission();    // stop transmitting
-    }
-    else if(b == "br")
-    {
-      Wire.beginTransmission(9); // transmit to device #9
-      Wire.write('a');              // sends x
-      Wire.endTransmission();    // stop transmitting
-    }
-    else if(b == "ll")
-    {
-      Wire.beginTransmission(9); // transmit to device #9
-      Wire.write('L');              // sends x
-      Wire.endTransmission();    // stop transmitting
-    }
-    else if(b == "lr")
-    {
-      Wire.beginTransmission(9); // transmit to device #9
-      Wire.write('R');              // sends x
-      Wire.endTransmission();    // stop transmitting
-    }
+  if (b == "bl")
+  {
+    Wire.beginTransmission(9); // transmit to device #9
+    Wire.write('v');              // sends x
+    Wire.endTransmission();    // stop transmitting
+  }
+  else if (b == "br")
+  {
+    Wire.beginTransmission(9); // transmit to device #9
+    Wire.write('a');              // sends x
+    Wire.endTransmission();    // stop transmitting
+  }
+  else if (b == "ll")
+  {
+    Wire.beginTransmission(9); // transmit to device #9
+    Wire.write('L');              // sends x
+    Wire.endTransmission();    // stop transmitting
+  }
+  else if (b == "lr")
+  {
+    Wire.beginTransmission(9); // transmit to device #9
+    Wire.write('R');              // sends x
+    Wire.endTransmission();    // stop transmitting
+  }
 }
 
 void afleverLoop()
 {
   if (afleverStartCheck && !afleverVerticaalCheck && !afleverBezigCheck)
   {
-    Serial.println("start verticaal afleveren");
+//    Serial.println("start verticaal afleveren");
     afleverBezigCheck = true;
     beweegVerticaal();
     afleverBezigCheck = false;
   }
   if (afleverVerticaalCheck && !afleverHorizontaalCheck && !afleverBezigCheck)
   {
-    Serial.println("start horizontaal afleveren");
+//    Serial.println("start horizontaal afleveren");
     afleverBezigCheck = true;
     beweegHorizontaal();
   }
   if (afleverHorizontaalCheck && !afleverStap1Check && !afleverBezigCheck)
   {
-    Serial.println("start stap 1");
+//    Serial.println("start stap 1");
     afleverBezigCheck = true;
     armHelemaalVooruit();
     afleverBezigCheck = false;
@@ -131,7 +132,7 @@ void afleverLoop()
   }
   if (afleverStap1Check && !afleverStap2Check && !afleverBezigCheck)
   {
-    Serial.println("start stap 2");
+//    Serial.println("start stap 2");
     bezigCheck = true;
     bestemmingY = 1;
     beweegVerticaal();
@@ -140,10 +141,10 @@ void afleverLoop()
   }
   if (afleverStartCheck && afleverStap2Check && !bezigCheck)
   {
-    Serial.println("start afleveren");
+//    Serial.println("start afleveren");
     pakketjesAfleveren();
     afleverStartCheck = false;
-    bezigheid = "null";
+    bezigheid = "";
     Serial.write("g");
   }
 }
@@ -167,7 +168,7 @@ void afleveren()
 void armVooruit() {
   digitalWrite(richtingMotor2, LOW);
   analogWrite(PWMMotor2, 80);
-  delay(120);
+  delay(150);
   analogWrite(PWMMotor2, 0);
 
 }
@@ -183,30 +184,30 @@ void kraanOmhoog() {
   delay(150);
   digitalWrite(richtingMotor1, LOW);
   analogWrite(PWMMotor1, 255);
-  delay(kraanafstand);
-  analogWrite(PWMMotor1, 0);
-  positieY = positieY + 1;
+  //  delay(kraanafstand);
+  //  analogWrite(PWMMotor1, 0);
+  //  positieY = positieY + 1;
 }
 
 void kraanOmlaag() {
   digitalWrite(richtingMotor1, HIGH);
-  analogWrite(PWMMotor1, 100);
-  delay(kraanafstand);
-  analogWrite(PWMMotor1, 0);
-  positieY = positieY - 1;
+  analogWrite(PWMMotor1, 120);
+  //  delay(450);
+  //  analogWrite(PWMMotor1, 0);
+  //  positieY = positieY - 1;
 }
 
 void optillen() {
   digitalWrite(richtingMotor1, LOW);
   analogWrite(PWMMotor1, 255);
-  delay(125);
+  delay(150);
   analogWrite(PWMMotor1, 0);
 }
 
 void zakken() {
   digitalWrite(richtingMotor1, HIGH);
   analogWrite(PWMMotor1, 90);
-  delay(120);
+  delay(130);
   analogWrite(PWMMotor1, 0);
 }
 
@@ -252,7 +253,6 @@ void zoekPaaltje() {
         {
           wit = false;
           zwart = true;
-          gasjebij = false;
         }
       }
       if (begonnen && zwart)
@@ -268,24 +268,85 @@ void zoekPaaltje() {
           }
         }
       }
-    } else if (positieX == bestemmingX) {
+    } 
+    else if (positieX == bestemmingX) {
       begonnen = false;
       Wire.beginTransmission(9); // transmit to device #9
       Wire.write('s');              // sends x
       Wire.endTransmission();    // stop transmitting
-      if(bezigheid.equals("oppakken"))
+      if (bezigheid.equals("oppakken"))
       {
         horizontaalCheck = true;
         bezigCheck = false;
       }
-      if(bezigheid.equals("afleveren"))
+      if (bezigheid.equals("afleveren"))
       {
         afleverHorizontaalCheck = true;
         afleverBezigCheck = false;
-      } 
+      }
     }
   }
 }
+
+
+
+
+
+void zoekStreepje() {
+  //          Serial.println(positieX);
+
+  if (begonnen2) {
+    if (positieY != bestemmingY) {
+      // Read in the ADC and convert it to a voltage:
+      int proximityADC = analogRead(QRD1114_PIN2);
+      float proximityV2 = (float)proximityADC * 5.0 / 1023.0;
+      //Serial.println(proximityV);
+
+
+      if (begonnen2 && wit2)
+      {
+        if (proximityV2 > 3)
+        {
+          wit2 = false;
+          zwart2 = true;
+        }
+      }
+      if (begonnen2 && zwart2)
+      {
+        if (proximityV2 < 3)
+        {
+          zwart2 = false;
+          wit2 = true;
+          if (richting == "u") {
+            positieY = positieY + 1;
+          } else if (richting == "d") {
+            positieY = positieY - 1;
+          }
+          Serial.println(positieX);
+          Serial.println(positieY);
+        }
+      }
+    } else if (positieY == bestemmingY) {
+      begonnen2 = false;
+      analogWrite(PWMMotor1, 0);
+      if (bezigheid.equals("oppakken"))
+      {
+        verticaalCheck = true;
+        bezigCheck = false;
+      }
+      if (bezigheid.equals("afleveren"))
+      {
+        afleverVerticaalCheck = true;
+        afleverBezigCheck = false;
+      }
+    }
+  }
+}
+
+
+
+
+
 
 void beweegHorizontaal()
 {
@@ -308,45 +369,37 @@ void beweegHorizontaal()
 
 void beweegVerticaal() {
   if (bestemmingY - positieY > 0) { //omhoog
-    while (positieY != bestemmingY) {
-      kraanOmhoog();
-      //      delay(50);
-    }   
+    richting = "u";
+    kraanOmhoog();
+    begonnen2 = true;
   } else if (bestemmingY - positieY < 0) { //omlaag
-    while (positieY != bestemmingY) {
-      kraanOmlaag();
-      delay(50);
-    }
+    richting = "d";
+    kraanOmlaag();
+    begonnen2 = true;
   }
-  if(bezigheid.equals("oppakken"))
+  else
   {
-    verticaalCheck = true;
-    bezigCheck = false;
+    begonnen2 = true;
   }
-  if(bezigheid.equals("afleveren"))
-  {
-    afleverVerticaalCheck = true;
-    afleverBezigCheck = false;
-  } 
 }
 
 void beweeg()
 {
   if (startCheck && !horizontaalCheck && !bezigCheck)
   {
-    Serial.println("s h");
+//    Serial.println("s h");
     beweegHorizontaal();
     bezigCheck = true;
   }
   if (horizontaalCheck && !verticaalCheck && !bezigCheck)
   {
-    Serial.println("s v");
+//    Serial.println("s v");
     bezigCheck = true;
     beweegVerticaal();
   }
   if (verticaalCheck && !oppakCheck && !bezigCheck)
   {
-    Serial.println("s o");
+//    Serial.println("s o");
     pakPakketje();
     bezigCheck = true;
   }
@@ -359,8 +412,8 @@ void start(int X, int Y)
   oppakCheck = false;
   bezigCheck = false;
 
-//  positieX = 3;
-//  positieY = 1;
+  //  positieX = 3;
+  //  positieY = 1;
 
   bestemmingX = X;
   bestemmingY = Y;
@@ -371,23 +424,26 @@ void start(int X, int Y)
 
 void loop() {
 
+
+
   zoekPaaltje();
+  zoekStreepje();
   beweeg();
   afleverLoop();
 
   if (Serial.available())
   {
     String b = Serial.readString();
-        
+
     if (b == "omhoog")
     {
-      kraanOmhoog();
-      positieY = positieY + 1;
+      bestemmingY = positieY + 1;
+      beweegVerticaal();
     }
     else if (b == "omlaag")
     {
-      kraanOmlaag();
-      positieY = positieY - 1;
+      bestemmingY = positieY - 1;
+      beweegVerticaal();
     }
     else if (b == "vooruit")
     {
@@ -395,13 +451,20 @@ void loop() {
     }
     else if (b == "achteruit")
     {
-      armAchteruit(100);
+      armAchteruit(135);
     } else if (b == "optillen") {
       optillen();
     }
     else if (b == "zakken")
     {
       zakken();
+    } else if (b == "rechts") {
+      bestemmingX = positieX + 1;
+      beweegHorizontaal();
+    }
+    else if (b == "links") {
+      bestemmingX = positieX - 1;
+      beweegHorizontaal();
     }
     else if (b == "basis")
     {
@@ -422,134 +485,134 @@ void loop() {
         zakken();
       }
     }
-    else if(b == "bl")
+    else if (b == "bl")
     {
       Wire.beginTransmission(9); // transmit to device #9
       Wire.write('v');              // sends x
       Wire.endTransmission();    // stop transmitting
     }
-    else if(b == "br")
+    else if (b == "br")
     {
       Wire.beginTransmission(9); // transmit to device #9
       Wire.write('a');              // sends x
       Wire.endTransmission();    // stop transmitting
     }
-    else if(b == "ll")
+    else if (b == "ll")
     {
       Wire.beginTransmission(9); // transmit to device #9
       Wire.write('L');              // sends x
       Wire.endTransmission();    // stop transmitting
     }
-    else if(b == "lr")
+    else if (b == "lr")
     {
       Wire.beginTransmission(9); // transmit to device #9
       Wire.write('R');              // sends x
       Wire.endTransmission();    // stop transmitting
     }
-    else if(b == "bpp")
+    else if (b == "bpp")
     {
       Serial.println("start bpp");
       afleveren();
     }
-    else if(b == "s11")
+    else if (b == "s11")
     {
-      start(1,1);
+      start(1, 1);
     }
-    else if(b == "s12")
+    else if (b == "s12")
     {
-      start(1,2);
+      start(1, 2);
     }
-    else if(b == "s13")
+    else if (b == "s13")
     {
-      start(1,3);
+      start(1, 3);
     }
-    else if(b == "s14")
+    else if (b == "s14")
     {
-      start(1,4);
+      start(1, 4);
     }
-    else if(b == "s15")
+    else if (b == "s15")
     {
-      start(1,5);
+      start(1, 5);
     }
-    else if(b == "s21")
+    else if (b == "s21")
     {
-      start(2,1);
+      start(2, 1);
     }
-    else if(b == "s22")
+    else if (b == "s22")
     {
-      start(2,2);
+      start(2, 2);
     }
-    else if(b == "s23")
+    else if (b == "s23")
     {
-      start(2,3);
+      start(2, 3);
     }
-    else if(b == "s24")
+    else if (b == "s24")
     {
-      start(2,4);
+      start(2, 4);
     }
-    else if(b == "s25")
+    else if (b == "s25")
     {
-      start(2,5);
+      start(2, 5);
     }
-    else if(b == "s31")
+    else if (b == "s31")
     {
-      start(3,1);
+      start(3, 1);
     }
-    else if(b == "s32")
+    else if (b == "s32")
     {
-      start(3,2);
+      start(3, 2);
     }
-    else if(b == "s33")
+    else if (b == "s33")
     {
-      start(3,3);
+      start(3, 3);
     }
-    else if(b == "s34")
+    else if (b == "s34")
     {
-      start(3,4);
+      start(3, 4);
     }
-    else if(b == "s35")
+    else if (b == "s35")
     {
-      start(3,5);
+      start(3, 5);
     }
-    else if(b == "s41")
+    else if (b == "s41")
     {
-      start(4,1);
+      start(4, 1);
     }
-    else if(b == "s42")
+    else if (b == "s42")
     {
-      start(4,2);
+      start(4, 2);
     }
-    else if(b == "s43")
+    else if (b == "s43")
     {
-      start(4,3);
+      start(4, 3);
     }
-    else if(b == "s44")
+    else if (b == "s44")
     {
-      start(4,4);
+      start(4, 4);
     }
-    else if(b == "s45")
+    else if (b == "s45")
     {
-      start(4,5);
+      start(4, 5);
     }
-    else if(b == "s51")
+    else if (b == "s51")
     {
-      start(5,1);
+      start(5, 1);
     }
-    else if(b == "s52")
+    else if (b == "s52")
     {
-      start(5,2);
+      start(5, 2);
     }
-    else if(b == "s53")
+    else if (b == "s53")
     {
-      start(5,3);
+      start(5, 3);
     }
-    else if(b == "s54")
+    else if (b == "s54")
     {
-      start(5,4);
+      start(5, 4);
     }
-    else if(b == "s55")
+    else if (b == "s55")
     {
-      start(5,5);
+      start(5, 5);
     }
   }
 }
