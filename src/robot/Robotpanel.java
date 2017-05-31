@@ -23,14 +23,14 @@ public class Robotpanel extends JPanel implements ActionListener{
 		add(JBstartRobot);
 		
 		JBstopRobot = new JButton("Stop robot");
-		add(JBstopRobot);
+//		add(JBstopRobot);
 		
 		JBpauzeerRobot = new JButton("Pauzeer robot");
-		add(JBpauzeerRobot);
+//		add(JBpauzeerRobot);
 		
 		JBstartRobot.addActionListener(this);
-		JBstopRobot.addActionListener(this);
-		JBpauzeerRobot.addActionListener(this);
+//		JBstopRobot.addActionListener(this);
+//		JBpauzeerRobot.addActionListener(this);
 	}
 
 	@Override

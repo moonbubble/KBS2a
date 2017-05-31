@@ -56,19 +56,35 @@ public class TspGraphic extends JPanel implements Observer {
 	}
 
 	private void paintOrder(Graphics g) {
+
 		for (Product p : producten) {
 			int x = -40 + (p.getX() * 130);
 			int y = 455 - (p.getY() * 85);
 
-			if (p.getVisited()) {
-				g.setColor(Color.green);
-			} else if (p.getNaam() == null) {
+			if (p.getNaam() == null) {
 				g.setColor(Color.black);
+			} else if (p.getVisited()) {
+				g.setColor(Color.green);
 			} else {
 				g.setColor(Color.blue);
 			}
 
 			g.fillOval(x, y, 50, 50);
+		}
+		if (producten.get(0) != null) {
+			Graphics2D g2 = (Graphics2D) g;
+			g.setColor(Color.black);
+			g.fillOval(90, 370, 50, 50);
+			g2.setStroke(new BasicStroke(5));
+
+			int x1 = -40 + (1 * 130) + 25;
+			int y1 = 455 - (1 * 85) + 25;
+
+			int x2 = -40 + (producten.get(0).getX() * 130) + 25;
+			int y2 = 455 - (producten.get(0).getY() * 85) + 25;
+
+			g.drawLine(x1, y1, x2, y2);
+
 		}
 	}
 
@@ -76,15 +92,18 @@ public class TspGraphic extends JPanel implements Observer {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.black);
 		g2.setStroke(new BasicStroke(5));
+		try {
+			for (int hoeveelLijnen = 1; hoeveelLijnen < i; hoeveelLijnen++) {
+				int x1 = -40 + (producten.get(hoeveelLijnen).getX() * 130) + 25;
+				int y1 = 455 - (producten.get(hoeveelLijnen).getY() * 85) + 25;
 
-		for (int hoeveelLijnen = 1; hoeveelLijnen < i; hoeveelLijnen++) {
-			int x1 = -40 + (producten.get(hoeveelLijnen).getX() * 130) + 25;
-			int y1 = 455 - (producten.get(hoeveelLijnen).getY() * 85) + 25;
+				int x2 = -40 + (producten.get(hoeveelLijnen - 1).getX() * 130) + 25;
+				int y2 = 455 - (producten.get(hoeveelLijnen - 1).getY() * 85) + 25;
 
-			int x2 = -40 + (producten.get(hoeveelLijnen - 1).getX() * 130) + 25;
-			int y2 = 455 - (producten.get(hoeveelLijnen - 1).getY() * 85) + 25;
+				g2.drawLine(x1, y1, x2, y2);
+			}
+		} catch (Exception e) {
 
-			g2.drawLine(x1, y1, x2, y2);
 		}
 
 	}

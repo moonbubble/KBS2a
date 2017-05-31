@@ -28,7 +28,7 @@ public class Product implements Comparator<Product> {
 
 	}
 
-	public void Visited() {
+	public void visited() {
 		this.visited = true;
 	}
 

@@ -13,6 +13,8 @@ int positieX;
 int bestemmingX;
 int bestemmingY;
 
+int product = 0;
+
 int x = 0;
 
 boolean horizontaalCheck;
@@ -50,30 +52,47 @@ void setup() {
 
   positieX = 1;
   positieY = 1;
+
+  
+}
+
+void armVooruit(int d) {
+  digitalWrite(richtingMotor2, LOW);
+  analogWrite(PWMMotor2, 80);
+  delay(d);
+  analogWrite(PWMMotor2, 0);
+
 }
 
 void armHelemaalVooruit()
 {
-  armVooruit();
-  armVooruit();
-  armVooruit();
+  armVooruit(400);
 }
 
 void pakketjesAfleveren()
 {
   delay(1000);
+  armAchteruit(220);
+  if (product == 3) {
+    Serial.write('a');
+    product--;
+  }
+  delay(1000);
+  procesBPP();
+  delay(1000);
+  armAchteruit(140);
+  if (product == 2) {
+    Serial.write('a');
+    product--;
+  }
+  delay(1000);
+  procesBPP();
+  delay(1000);
   armAchteruit(150);
-  Serial.write('a');
-  delay(1000);
-  procesBPP();
-  delay(1000);
-  armAchteruit(110);
-  Serial.write('a');
-  delay(1000);
-  procesBPP();
-  delay(1000);
-  armAchteruit(110);
-  Serial.write('a');
+  if (product == 1) {
+    Serial.write('a');
+    product--;
+  }
   delay(1000);
   procesBPP();
   delay(1000);
@@ -82,9 +101,10 @@ void pakketjesAfleveren()
 void procesBPP()
 {
   String b = Serial.readString();
+  Serial.println(b);
   String band = b.substring(0, 2);
   String lampje = "";
-  
+
   Serial.println(b);
   Serial.println("kaas");
   if (b.length() == 4) {
@@ -92,7 +112,7 @@ void procesBPP()
   }
   Serial.println(band);
   Serial.println(lampje);
-  
+
   if (band == "bl")
   {
     Wire.beginTransmission(9); // transmit to device #9
@@ -124,20 +144,20 @@ void afleverLoop()
 {
   if (afleverStartCheck && !afleverVerticaalCheck && !afleverBezigCheck)
   {
-//    Serial.println("start verticaal afleveren");
+    //    Serial.println("start verticaal afleveren");
     afleverBezigCheck = true;
     beweegVerticaal();
     afleverBezigCheck = false;
   }
   if (afleverVerticaalCheck && !afleverHorizontaalCheck && !afleverBezigCheck)
   {
-//    Serial.println("start horizontaal afleveren");
+    //    Serial.println("start horizontaal afleveren");
     afleverBezigCheck = true;
     beweegHorizontaal();
   }
   if (afleverHorizontaalCheck && !afleverStap1Check && !afleverBezigCheck)
   {
-//    Serial.println("start stap 1");
+    //    Serial.println("start stap 1");
     afleverBezigCheck = true;
     armHelemaalVooruit();
     afleverBezigCheck = false;
@@ -145,7 +165,7 @@ void afleverLoop()
   }
   if (afleverStap1Check && !afleverStap2Check && !afleverBezigCheck)
   {
-//    Serial.println("start stap 2");
+    //    Serial.println("start stap 2");
     bezigCheck = true;
     bestemmingY = 1;
     beweegVerticaal();
@@ -153,7 +173,7 @@ void afleverLoop()
   }
   if (afleverStartCheck && afleverStap2Check && !bezigCheck)
   {
-//    Serial.println("start afleveren");
+    //    Serial.println("start afleveren");
     pakketjesAfleveren();
     afleverStartCheck = false;
     bezigheid = "";
@@ -177,13 +197,7 @@ void afleveren()
   bezigheid = "afleveren";
 }
 
-void armVooruit() {
-  digitalWrite(richtingMotor2, LOW);
-  analogWrite(PWMMotor2, 80);
-  delay(150);
-  analogWrite(PWMMotor2, 0);
 
-}
 
 void armAchteruit(int d) {
   digitalWrite(richtingMotor2, HIGH);
@@ -218,32 +232,42 @@ void optillen() {
 void zakken() {
   digitalWrite(richtingMotor1, HIGH);
   analogWrite(PWMMotor1, 90);
-  delay(130);
+  delay(150);
   analogWrite(PWMMotor1, 0);
 }
 
 void pakPakketje() {
-  armVooruit();
-  delay(150);
-  armVooruit();
-  delay(150);
-  armVooruit();
-  delay(150);
-  optillen();
-  delay(150);
-  armAchteruit(100);
-  delay(150);
-  armAchteruit(100);
-  delay(150);
-  armAchteruit(100);
-  armAchteruit(100);
-  delay(150);
-  zakken();
-  delay(150);
+  if (product == 0) {
+    armVooruit(390);
+    delay(150);
+    optillen();
+    delay(150);
+    armAchteruit(300);
+    delay(150);
+    zakken();
+  } else if (product == 1) {
+    armVooruit(380);
+    delay(150);
+    optillen();
+    delay(150);
+    armAchteruit(300);
+    delay(150);
+    zakken();
+  } else {
+    armVooruit(230);
+    delay(150);
+    optillen();
+    delay(150);
+    armAchteruit(250);
+    delay(150);
+    zakken();
+  }
+
   bezigCheck = false;
   oppakCheck = true;
   startCheck = false;
   Serial.write("g");
+  product++;
 }
 
 
@@ -279,7 +303,7 @@ void zoekPaaltje() {
           }
         }
       }
-    } 
+    }
     else if (positieX == bestemmingX) {
       begonnen = false;
       Wire.beginTransmission(9); // transmit to device #9
@@ -333,7 +357,7 @@ void zoekStreepje() {
           } else if (richting == "d") {
             positieY = positieY - 1;
           }
-//          Serial.println(positieY);
+          //          Serial.println(positieY);
         }
       }
     } else if (positieY == bestemmingY) {
@@ -346,7 +370,7 @@ void zoekStreepje() {
       }
       if (bezigheid.equals("afleveren"))
       {
-        if(afleverStap1Check)
+        if (afleverStap1Check)
         {
           afleverStap2Check = true;
         }
@@ -401,19 +425,19 @@ void beweeg()
 {
   if (startCheck && !horizontaalCheck && !bezigCheck)
   {
-//    Serial.println("s h");
+    //    Serial.println("s h");
     beweegHorizontaal();
     bezigCheck = true;
   }
   if (horizontaalCheck && !verticaalCheck && !bezigCheck)
   {
-//    Serial.println("s v");
+    //    Serial.println("s v");
     bezigCheck = true;
     beweegVerticaal();
   }
   if (verticaalCheck && !oppakCheck && !bezigCheck)
   {
-//    Serial.println("s o");
+    //    Serial.println("s o");
     pakPakketje();
     bezigCheck = true;
   }
@@ -437,7 +461,7 @@ void start(int X, int Y)
 }
 
 void loop() {
-  
+
 
 
   zoekPaaltje();
@@ -461,7 +485,7 @@ void loop() {
     }
     else if (b == "vooruit")
     {
-      armVooruit();
+      armVooruit(150);
     }
     else if (b == "achteruit")
     {

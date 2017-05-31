@@ -202,7 +202,7 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 				AntColonyOptimization algoritme = new AntColonyOptimization(order);
 				producten = algoritme.algoritme();
 			}
-			producten.get(0).Visited();
+			producten.get(0).visited();
 			jpGraphic.drawLines = true;
 			jpGraphic.i = 1;
 			repaint();
@@ -216,11 +216,12 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 						if (i >= producten.size()) {
 							timer.stop();
 						} else {
-							producten.get(i).Visited();
+							producten.get(i).visited();
 							jpGraphic.setProducten(producten);
 							repaint();
 							if (jpGraphic.i < producten.size()) {
 								jpGraphic.i++;
+								i++;
 							}
 						}
 					}
@@ -240,13 +241,12 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	@Override
 	public void update(Observable model, Object string) {
 		if (string.equals("XMLgeladen")) {
+			order = ((Model) model).getBestelling();
 			jpGraphic.setProducten(((Model) model).getBestelling().getProducten());
 			producten = ((Model) model).getBestelling().getProducten();
 		} else if (string.equals("TSPindexGewijzigd")) {
-			if (jpGraphic.i < producten.size()) {
-				updateScherm(this.model.getTSPindex());
-				jpGraphic.i++;
-			}
+			jpGraphic.i = this.model.getTSPindex() + 2;
+			updateScherm(this.model.getTSPindex());
 		} else if (string.equals("robotGestart")) {
 			if (this.model.isRobotGestart()) {
 				resetRoute();
@@ -264,10 +264,9 @@ public class TSPpanel extends JPanel implements ActionListener, Observer {
 	}
 
 	public void updateScherm(int i) {
-		System.out.println(i);
-		producten.get(i).Visited();
 		jpGraphic.setProducten(producten);
 		repaint();
+		System.out.println("TSP index: " + i);
 	}
 
 	public void verbergScherm() {

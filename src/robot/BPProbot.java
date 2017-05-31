@@ -24,14 +24,13 @@ public class BPProbot {
         this.model = model;
         this.dozen = model.getDozen();
         List<Product> route = model.getRoute();
-        for (int i = 1; i < route.size(); i++) {
-			Product product = route.get(i);
-			if (product.getNaam() == null) {
-				route.remove(i);
-			}
-		}
-        this.producten = new ArrayList<>(Util.wisselArray(route));
+//        System.out.println("route: " + route);
+        if (route.get(0).getNaam() == null) {
+        	route.remove(0);
+        }
         
+        this.producten = new ArrayList<>(Util.wisselArray(route));
+//        System.out.println("Producten: " + producten);
     }
 
     public void setController(Controller c) {
@@ -41,9 +40,7 @@ public class BPProbot {
     public void bepaalPlaats() {
         Product productTSP = null;
         if (productInt < producten.size()) {
-            System.out.println("Product: " + productInt);
             productTSP = producten.get(productInt);
-            System.out.println(productTSP);
             for (int i = 0; i < dozen.size(); i++) {
                 Doos doos = dozen.get(i);
                 for (int j = 0; j < doos.getProducten().size(); j++) {
@@ -64,8 +61,6 @@ public class BPProbot {
                                 inhoudDoos1 = 0;
                             }
                         }
-                        System.out.println(product);
-                        System.out.println(productTSP);
                         model.setIndexen(i, j);
                         controller.sendCommand(string);
                         string = "";
@@ -82,11 +77,9 @@ public class BPProbot {
         if (doosVol == 0) {
             // controller.sendCommand("ll");
             string += "ll";
-            System.out.println("Knipper lampje: Links");
         } else if (doosVol == 1) {
             // controller.sendCommand("lr");
             string += "lr";
-            System.out.println("Knipper lampje: Rechts");
         }
     }
 
@@ -94,11 +87,9 @@ public class BPProbot {
         if (richting == 0) {
             // controller.sendCommand("bl");
             string += "bl";
-            System.out.println("Band naar: Links");
         } else if (richting == 1) {
             // controller.sendCommand("br");
             string += "br";
-            System.out.println("Band naar: Rechts");
         }
     }
 }

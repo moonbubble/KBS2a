@@ -53,12 +53,16 @@ void setup() {
   positieX = 1;
   positieY = 1;
 
+//  pakPakketje();
+//  armHelemaalVooruit();
   
-}
+
+//  pakketjesAfleveren();
+  }
 
 void armVooruit(int d) {
   digitalWrite(richtingMotor2, LOW);
-  analogWrite(PWMMotor2, 80);
+  analogWrite(PWMMotor2, 90);
   delay(d);
   analogWrite(PWMMotor2, 0);
 
@@ -66,13 +70,13 @@ void armVooruit(int d) {
 
 void armHelemaalVooruit()
 {
-  armVooruit(400);
+  armVooruit(550);
 }
 
 void pakketjesAfleveren()
 {
   delay(1000);
-  armAchteruit(220);
+  armAchteruit(325);
   if (product == 3) {
     Serial.write('a');
     product--;
@@ -80,7 +84,7 @@ void pakketjesAfleveren()
   delay(1000);
   procesBPP();
   delay(1000);
-  armAchteruit(140);
+  armAchteruit(160);
   if (product == 2) {
     Serial.write('a');
     product--;
@@ -88,7 +92,7 @@ void pakketjesAfleveren()
   delay(1000);
   procesBPP();
   delay(1000);
-  armAchteruit(150);
+  armAchteruit(175);
   if (product == 1) {
     Serial.write('a');
     product--;
@@ -225,24 +229,24 @@ void kraanOmlaag() {
 void optillen() {
   digitalWrite(richtingMotor1, LOW);
   analogWrite(PWMMotor1, 255);
-  delay(150);
+  delay(185);
   analogWrite(PWMMotor1, 0);
 }
 
 void zakken() {
   digitalWrite(richtingMotor1, HIGH);
   analogWrite(PWMMotor1, 90);
-  delay(150);
+  delay(240);
   analogWrite(PWMMotor1, 0);
 }
 
 void pakPakketje() {
   if (product == 0) {
-    armVooruit(390);
+    armVooruit(400);
     delay(150);
     optillen();
     delay(150);
-    armAchteruit(300);
+    armAchteruit(400);
     delay(150);
     zakken();
   } else if (product == 1) {
@@ -250,11 +254,11 @@ void pakPakketje() {
     delay(150);
     optillen();
     delay(150);
-    armAchteruit(300);
+    armAchteruit(380);
     delay(150);
     zakken();
   } else {
-    armVooruit(230);
+    armVooruit(250);
     delay(150);
     optillen();
     delay(150);
